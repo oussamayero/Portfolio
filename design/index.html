@@ -54,7 +54,7 @@ p.sm{font-size:16px;color:var(--muted)}
 
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:24px}
 .bento .card{padding:40px;display:flex;flex-direction:column;justify-content:space-between;min-height:340px;overflow:hidden;position:relative}
-.b1{grid-column:span 4}.b2{grid-column:span 2}.b3{grid-column:span 2}.b4{grid-column:span 4}
+.b5{grid-column:span 3}.b1{grid-column:span 4}.b2{grid-column:span 2}.b3{grid-column:span 2}.b4{grid-column:span 6}
 .bento p{color:var(--muted);margin-top:12px;font-size:16px;max-width:440px}
 .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--v-700);background:var(--v-100);border-radius:99px;padding:5px 12px;margin-bottom:20px;align-self:flex-start}
 .mock{margin-top:32px;border-radius:16px;border:1px solid var(--line);background:var(--v-50);padding:14px;display:grid;gap:10px}
@@ -123,7 +123,7 @@ footer nav{display:flex;gap:28px}
   .hero-ph{height:640px}
   .pain,.work,.sub{grid-template-columns:1fr}
   .sub{gap:40px}
-  .bento{grid-template-columns:1fr}.b1,.b2,.b3,.b4{grid-column:auto}
+  .bento{grid-template-columns:1fr}.b1,.b2,.b3,.b4,.b5{grid-column:auto}
   .bento .card{min-height:0;padding:28px}
   .card{padding:28px}
   .steps{grid-template-columns:1fr;gap:32px}
@@ -219,7 +219,7 @@ footer nav{display:flex;gap:28px}
     <div class="who4">
       <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div><h3>Marque qui se lance</h3><p>Vous créez votre première boutique et voulez une base solide dès le départ.</p></div>
       <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15l4-4 3 3 5-6"/></svg></div><h3>Boutique sur thème standard</h3><p>Votre site fonctionne, mais ne reflète pas votre marque et convertit moins qu'il ne pourrait.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></div><h3>Marque aux besoins réguliers</h3><p>Nouvelles collections, promotions, campagnes : votre boutique évolue tout au long de l'année.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></div><h3>Marque aux besoins réguliers</h3><p>Nouvelles collections, promotions, publicités : votre boutique évolue tout au long de l'année.</p></div>
       <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3-5.5 6.5-5.5s6 2 6.5 5.5"/><path d="M17 5.5a3.5 3.5 0 0 1 0 6.5M18 14.8c2 .6 3.2 2.2 3.5 4.7"/></svg></div><h3>Agence ou équipe sans dev Shopify</h3><p>Vous avez besoin d'un renfort technique fiable sur vos projets clients.</p></div>
     </div>
   </div>
@@ -230,7 +230,7 @@ footer nav{display:flex;gap:28px}
     <div class="head">
       <div class="eyebrow"><i>03</i>Ce que je fais</div>
       <h2>Tout est conçu <em>sur mesure</em>, du site à l'animation.</h2>
-      <p class="lead">Une boutique unique, animée par la vidéo et le motion design, puis suivie dans le temps.</p>
+      <p class="lead">Une boutique unique, des publicités animées et des automatisations, puis un suivi dans le temps.</p>
     </div>
     <div class="bento">
       <div class="card b1">
@@ -247,25 +247,33 @@ footer nav{display:flex;gap:28px}
       </div>
       <div class="card b2">
         <div>
-          <span class="tag">Signature</span>
-          <h3>Vidéo &amp; motion design</h3>
-          <p>Des animations qui donnent vie à votre marque et à vos produits.</p>
-        </div>
-        <div class="chips"><span>Vidéo hero</span><span>Animations produit</span><span>Micro-interactions</span></div>
-      </div>
-      <div class="card b3">
-        <div>
           <span class="tag">À l'unité</span>
-          <h3>Sections &amp; pages</h3>
-          <p>Un bloc ou une page de plus, intégrés proprement à votre thème.</p>
+          <h3>Pages premium Shopify</h3>
+          <p>Landing pages et pages produit soignées, pensées pour convertir vos visiteurs.</p>
         </div>
-        <div class="chips"><span>Landing</span><span>Collection</span><span>Avis</span><span>Bundles</span></div>
+        <div class="chips"><span>Landing</span><span>Produit</span><span>Collection</span></div>
+      </div>
+      <div class="card b5">
+        <div>
+          <span class="tag">Signature</span>
+          <h3>Motion design publicitaire</h3>
+          <p>Des publicités animées pour vos campagnes, cohérentes avec votre boutique.</p>
+        </div>
+        <div class="chips"><span>Publicités animées</span><span>Vidéo hero</span><span>Animations produit</span></div>
+      </div>
+      <div class="card b5">
+        <div>
+          <span class="tag">Gain de temps</span>
+          <h3>Automatisation</h3>
+          <p>Déclinez vos visuels animés en formats et en versions, sans tout refaire à la main.</p>
+        </div>
+        <div class="chips"><span>Formats</span><span>Produits</span><span>Variantes</span></div>
       </div>
       <div class="card b4" style="background:var(--v-900);border-color:var(--v-900);color:#fff">
         <div>
           <span class="tag" style="background:rgba(255,255,255,.14);color:#fff">Récurrent</span>
           <h3>Abonnement mensuel</h3>
-          <p style="color:var(--v-200)">Pour les marques qui ont des besoins réguliers : un développeur et motion designer disponible chaque mois.</p>
+          <p style="color:var(--v-200)">Pour les marques qui ont des besoins réguliers : un développeur et motion designer disponible chaque mois pour vos pages, vos publicités et vos automatisations.</p>
         </div>
         <div style="margin-top:28px"><a class="link" style="color:#fff" href="#abo">Voir le fonctionnement →</a></div>
       </div>
@@ -276,13 +284,13 @@ footer nav{display:flex;gap:28px}
 <section class="bg-tint">
   <div class="wrap motion">
     <div>
-      <div class="eyebrow"><i>04</i>Motion &amp; vidéo</div>
-      <h2>Des boutiques qui bougent et <em>racontent votre marque.</em></h2>
-      <p class="lead">Une vidéo en en-tête, des produits animés, des transitions soignées : je crée aussi le motion design qui donne du relief à votre boutique.</p>
+      <div class="eyebrow"><i>04</i>Motion &amp; automatisation</div>
+      <h2>Des publicités animées qui <em>prolongent votre boutique.</em></h2>
+      <p class="lead">Je crée le motion design de vos publicités et de votre boutique, avec des automatisations pour produire plus vite, sans perdre en qualité.</p>
       <div class="mlist">
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Vidéo et animations conçues pour votre identité</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Intégrées légères pour rester rapides sur mobile</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Réalisées par la même personne que le site</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Publicités animées conçues pour votre identité</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Automatisation : un visuel décliné en plusieurs formats et produits</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Même univers entre la publicité et la page premium qui suit</div>
       </div>
     </div>
     <div>
@@ -306,7 +314,7 @@ footer nav{display:flex;gap:28px}
       </div>
       <div class="proj">
         <div class="shot"><em>Vidéo à ajouter</em><span class="play"></span><div class="nav"><i></i><i></i><i></i></div><div class="hero-b" style="background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,106,61,.2))"></div><div class="row"><i></i><i></i><i></i></div></div>
-        <div class="meta"><small>Beauté · Landing page</small><h3>Page de campagne</h3><p>Rôle : conception &amp; développement.</p></div>
+        <div class="meta"><small>Beauté · Landing page</small><h3>Publicité animée &amp; page de campagne</h3><p>Rôle : conception &amp; développement.</p></div>
       </div>
       <div class="proj">
         <div class="shot"><em>Capture à ajouter</em><div class="nav"><i></i><i></i><i></i></div><div class="hero-b" style="background:linear-gradient(135deg,rgba(255,106,61,.5),rgba(255,181,154,.15))"></div><div class="row"><i></i><i></i><i></i></div></div>
@@ -326,7 +334,7 @@ footer nav{display:flex;gap:28px}
       <p class="lead">Je suis Oussama. Du cadrage à la dernière animation, je pilote et je réalise votre projet moi-même.</p>
       <div class="facts">
         <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>10 ans d'expérience en développement web et gestion de projet</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Motion design et vidéo réalisés par la même personne</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Motion design, publicités et automatisation par la même personne</div>
         <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Expérience en agence française spécialisée en CRO</div>
         <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Échange direct, sans intermédiaire</div>
       </div>
@@ -365,7 +373,7 @@ footer nav{display:flex;gap:28px}
       <div class="top"><h3>Abonnement mensuel</h3><span class="pill">Format à définir</span></div>
       <p class="sm">Un forfait adapté à votre rythme.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Nouvelles sections, pages et animations à la demande</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pages, publicités animées et automatisations à la demande</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Optimisations de conversion en continu</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Corrections et maintenance du thème</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Un seul interlocuteur, réponse rapide</li>
