@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maquette accueil</title>
+<style>
+:root{
+  --v-900:#241659; --v-700:#4A2BD6; --v-600:#5B3DF5; --v-500:#7357FF; --v-300:#B9A9FF; --v-200:#DAD2FF; --v-100:#EEEAFF; --v-50:#F7F5FF;
+  --ink:#1B1540; --muted:#5E5883; --line:#E4DFF7;
+  --pad:120px; --gut:32px; --maxw:1160px;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.55;font-size:17px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
+section{padding:var(--pad) 0;position:relative}
+.bg-white{background:#fff}
+.bg-soft{background:var(--v-50)}
+.bg-tint{background:var(--v-100)}
+.bg-deep{background:radial-gradient(900px 500px at 85% 0%,#4B33B8 0%,transparent 60%),var(--v-900);color:#fff}
+.bg-brand{background:radial-gradient(800px 400px at 15% 0%,#8A73FF 0%,transparent 60%),var(--v-600);color:#fff}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--v-600);margin-bottom:20px}
+.eyebrow i{font-style:normal;display:inline-grid;place-items:center;min-width:28px;height:22px;padding:0 8px;border-radius:99px;background:var(--v-100);color:var(--v-700);letter-spacing:0}
+.bg-tint .eyebrow i{background:#fff}
+.bg-deep .eyebrow,.bg-brand .eyebrow{color:var(--v-200)}
+.bg-deep .eyebrow i,.bg-brand .eyebrow i{background:rgba(255,255,255,.14);color:#fff}
+h2{font-size:44px;line-height:1.1;letter-spacing:-.025em;font-weight:700;max-width:760px}
+h2 em{font-style:normal;color:var(--v-600)}
+.bg-deep h2 em{color:var(--v-300)}
+h3{font-size:22px;line-height:1.3;letter-spacing:-.01em;font-weight:650}
+.lead{font-size:19px;color:var(--muted);max-width:620px;margin-top:20px}
+.bg-deep .lead,.bg-brand .lead{color:var(--v-200)}
+.head{margin-bottom:64px}
+.head.center{text-align:center}.head.center h2,.head.center .lead{margin-left:auto;margin-right:auto}
+p.sm{font-size:16px;color:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 28px;border-radius:99px;font-weight:600;font-size:17px;text-decoration:none;background:var(--v-600);color:#fff;box-shadow:0 10px 30px -10px rgba(91,61,245,.7)}
+.btn.on-dark{background:#fff;color:var(--v-700);box-shadow:none}
+.link{font-weight:600;color:var(--v-700);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+.bg-deep .link{color:#fff}
+
+.hero-ph{height:760px;background:linear-gradient(135deg,#2c1a73,#5B3DF5 55%,#8A73FF);display:grid;place-items:center;color:#fff;text-align:center;padding:40px}
+.hero-ph b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-bottom:12px}
+.hero-ph span{font-size:28px;font-weight:600;max-width:560px;display:block;line-height:1.25}
+.logos-ph{height:96px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;gap:56px;color:#B6B0D3;font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;overflow:hidden;white-space:nowrap}
+
+.pain{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:36px}
+.ico{width:52px;height:52px;border-radius:16px;background:var(--v-100);display:grid;place-items:center;margin-bottom:28px;color:var(--v-600)}
+.ico svg{width:26px;height:26px}
+.pain .card p{margin-top:12px;color:var(--muted);font-size:16px}
+.pain .card .x{display:flex;gap:10px;margin-top:24px;padding-top:20px;border-top:1px dashed var(--line);font-size:15px;color:var(--v-700);font-weight:600}
+
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:24px}
+.bento .card{padding:40px;display:flex;flex-direction:column;justify-content:space-between;min-height:340px;overflow:hidden;position:relative}
+.b1{grid-column:span 4}.b2{grid-column:span 2}.b3{grid-column:span 2}.b4{grid-column:span 4}
+.bento p{color:var(--muted);margin-top:12px;font-size:16px;max-width:440px}
+.tag{display:inline-block;font-size:13px;font-weight:600;color:var(--v-700);background:var(--v-100);border-radius:99px;padding:5px 12px;margin-bottom:20px;align-self:flex-start}
+.mock{margin-top:32px;border-radius:16px;border:1px solid var(--line);background:var(--v-50);padding:14px;display:grid;gap:10px}
+.bar{height:10px;border-radius:6px;background:var(--v-200)}
+.blk{border-radius:10px;background:var(--v-200)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chips span{font-size:14px;font-weight:550;padding:8px 14px;border-radius:99px;background:var(--v-50);border:1px solid var(--line);color:var(--ink)}
+
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.proj{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:16px}
+.shot{aspect-ratio:4/3;border-radius:16px;background:linear-gradient(160deg,#3a2a8c,#2a1c6e);position:relative;overflow:hidden;padding:16px;display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+.shot .nav{display:flex;gap:6px}.shot .nav i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35)}
+.shot .hero-b{border-radius:10px;background:linear-gradient(135deg,rgba(185,169,255,.5),rgba(115,87,255,.25))}
+.shot .row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;height:34px}.shot .row i{border-radius:8px;background:rgba(255,255,255,.16)}
+.shot em{position:absolute;right:12px;top:10px;font-style:normal;font-size:11px;color:var(--v-200);opacity:.8}
+.proj .meta{padding:20px 8px 8px}
+.proj .meta small{color:var(--v-300);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.proj .meta h3{margin-top:6px}
+.proj .meta p{color:var(--v-200);font-size:15px;margin-top:8px}
+.note{margin-top:40px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:22px 28px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:var(--v-200);font-size:16px}
+.note b{color:#fff}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+.steps:before{content:"";position:absolute;left:28px;right:28px;top:27px;border-top:2px dashed var(--v-200)}
+.step{position:relative}
+.num{width:56px;height:56px;border-radius:50%;background:var(--v-600);color:#fff;font-weight:700;display:grid;place-items:center;font-size:18px;margin-bottom:28px;box-shadow:0 0 0 8px #fff;position:relative}
+.step p{margin-top:10px;color:var(--muted);font-size:16px}
+
+.sub{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.plan{background:#fff;border-radius:28px;padding:44px;box-shadow:0 30px 80px -30px rgba(74,43,214,.35);border:1px solid var(--line)}
+.plan .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:12px}
+.plan .pill{font-size:13px;font-weight:600;background:var(--v-100);color:var(--v-700);padding:6px 12px;border-radius:99px;white-space:nowrap}
+.plan ul{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:16px}
+.plan li{display:flex;gap:14px;align-items:flex-start;font-size:16.5px}
+.plan li svg{flex:none;width:24px;height:24px;color:var(--v-600);margin-top:1px}
+.plan hr{border:0;border-top:1px solid var(--line);margin:32px 0 24px}
+.plan .price{font-size:16px;color:var(--muted)}
+.plan .price b{color:var(--ink)}
+.who{display:grid;gap:14px;margin-top:32px}
+.who div{display:flex;gap:14px;font-size:16.5px}
+.who svg{flex:none;width:24px;height:24px;color:var(--v-600)}
+
+.faq{max-width:820px;margin:0 auto;display:grid;gap:12px}
+.q{border:1px solid var(--line);border-radius:20px;padding:24px 28px;background:#fff}
+.q summary{list-style:none;display:flex;justify-content:space-between;gap:20px;font-weight:600;font-size:18px;cursor:pointer}
+.q summary::-webkit-details-marker{display:none}
+.q summary:after{content:"+";color:var(--v-600);font-size:26px;line-height:1;font-weight:400}
+.q[open] summary:after{content:"–"}
+.q p{margin-top:14px;color:var(--muted);font-size:16.5px}
+
+.cta{text-align:center}
+.cta h2{margin:0 auto}.cta .lead{margin:20px auto 40px}
+.cta .sub2{margin-top:22px;font-size:15px;color:var(--v-200)}
+
+footer{background:#fff;padding:48px 0;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer .logo{font-weight:700;color:var(--ink);font-size:18px;letter-spacing:-.02em}
+footer nav{display:flex;gap:28px}
+
+@media (max-width:900px){
+  :root{--pad:72px;--gut:20px}
+  h2{font-size:32px}
+  h3{font-size:20px}
+  .lead{font-size:17px}
+  .head{margin-bottom:40px}
+  .hero-ph{height:640px}
+  .pain,.work,.sub{grid-template-columns:1fr}
+  .sub{gap:40px}
+  .bento{grid-template-columns:1fr}.b1,.b2,.b3,.b4{grid-column:auto}
+  .bento .card{min-height:0;padding:28px}
+  .card{padding:28px}
+  .steps{grid-template-columns:1fr;gap:32px}
+  .steps:before{left:27px;right:auto;top:28px;bottom:28px;border-top:0;border-left:2px dashed var(--v-200)}
+  .step{display:grid;grid-template-columns:56px 1fr;column-gap:20px}
+  .step .num{margin:0}
+  .plan{padding:28px}
+  .plan .top{flex-direction:column;align-items:flex-start}
+  .btn{width:100%;justify-content:center}
+  .note{flex-direction:column;align-items:flex-start}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+  .q{padding:20px}
+  .q summary{font-size:17px}
+  .logos-ph{gap:32px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero-ph"><div><b>Existant · conservé tel quel</b><span>Hero vidéo de fond + barre de logos défilante</span></div></div>
+<div class="logos-ph"><span>Logo</span><span>Logo</span><span>Logo</span><span>Logo</span><span>Logo</span><span>Logo</span></div>
+
+<section class="bg-white">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow"><i>01</i>Le constat</div>
+      <h2>Un thème standard ressemble à tous les autres. <em>Votre marque, non.</em></h2>
+      <p class="lead">Un thème acheté vous fait démarrer vite, mais il fixe un plafond : à mesure que la marque grandit, il freine l'identité et la conversion.</p>
+    </div>
+    <div class="pain">
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg></div>
+        <h3>Une boutique indiscernable</h3>
+        <p>Mêmes blocs, mêmes mises en page que des milliers de boutiques. Difficile de se démarquer.</p>
+        <div class="x">→ Une identité conçue pour votre marque</div>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15l4-4 3 3 5-6"/></svg></div>
+        <h3>Un parcours d'achat qui fuit</h3>
+        <p>Fiches produit, panier, navigation : chaque détail non optimisé coûte des commandes.</p>
+        <div class="x">→ Un parcours pensé pour convertir</div>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></div>
+        <h3>Des changements toujours bloqués</h3>
+        <p>Une nouvelle collection, une offre, une page de campagne : tout devient une tâche en attente.</p>
+        <div class="x">→ Un développeur dédié, à la demande</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-soft">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow"><i>02</i>Ce que je fais</div>
+      <h2>Tout est conçu <em>sur mesure</em>, de la boutique à la section.</h2>
+      <p class="lead">Trois façons de travailler ensemble, selon l'étape où se trouve votre marque.</p>
+    </div>
+    <div class="bento">
+      <div class="card b1">
+        <div>
+          <span class="tag">Projet complet</span>
+          <h3>Boutique Shopify sur mesure</h3>
+          <p>Design, développement et mise en ligne d'une boutique unique : identité, parcours d'achat, performance.</p>
+        </div>
+        <div class="mock">
+          <div class="bar" style="width:34%"></div>
+          <div class="blk" style="height:70px;background:linear-gradient(135deg,var(--v-200),var(--v-300))"></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px"><div class="blk" style="height:46px"></div><div class="blk" style="height:46px"></div><div class="blk" style="height:46px"></div><div class="blk" style="height:46px"></div></div>
+        </div>
+      </div>
+      <div class="card b2">
+        <div>
+          <span class="tag">À l'unité</span>
+          <h3>Sections sur mesure</h3>
+          <p>Une section précise, intégrée proprement à votre thème existant.</p>
+        </div>
+        <div class="chips"><span>Avis</span><span>Bundles</span><span>Comparatif</span><span>FAQ</span></div>
+      </div>
+      <div class="card b3">
+        <div>
+          <span class="tag">À l'unité</span>
+          <h3>Pages sur mesure</h3>
+          <p>Landing pages, pages collection, pages de campagne.</p>
+        </div>
+        <div class="chips"><span>Landing</span><span>Collection</span><span>Campagne</span></div>
+      </div>
+      <div class="card b4" style="background:var(--v-600);border-color:var(--v-600);color:#fff">
+        <div>
+          <span class="tag" style="background:rgba(255,255,255,.16);color:#fff">Récurrent</span>
+          <h3>Abonnement mensuel</h3>
+          <p style="color:var(--v-200)">Pour les marques qui ont des besoins réguliers : un développeur Shopify disponible chaque mois.</p>
+        </div>
+        <div style="margin-top:28px"><a class="link" style="color:#fff" href="#abo">Voir le fonctionnement →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-deep">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow"><i>03</i>Réalisations</div>
+      <h2>Ce que j'ai déjà livré, <em>en agence CRO.</em></h2>
+      <p class="lead">Projets réalisés au sein d'une agence française spécialisée en optimisation du taux de conversion, avant de lancer mon studio.</p>
+    </div>
+    <div class="work">
+      <div class="proj">
+        <div class="shot"><em>Capture à ajouter</em><div class="nav"><i></i><i></i><i></i></div><div class="hero-b"></div><div class="row"><i></i><i></i><i></i></div></div>
+        <div class="meta"><small>Mode · Boutique</small><h3>Refonte de fiche produit</h3><p>Rôle : design &amp; intégration Shopify.</p></div>
+      </div>
+      <div class="proj">
+        <div class="shot"><em>Capture à ajouter</em><div class="nav"><i></i><i></i><i></i></div><div class="hero-b" style="background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(115,87,255,.2))"></div><div class="row"><i></i><i></i><i></i></div></div>
+        <div class="meta"><small>Beauté · Landing page</small><h3>Page de campagne</h3><p>Rôle : conception &amp; développement.</p></div>
+      </div>
+      <div class="proj">
+        <div class="shot"><em>Capture à ajouter</em><div class="nav"><i></i><i></i><i></i></div><div class="hero-b" style="background:linear-gradient(135deg,rgba(115,87,255,.5),rgba(185,169,255,.15))"></div><div class="row"><i></i><i></i><i></i></div></div>
+        <div class="meta"><small>Maison · Panier</small><h3>Tunnel d'achat optimisé</h3><p>Rôle : intégration &amp; tests A/B.</p></div>
+      </div>
+    </div>
+    <div class="note"><span><b>Transparence :</b> ces projets viennent de mon expérience en agence. Chiffres et résultats détaillés sur demande.</span><a class="link" href="#">Voir tous les projets →</a></div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="wrap">
+    <div class="head center">
+      <div class="eyebrow"><i>04</i>Méthode</div>
+      <h2>Un process simple, <em>du brief à la mise en ligne.</em></h2>
+      <p class="lead">Chaque étape a un livrable clair. Vous savez toujours où en est votre projet.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div><h3>Cadrage</h3><p>On définit vos objectifs, votre marque et le périmètre.</p></div></div>
+      <div class="step"><div class="num">2</div><div><h3>Design</h3><p>Maquettes sur mesure, validées avant tout développement.</p></div></div>
+      <div class="step"><div class="num">3</div><div><h3>Développement</h3><p>Intégration Shopify propre, rapide et facile à gérer.</p></div></div>
+      <div class="step"><div class="num">4</div><div><h3>Lancement</h3><p>Tests, mise en ligne et passation de votre boutique.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-tint" id="abo">
+  <div class="wrap sub">
+    <div>
+      <div class="eyebrow"><i>05</i>Abonnement</div>
+      <h2>Un développeur Shopify <em>à vos côtés, chaque mois.</em></h2>
+      <p class="lead">Votre boutique évolue en continu. L'abonnement vous garantit du temps de travail réservé, sans recruter ni relancer.</p>
+      <div class="who">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Marques avec lancements ou promos fréquents</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Équipes sans développeur en interne</div>
+      </div>
+    </div>
+    <div class="plan">
+      <div class="top"><h3>Abonnement mensuel</h3><span class="pill">Format à définir</span></div>
+      <p class="sm">Un forfait adapté à votre rythme.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Nouvelles sections et pages à la demande</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Optimisations de conversion en continu</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Corrections et maintenance du thème</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Un seul interlocuteur, réponse rapide</li>
+      </ul>
+      <hr>
+      <p class="price"><b>Tarif défini après un échange</b> selon votre volume de besoins.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="wrap">
+    <div class="head center">
+      <div class="eyebrow"><i>06</i>Questions</div>
+      <h2>Les questions <em>qu'on me pose souvent.</em></h2>
+    </div>
+    <div class="faq">
+      <details class="q" open><summary>Combien coûte une boutique sur mesure ?</summary><p>Le budget dépend du périmètre. Après un premier échange, je vous envoie un devis clair et détaillé.</p></details>
+      <details class="q"><summary>Combien de temps prend un projet ?</summary><p>Cela varie selon la taille de la boutique. Un calendrier précis est fixé dès le cadrage.</p></details>
+      <details class="q"><summary>Puis-je gérer ma boutique seul après la livraison ?</summary><p>Oui. Le thème est conçu pour que vous modifiiez vos contenus depuis l'éditeur Shopify, sans code.</p></details>
+      <details class="q"><summary>L'abonnement convient-il à ma marque ?</summary><p>Si vous avez des besoins réguliers sur votre boutique, oui. On en parle pour ajuster le format.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="bg-brand cta">
+  <div class="wrap">
+    <div class="eyebrow"><i>07</i>Contact</div>
+    <h2>Parlons de votre boutique.</h2>
+    <p class="lead">Décrivez votre projet en quelques lignes. Je vous réponds avec une première proposition.</p>
+    <a class="btn on-dark" href="#">Réserver un échange</a>
+    <p class="sub2">Premier échange gratuit · Réponse sous quelques jours</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="logo">Studio · Oussama</span>
+    <nav><span>Réalisations</span><span>Abonnement</span><span>Contact</span></nav>
+    <span>© 2026 · Boutiques Shopify sur mesure</span>
+  </div>
+</footer>
+</body>
+</html>
