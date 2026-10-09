@@ -139,6 +139,20 @@ footer nav{display:flex;gap:28px}
   .q summary{font-size:17px}
   .logos-ph{gap:32px}
 }
+
+.bg-white .bento .card:not(.b4){background:var(--v-50)}
+.bg-white .bento .chips span,.bg-white .bento .mock{background:#fff}
+.who4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.who4 .card{padding:32px}
+.who4 .card h3{margin-top:4px}
+.who4 .card p{margin-top:10px;color:var(--muted);font-size:16px}
+.who4 .ico{margin-bottom:24px}
+.about{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:center}
+.photo{aspect-ratio:4/5;border-radius:28px;background:repeating-linear-gradient(135deg,var(--v-100) 0 14px,#fff 14px 28px);border:1px dashed var(--v-300);display:grid;place-items:center;text-align:center;color:var(--v-700);font-weight:600;font-size:15px;padding:24px}
+.facts{display:grid;gap:16px;margin-top:32px}
+.facts div{display:flex;gap:14px;font-size:17px}
+.facts svg{flex:none;width:24px;height:24px;color:var(--v-600);margin-top:2px}
+@media (max-width:900px){.who4,.about{grid-template-columns:1fr}.about{gap:40px}.photo{aspect-ratio:16/11}}
 </style>
 </head>
 <body>
@@ -179,7 +193,23 @@ footer nav{display:flex;gap:28px}
 <section class="bg-soft">
   <div class="wrap">
     <div class="head">
-      <div class="eyebrow"><i>02</i>Ce que je fais</div>
+      <div class="eyebrow"><i>02</i>Pour qui</div>
+      <h2>Pour les marques qui veulent <em>mieux vendre en ligne.</em></h2>
+      <p class="lead">Quel que soit votre point de départ, je m'adapte à votre étape et à votre équipe.</p>
+    </div>
+    <div class="who4">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div><h3>Marque qui se lance</h3><p>Vous créez votre première boutique et voulez une base solide dès le départ.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15l4-4 3 3 5-6"/></svg></div><h3>Boutique sur thème standard</h3><p>Votre site fonctionne, mais ne reflète pas votre marque et convertit moins qu'il ne pourrait.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></div><h3>Marque aux besoins réguliers</h3><p>Nouvelles collections, promotions, campagnes : votre boutique évolue tout au long de l'année.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3-5.5 6.5-5.5s6 2 6.5 5.5"/><path d="M17 5.5a3.5 3.5 0 0 1 0 6.5M18 14.8c2 .6 3.2 2.2 3.5 4.7"/></svg></div><h3>Agence ou équipe sans dev Shopify</h3><p>Vous avez besoin d'un renfort technique fiable sur vos projets clients.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow"><i>03</i>Ce que je fais</div>
       <h2>Tout est conçu <em>sur mesure</em>, de la boutique à la section.</h2>
       <p class="lead">Trois façons de travailler ensemble, selon l'étape où se trouve votre marque.</p>
     </div>
@@ -227,7 +257,7 @@ footer nav{display:flex;gap:28px}
 <section class="bg-deep">
   <div class="wrap">
     <div class="head">
-      <div class="eyebrow"><i>03</i>Réalisations</div>
+      <div class="eyebrow"><i>04</i>Réalisations</div>
       <h2>Ce que j'ai déjà livré, <em>en agence CRO.</em></h2>
       <p class="lead">Projets réalisés au sein d'une agence française spécialisée en optimisation du taux de conversion, avant de lancer mon studio.</p>
     </div>
@@ -249,10 +279,26 @@ footer nav{display:flex;gap:28px}
   </div>
 </section>
 
+<section class="bg-soft">
+  <div class="wrap about">
+    <div class="photo"><span>Votre photo ici<br><small style="font-weight:500;opacity:.8">à ajouter</small></span></div>
+    <div>
+      <div class="eyebrow"><i>05</i>Qui je suis</div>
+      <h2>Un interlocuteur unique, <em>formé en agence CRO.</em></h2>
+      <p class="lead">Je suis Oussama, développeur Shopify. Je conçois et je construis moi-même vos boutiques, de la maquette à la mise en ligne.</p>
+      <div class="facts">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Expérience en agence française spécialisée en CRO</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Design et développement par la même personne</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Échange direct, sans intermédiaire</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="bg-white">
   <div class="wrap">
     <div class="head center">
-      <div class="eyebrow"><i>04</i>Méthode</div>
+      <div class="eyebrow"><i>06</i>Méthode</div>
       <h2>Un process simple, <em>du brief à la mise en ligne.</em></h2>
       <p class="lead">Chaque étape a un livrable clair. Vous savez toujours où en est votre projet.</p>
     </div>
@@ -268,7 +314,7 @@ footer nav{display:flex;gap:28px}
 <section class="bg-tint" id="abo">
   <div class="wrap sub">
     <div>
-      <div class="eyebrow"><i>05</i>Abonnement</div>
+      <div class="eyebrow"><i>07</i>Abonnement</div>
       <h2>Un développeur Shopify <em>à vos côtés, chaque mois.</em></h2>
       <p class="lead">Votre boutique évolue en continu. L'abonnement vous garantit du temps de travail réservé, sans recruter ni relancer.</p>
       <div class="who">
@@ -287,6 +333,7 @@ footer nav{display:flex;gap:28px}
       </ul>
       <hr>
       <p class="price"><b>Tarif défini après un échange</b> selon votre volume de besoins.</p>
+      <div style="margin-top:24px"><a class="btn" href="#">Réserver un échange</a></div>
     </div>
   </div>
 </section>
@@ -294,7 +341,7 @@ footer nav{display:flex;gap:28px}
 <section class="bg-white">
   <div class="wrap">
     <div class="head center">
-      <div class="eyebrow"><i>06</i>Questions</div>
+      <div class="eyebrow"><i>08</i>Questions</div>
       <h2>Les questions <em>qu'on me pose souvent.</em></h2>
     </div>
     <div class="faq">
@@ -308,7 +355,7 @@ footer nav{display:flex;gap:28px}
 
 <section class="bg-brand cta">
   <div class="wrap">
-    <div class="eyebrow"><i>07</i>Contact</div>
+    <div class="eyebrow"><i>09</i>Contact</div>
     <h2>Parlons de votre boutique.</h2>
     <p class="lead">Décrivez votre projet en quelques lignes. Je vous réponds avec une première proposition.</p>
     <a class="btn on-dark" href="#">Réserver un échange</a>
