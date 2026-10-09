@@ -3,307 +3,354 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Studio Ouza · Boutiques Shopify sur mesure &amp; motion design</title>
-<meta name="description" content="Développeur web et chef de projet, 10 ans d'expérience. Boutiques Shopify sur mesure, pages premium, motion design publicitaire et automatisation n8n.">
-<meta name="theme-color" content="#0E2B3D">
-<meta property="og:title" content="Studio Ouza · Boutiques Shopify sur mesure &amp; motion design">
-<meta property="og:description" content="Boutiques Shopify sur mesure, pages premium, motion design publicitaire et automatisation n8n.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23E64A19'/%3E%3Crect x='8' y='8' width='11' height='11' rx='3.5' fill='%23fff'/%3E%3C/svg%3E">
+<title>Ouza Studio · Boutiques Shopify, motion design et automatisation</title>
+<meta name="description" content="Ouza Studio crée des boutiques Shopify premium, les met en mouvement avec du motion design et automatise ce qui se répète avec n8n.">
+<meta name="theme-color" content="#0F2230">
+<meta property="og:title" content="Ouza Studio · Boutiques Shopify, motion design et automatisation">
+<meta property="og:description" content="Boutiques Shopify premium, motion design et automatisation n8n par un seul interlocuteur.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F2230'/%3E%3Crect x='11' y='11' width='10' height='10' fill='%23FF5A1F'/%3E%3Cpath d='M5 11V5h6M21 5h6v6M27 21v6h-6M11 27H5v-6' fill='none' stroke='%23FF5A1F' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600..800&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header class="hdr" id="hdr">
   <div class="wrap">
-    <a class="brand" href="#top">Studio Ouza</a>
+    <a class="brand" href="#top" aria-label="Ouza Studio, accueil"><span class="mark" aria-hidden="true"></span>Ouza Studio</a>
     <nav aria-label="Navigation principale">
-      <a href="#offre">Offre</a><a href="#motion">Motion</a><a href="#realisations">Réalisations</a><a href="#abo">Abonnement</a><a href="#faq">FAQ</a>
+      <a href="#scene">Savoir-faire</a><a href="#realisations">Réalisations</a><a href="#collaboration">Collaboration</a><a href="#faq">FAQ</a>
     </nav>
     <a class="ghost" href="#contact">Contact</a>
   </div>
 </header>
 
-<main id="top">
-<section class="hero">
-  <!-- Vidéo de fond : assets/video/hero.mp4 (muette, en boucle) -->
-  <video autoplay muted loop playsinline preload="metadata" poster="assets/video/poster.jpg" aria-hidden="true"><source src="assets/video/hero.webm" type="video/webm"><source src="assets/video/hero.mp4" type="video/mp4"></video>
-  <span class="orb a"></span><span class="orb b"></span>
+<main id="contenu">
+
+<!-- HERO : vidéo de fond conservée -->
+<section class="hero" id="top">
+  <video class="bgv" autoplay muted loop playsinline preload="metadata" poster="assets/video/poster.jpg" aria-hidden="true" data-inview id="bg-video">
+    <source src="assets/video/hero.webm" type="video/webm">
+    <source src="assets/video/hero.mp4" type="video/mp4">
+  </video>
   <div class="wrap">
-    <div>
-      <h1>Des boutiques Shopify <em>sur mesure,</em> animées par le motion design.</h1>
-      <p class="lead">Pour les marques e-commerce qui veulent se démarquer et mieux convertir : design, développement, publicités animées et automatisations, par une seule personne.</p>
-      <div class="cta-row">
-        <a class="btn" href="mailto:oussamayero@gmail.com?subject=Projet%20Shopify">Réserver un échange</a>
-        <a class="link" href="#realisations">Voir les réalisations →</a>
-      </div>
-      <div class="trust"><span>10 ans d'expérience</span><span>Ex-agence française CRO</span><span>Dev + chef de projet + motion</span></div>
+    <p class="label">Ouza Studio · Shopify · Motion · Automatisation</p>
+    <h1><span>Une boutique</span><span>qui se voit,</span><span>qui bouge,</span><span class="o">qui tourne seule.</span></h1>
+    <p class="sub">Ouza Studio crée des boutiques Shopify premium, les met en mouvement avec du motion design et automatise ce qui se répète. Un seul interlocuteur pour les trois.</p>
+    <div class="cta">
+      <a class="btn" href="mailto:oussamayero@gmail.com?subject=Projet%20Ouza%20Studio">Réserver un échange</a>
+      <a class="tlink" href="#scene">Voir le savoir-faire ↓</a>
     </div>
-    <div class="stage" aria-hidden="true">
-      <div class="sc"><div class="dots"><i></i><i></i><i></i></div><div class="ban"></div><div class="grid"><i></i><i></i><i></i></div><div class="ln"></div></div>
-      <div class="chip c1"><b>▶</b>Pub animée</div>
-      <div class="chip c2"><b>⚙</b>Workflow n8n</div>
-      <div class="chip c3"><b>★</b>Page premium</div>
+    <nav class="index" aria-label="Les trois expertises">
+      <a href="#shopify"><span class="label">01</span><strong>Shopify premium</strong><span class="d">Boutiques, sections, pages</span></a>
+      <a href="#motion"><span class="label">02</span><strong>Motion design</strong><span class="d">Publicités, vidéos, animations</span></a>
+      <a href="#automatisation"><span class="label">03</span><strong>Automatisation</strong><span class="d">Workflows n8n</span></a>
+    </nav>
+  </div>
+  <button class="vtoggle" type="button" data-video-toggle="bg-video" aria-pressed="false">Pause vidéo</button>
+</section>
+
+<!-- SCÈNE : un produit, trois couches -->
+<section class="sec scene t-ivoire" id="scene">
+  <div class="wrap">
+    <div class="stage-wrap">
+      <div class="frame">
+        <div class="stage" id="stage" data-layer="all">
+          <div class="z z-ui">
+            <div class="zt label"><span><b>L1</b> Interface</span><span>Fiche produit</span></div>
+            <div class="pdp">
+              <div class="pdp-img">
+                <video id="stage-video" muted loop playsinline preload="metadata" poster="assets/img/frame-2.jpg" data-inview aria-label="Extrait de ma vidéo de démonstration">
+                  <source src="assets/video/hero.webm" type="video/webm">
+                  <source src="assets/video/hero.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="pdp-info">
+                <p class="label">Accueil / Produit exemple</p>
+                <h3>Produit exemple</h3>
+                <p class="price">00,00 €</p>
+                <div class="sws" role="img" aria-label="Variantes : S disponible, M sélectionnée, L indisponible">
+                  <span class="sw">S</span><span class="sw on">M</span><span class="sw off">L</span>
+                  <span class="mk" style="left:-8px;top:-9px">A</span>
+                </div>
+                <div class="buy">
+                  <span class="qty" aria-hidden="true"><span>−</span><span>1</span><span>+</span></span>
+                  <span class="add">Ajouter au panier</span>
+                  <span class="mk" style="right:-8px;top:-9px">C</span>
+                </div>
+                <p class="note-s">Livraison, retours, paiement : bloc de réassurance.<span class="mk" style="position:relative;display:inline-grid;margin-left:8px;vertical-align:middle">B</span></p>
+              </div>
+            </div>
+            <div class="legend"><span><b>A</b>Choix de variante lisible</span><span><b>B</b>Réassurance à portée du pouce</span><span><b>C</b>Bouton d'achat constant</span></div>
+          </div>
+          <div class="side">
+            <div class="z z-motion">
+              <div class="zt label"><span><b>L2</b> Mouvement</span><span>Séquence</span></div>
+              <div class="tl" aria-label="Timeline de montage">
+                <p class="tc"><span id="tc">00:00:00:00</span> / 00:00:04:00</p>
+                <div class="tr"><span class="clip" style="left:0;width:42%">Plan produit</span><span class="clip g" style="left:46%;width:50%">Plan détail</span></div>
+                <div class="tr"><span class="clip o" style="left:12%;width:38%">Titre animé</span></div>
+                <div class="tr"><span class="clip" style="left:30%;width:66%">Habillage</span></div>
+                <div class="ph-wrap" aria-hidden="true"><span class="playhead" id="playhead"></span></div>
+              </div>
+            </div>
+            <div class="z z-flow">
+              <div class="zt label"><span><b>L3</b> Connexion</span><span>Exemple de workflow</span></div>
+              <div class="fl">
+                <span class="pulse" aria-hidden="true"></span>
+                <div class="nd trig"><div><span class="label">Déclencheur</span><p>Commande payée</p></div></div>
+                <div class="nd"><div><span class="label">Actions</span><p>Email client, étiquette, ligne de suivi</p></div></div>
+                <div class="nd"><div><span class="label">Résultat</span><p>Équipe notifiée, sans ressaisie</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="label" style="margin-top:22px">Concept de démonstration : produit fictif, visuel extrait de ma vidéo de démonstration. Ce n'est pas un projet client.</p>
+    </div>
+
+    <div class="scene-copy">
+      <div>
+        <div class="sec-label label"><b>Savoir-faire</b></div>
+        <h2>Un même produit, trois couches de travail.</h2>
+      </div>
+      <div>
+        <div class="tabs" role="tablist" aria-label="Couche à mettre en avant">
+          <button type="button" role="tab" id="tab-all" aria-selected="true" data-layer="all">Tout</button>
+          <button type="button" role="tab" id="tab-ui" aria-selected="false" tabindex="-1" data-layer="ui">Interface</button>
+          <button type="button" role="tab" id="tab-motion" aria-selected="false" tabindex="-1" data-layer="motion">Mouvement</button>
+          <button type="button" role="tab" id="tab-flow" aria-selected="false" tabindex="-1" data-layer="flow">Connexion</button>
+        </div>
+        <div class="caps" role="tabpanel" aria-live="polite">
+          <p data-layer="all">Les trois couches se préparent ensemble : l'interface où se décide l'achat, le mouvement qui attire l'œil, et les automatisations qui prennent le relais après la commande.</p>
+          <p data-layer="ui"><b>Interface.</b> La page où se décide l'achat : choix des variantes, réassurance, bouton d'achat. Construite sur mesure dans Shopify.</p>
+          <p data-layer="motion"><b>Mouvement.</b> Le produit prend vie dans une séquence montée plan par plan, utilisable en publicité, sur la fiche produit ou sur les réseaux.</p>
+          <p data-layer="flow"><b>Connexion.</b> Une fois la commande passée, un workflow n8n enchaîne les tâches répétitives sans intervention manuelle.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="stack">
-  <small>Les outils avec lesquels je travaille</small>
-  <div class="track" aria-hidden="true"><span>Shopify</span><span>Liquid</span><span>JavaScript</span><span>n8n</span><span>Figma</span><span>After Effects</span><span>Shopify</span><span>Liquid</span><span>JavaScript</span><span>n8n</span><span>Figma</span><span>After Effects</span></div>
+<!-- 01 SHOPIFY -->
+<section class="sec t-papier" id="shopify">
+  <div class="wrap split">
+    <div>
+      <div class="sec-label label"><b>01</b>Shopify premium</div>
+      <h2>Des boutiques construites autour de vos produits.</h2>
+      <p class="lead">Je conçois et développe sur Shopify, du thème complet à la section isolée. Le design et le code viennent de la même personne.</p>
+      <div class="rl">
+        <div><h3>Boutique complète</h3><p>Design, développement et mise en ligne d'une boutique entière.</p></div>
+        <div><h3>Sections sur mesure</h3><p>Un bloc de plus dans votre thème actuel : avis, bundles, comparatif.</p></div>
+        <div><h3>Pages premium</h3><p>Fiches produit, pages collection et pages de campagne.</p></div>
+      </div>
+      <p class="more"><a class="tlink" href="mailto:oussamayero@gmail.com?subject=Projet%20Shopify%20%E2%80%94%20Ouza%20Studio">Parler d'un projet Shopify →</a></p>
+    </div>
+    <div class="frame">
+      <div class="zoom">
+        <p class="label"><span>Détail : sélecteur de variantes</span><span>Concept</span></p>
+        <h3>Taille</h3>
+        <p class="price" style="color:var(--muted)">Choisir une variante</p>
+        <div class="sws" role="img" aria-label="Variantes : S disponible, M sélectionnée, L indisponible, ">
+          <span class="sw">S</span><span class="sw on">M</span><span class="sw off">L</span>
+          <span class="mk" style="left:-8px;top:-10px">1</span><span class="mk" style="left:82px;top:-10px">2</span><span class="mk" style="left:172px;top:-10px">3</span></div>
+        <div class="buy"><span class="qty" aria-hidden="true"><span>−</span><span>1</span><span>+</span></span><span class="add">Ajouter au panier</span><span class="mk" style="right:-8px;top:-10px">4</span></div>
+        <div class="legend"><span><b>1</b>Zones tactiles larges</span><span><b>2</b>État sélectionné lisible d'un coup d'œil</span><span><b>3</b>Variante indisponible barrée, jamais masquée</span><span><b>4</b>Bouton d'achat toujours à portée</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 MOTION -->
+<section class="sec t-nuit" id="motion">
+  <div class="wrap">
+    <div class="split rev" style="align-items:center">
+      <div>
+      <div class="frame" style="--c:var(--orange)">
+        <div class="mv">
+          <video id="motion-video" muted loop playsinline preload="metadata" poster="assets/video/poster.jpg" data-inview aria-label="Vidéo de démonstration de motion design">
+            <source src="assets/video/hero.webm" type="video/webm">
+            <source src="assets/video/hero.mp4" type="video/mp4">
+          </video>
+          <button class="vtoggle" type="button" data-video-toggle="motion-video" aria-pressed="false">Pause</button>
+        </div>
+        <p class="mcap label"><span>Ma vidéo de démonstration</span><span>00:00:04:00</span></p>
+      </div>
+<div class="film" role="group" aria-label="Planche de plans : cliquez un plan pour le lire">
+      <button class="fr" type="button" data-t="0.4" aria-current="true"><span class="im"><img src="assets/img/frame-1.jpg" alt="Plan 1 de la vidéo de démonstration" width="800" height="450"></span><span class="label"><span>Plan 1</span><span>00:00:00:10</span></span></button>
+      <button class="fr" type="button" data-t="1.4"><span class="im"><img src="assets/img/frame-2.jpg" alt="Plan 2 de la vidéo de démonstration" width="800" height="450"></span><span class="label"><span>Plan 2</span><span>00:00:01:10</span></span></button>
+      <button class="fr" type="button" data-t="2.4"><span class="im"><img src="assets/img/frame-3.jpg" alt="Plan 3 de la vidéo de démonstration" width="800" height="450"></span><span class="label"><span>Plan 3</span><span>00:00:02:10</span></span></button>
+      <button class="fr" type="button" data-t="3.4"><span class="im"><img src="assets/img/frame-4.jpg" alt="Plan 4 de la vidéo de démonstration" width="800" height="450"></span><span class="label"><span>Plan 4</span><span>00:00:03:10</span></span></button>
 </div>
+      </div>
 
-<section class="bg-white">
-  <div class="wrap">
-    <div class="head">
-      <div class="eyebrow"><i>01</i>Le constat</div>
-      <h2>Un thème standard ressemble à tous les autres. <em>Votre marque, non.</em></h2>
-      <p class="lead">Un thème acheté vous fait démarrer vite, mais il fixe un plafond : à mesure que la marque grandit, il freine l'identité et la conversion.</p>
-    </div>
-    <div class="pain">
-      <div class="card">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg></div>
-        <h3>Une boutique indiscernable</h3>
-        <p>Mêmes blocs, mêmes mises en page que des milliers de boutiques. Difficile de se démarquer.</p>
-        <div class="x">→ Une identité conçue pour votre marque</div>
-      </div>
-      <div class="card">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15l4-4 3 3 5-6"/></svg></div>
-        <h3>Un parcours d'achat qui fuit</h3>
-        <p>Fiches produit, panier, navigation : chaque détail non optimisé coûte des commandes.</p>
-        <div class="x">→ Un parcours pensé pour convertir</div>
-      </div>
-      <div class="card">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></div>
-        <h3>Des changements toujours bloqués</h3>
-        <p>Une nouvelle collection, une offre, une page de campagne : tout devient une tâche en attente.</p>
-        <div class="x">→ Un développeur dédié, à la demande</div>
+      <div>
+        <div class="sec-label label nonode"><b>02</b>Motion design</div>
+        <h2>Publicités, vidéos produit et animations de site.</h2>
+        <p class="lead">Du plan au format final : je conçois et je monte des contenus animés pour vos campagnes, vos fiches produit et vos réseaux.</p>
+        <div class="rl">
+          <div><h3>Publicités animées</h3><p>Des formats courts pour vos campagnes.</p></div>
+          <div><h3>Vidéos produit</h3><p>Pour la boutique, les réseaux ou les emails.</p></div>
+          <div><h3>Animations de site</h3><p>Transitions et animations intégrées à Shopify.</p></div>
+        </div>
+        <p class="more"><a class="tlink" href="mailto:oussamayero@gmail.com?subject=Projet%20motion%20%E2%80%94%20Ouza%20Studio">Parler d'un projet motion →</a></p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="bg-soft">
+<!-- 03 AUTOMATISATION -->
+<section class="sec t-ivoire" id="automatisation">
   <div class="wrap">
-    <div class="head">
-      <div class="eyebrow"><i>02</i>Pour qui</div>
-      <h2>Pour les marques qui veulent <em>mieux vendre en ligne.</em></h2>
-      <p class="lead">Quel que soit votre point de départ, je m'adapte à votre étape et à votre équipe.</p>
+    <div class="sec-label label"><b>03</b>Automatisation</div>
+    <h2>Ce qui se répète, réglé une fois pour toutes.</h2>
+    <p class="lead">Je construis des workflows n8n qui relient votre boutique et vos outils. Le principe tient en trois temps.</p>
+    <div class="flow3">
+      <span class="pls" aria-hidden="true"></span>
+      <div class="st trig"><span class="label">Temps 1</span><h3>Déclencheur</h3><p>Quelque chose se produit : une commande payée, un formulaire envoyé, un stock qui baisse.</p></div>
+      <div class="st"><span class="label">Temps 2</span><h3>Actions</h3><p>Le workflow enchaîne les tâches : un email, une étiquette client, la mise à jour d'un tableau.</p></div>
+      <div class="st"><span class="label">Temps 3</span><h3>Résultat</h3><p>L'information arrive où il faut, sans ressaisie ni oubli.</p></div>
     </div>
-    <div class="who4">
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div><h3>Marque qui se lance</h3><p>Vous créez votre première boutique et voulez une base solide dès le départ.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15l4-4 3 3 5-6"/></svg></div><h3>Boutique sur thème standard</h3><p>Votre site fonctionne, mais ne reflète pas votre marque et convertit moins qu'il ne pourrait.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg></div><h3>Marque aux besoins réguliers</h3><p>Nouvelles collections, promotions, publicités : votre boutique évolue tout au long de l'année.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3-5.5 6.5-5.5s6 2 6.5 5.5"/><path d="M17 5.5a3.5 3.5 0 0 1 0 6.5M18 14.8c2 .6 3.2 2.2 3.5 4.7"/></svg></div><h3>Agence ou équipe sans dev Shopify</h3><p>Vous avez besoin d'un renfort technique fiable sur vos projets clients.</p></div>
-    </div>
+    <div class="ex"><span class="label">Exemple</span><p>Schéma illustratif du principe. Les cas d'usage réels se définissent avec vous, selon vos outils.</p></div>
+    <p class="more"><a class="tlink" href="mailto:oussamayero@gmail.com?subject=Automatisation%20%E2%80%94%20Ouza%20Studio">Parler d'une automatisation →</a></p>
   </div>
 </section>
 
-<section class="bg-white" id="offre">
+<!-- RÉALISATIONS -->
+<section class="sec t-papier" id="realisations">
   <div class="wrap">
-    <div class="head">
-      <div class="eyebrow"><i>03</i>Ce que je fais</div>
-      <h2>Tout est conçu <em>sur mesure</em>, du site à l'animation.</h2>
-      <p class="lead">Une boutique unique, des publicités animées et des automatisations n8n, puis un suivi dans le temps.</p>
-    </div>
-    <div class="bento">
-      <div class="card b1">
+    <div class="sec-label label"><b>Réalisations</b></div>
+    <h2>Projets réalisés en agence CRO, avant Ouza Studio.</h2>
+    <p class="attr">Ces projets viennent de mon expérience dans une agence française spécialisée en CRO (agence non citée). Ce ne sont pas des contrats d'Ouza Studio.</p>
+    <div class="projects">
+      <article class="p1">
+        <div class="frame"><div class="ph"><span class="label">Emplacement · capture du projet à fournir</span></div></div>
         <div>
-          <span class="tag">Projet complet</span>
-          <h3>Boutique Shopify sur mesure</h3>
-          <p>Design, développement et mise en ligne d'une boutique unique : identité, parcours d'achat, performance.</p>
-          <p class="from">À partir de <b>3 500 €</b></p>
+          <div class="pt"><span class="label">Projet 01</span><h3>Shopify</h3></div>
+          <dl class="meta">
+            <div><dt class="label">Contexte</dt><dd class="todo">À renseigner</dd></div>
+            <div><dt class="label">Ma contribution</dt><dd class="todo">À renseigner</dd></div>
+            <div><dt class="label">Livrable</dt><dd class="todo">À renseigner</dd></div>
+            <div><dt class="label">Résultats</dt><dd>Non documentés</dd></div>
+          </dl>
         </div>
-        <div class="mock">
-          <div class="bar" style="width:34%"></div>
-          <div class="blk" style="height:70px;background:linear-gradient(135deg,var(--v-200),var(--v-300))"></div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px"><div class="blk" style="height:46px"></div><div class="blk" style="height:46px"></div><div class="blk" style="height:46px"></div><div class="blk" style="height:46px"></div></div>
-        </div>
-      </div>
-      <div class="card b2">
-        <div>
-          <span class="tag">À l'unité</span>
-          <h3>Pages premium Shopify</h3>
-          <p>Landing pages et pages produit soignées, pensées pour convertir vos visiteurs.</p>
-          <p class="from">À partir de <b>690 €</b></p>
-        </div>
-        <div class="chips"><span>Landing</span><span>Produit</span><span>Collection</span></div>
-      </div>
-      <div class="card b5">
-        <div>
-          <span class="tag">Signature</span>
-          <h3>Motion design publicitaire</h3>
-          <p>Des publicités animées pour vos campagnes, cohérentes avec votre boutique.</p>
-          <p class="from">À partir de <b>450 €</b> par vidéo</p>
-        </div>
-        <div class="chips"><span>Publicités animées</span><span>Vidéo hero</span><span>Animations produit</span></div>
-      </div>
-      <div class="card b5">
-        <div>
-          <span class="tag">Gain de temps</span>
-          <h3>Automatisation n8n</h3>
-          <p>Des workflows n8n qui relient votre boutique à vos outils et suppriment les tâches répétitives.</p>
-          <p class="from">À partir de <b>490 €</b> par workflow</p>
-        </div>
-        <div class="chips"><span>Commandes</span><span>Emails</span><span>Stocks</span><span>Reporting</span></div>
-      </div>
-      <div class="card b4" style="background:var(--v-900);border-color:var(--v-900);color:#fff">
-        <div>
-          <span class="tag" style="background:rgba(255,255,255,.14);color:#fff">Récurrent</span>
-          <h3>Abonnement mensuel</h3>
-          <p style="color:var(--v-200)">Pour les marques qui ont des besoins réguliers : un développeur et motion designer disponible chaque mois pour vos pages, vos publicités et vos workflows n8n.</p>
-        </div>
-        <div style="margin-top:28px"><a class="link" style="color:#fff" href="#abo">Voir le fonctionnement →</a></div>
+      </article>
+      <div class="p23">
+        <article>
+          <div class="frame"><div class="ph"><span class="label">Emplacement · projet à fournir</span></div></div>
+          <div class="meta">
+            <div class="pt"><span class="label">Projet 02</span><h3>Motion</h3></div>
+            <dl class="meta">
+              <div><dt class="label">Contexte</dt><dd class="todo">À renseigner</dd></div>
+              <div><dt class="label">Ma contribution</dt><dd class="todo">À renseigner</dd></div>
+              <div><dt class="label">Résultats</dt><dd>Non documentés</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article>
+          <div class="frame"><div class="ph"><span class="label">Emplacement · projet à fournir</span></div></div>
+          <div class="meta">
+            <div class="pt"><span class="label">Projet 03</span><h3>Page ou parcours</h3></div>
+            <dl class="meta">
+              <div><dt class="label">Contexte</dt><dd class="todo">À renseigner</dd></div>
+              <div><dt class="label">Ma contribution</dt><dd class="todo">À renseigner</dd></div>
+              <div><dt class="label">Résultats</dt><dd>Non documentés</dd></div>
+            </dl>
+          </div>
+        </article>
       </div>
     </div>
   </div>
 </section>
 
-<section class="bg-tint" id="motion">
-  <div class="wrap motion">
+<!-- COLLABORATION -->
+<section class="sec t-ivoire" id="collaboration">
+  <div class="wrap split">
     <div>
-      <div class="eyebrow"><i>04</i>Motion design</div>
-      <h2>Des publicités animées qui <em>prolongent votre boutique.</em></h2>
-      <p class="lead">Je crée le motion design de vos publicités et de votre boutique, pour que chaque campagne ait le même niveau de finition que votre site.</p>
-      <div class="mlist">
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Publicités animées conçues pour votre identité</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Formats adaptés à vos campagnes et à vos réseaux</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Même univers entre la publicité et la page premium qui suit</div>
-      </div>
+      <div class="sec-label label"><b>Collaboration</b></div>
+      <h2>Un projet, une intervention ou un suivi mensuel.</h2>
+      <ol class="steps">
+        <li><h3>Cadrage</h3><p>On définit l'objectif, la marque et le périmètre.</p></li>
+        <li><h3>Design</h3><p>Maquettes validées avant le développement.</p></li>
+        <li><h3>Développement</h3><p>Intégration Shopify, animations et automatisations.</p></li>
+        <li><h3>Lancement</h3><p>Tests, mise en ligne et passation.</p></li>
+      </ol>
     </div>
     <div>
-      <div class="player"><div class="screen"><video muted loop playsinline preload="metadata" poster="assets/video/poster.jpg" data-inview><source src="assets/video/hero.webm" type="video/webm"><source src="assets/video/hero.mp4" type="video/mp4"></video></div><div class="tl"><div></div><div></div><div></div></div></div>
-      <p class="pcap">Exemple de publicité animée</p>
+      <div class="fmt">
+        <div><h3>Projet</h3><span class="label tag">Début → fin</span><p>Une boutique, une campagne ou un site réalisé de A à Z.</p></div>
+        <div><h3>À la pièce</h3><span class="label tag">Ponctuel</span><p>Une section, une page, une vidéo ou un workflow, ajouté à l'existant.</p></div>
+        <div><h3 class="rec">Accompagnement mensuel</h3><span class="label tag">Récurrent</span><p>Du temps réservé chaque mois pour faire évoluer votre boutique, vos contenus animés et vos automatisations. Le cadre se définit ensemble.</p></div>
+      </div>
+      <p class="devis">Tarifs établis sur devis, après un premier échange.</p>
     </div>
   </div>
 </section>
 
-<section class="bg-deep" id="realisations">
-  <div class="wrap">
-    <div class="head">
-      <div class="eyebrow"><i>05</i>Réalisations</div>
-      <h2>Ce que j'ai déjà livré, <em>en agence CRO.</em></h2>
-      <p class="lead">Projets réalisés au sein d'une agence française spécialisée en optimisation du taux de conversion, avant de lancer mon studio.</p>
-    </div>
-    <div class="work">
-      <div class="proj">
-        <div class="shot"><em>Capture à ajouter</em><div class="nav"><i></i><i></i><i></i></div><div class="hero-b"></div><div class="row"><i></i><i></i><i></i></div></div>
-        <div class="meta"><small>Mode · Boutique</small><h3>Refonte de fiche produit</h3><p>Rôle : design &amp; intégration Shopify.</p></div>
-      </div>
-      <div class="proj">
-        <div class="shot"><em>Vidéo à ajouter</em><span class="play"></span><div class="nav"><i></i><i></i><i></i></div><div class="hero-b" style="background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,106,61,.2))"></div><div class="row"><i></i><i></i><i></i></div></div>
-        <div class="meta"><small>Beauté · Landing page</small><h3>Publicité animée &amp; page de campagne</h3><p>Rôle : conception &amp; développement.</p></div>
-      </div>
-      <div class="proj">
-        <div class="shot"><em>Capture à ajouter</em><div class="nav"><i></i><i></i><i></i></div><div class="hero-b" style="background:linear-gradient(135deg,rgba(255,106,61,.5),rgba(255,181,154,.15))"></div><div class="row"><i></i><i></i><i></i></div></div>
-        <div class="meta"><small>Maison · Panier</small><h3>Tunnel d'achat optimisé</h3><p>Rôle : intégration &amp; tests A/B.</p></div>
-      </div>
-    </div>
-    <div class="note"><span><b>Transparence :</b> ces projets viennent de mon expérience en agence. Chiffres et résultats détaillés sur demande.</span><a class="link" href="#realisations">Voir tous les projets →</a></div>
-  </div>
-</section>
-
-<section class="bg-soft">
-  <div class="wrap about">
-    <div class="photo"><span>Votre photo ici<br><small style="font-weight:500;opacity:.8">à ajouter</small></span></div>
+<!-- QUI -->
+<section class="sec t-papier" id="qui">
+  <div class="wrap who">
+    <div class="frame"><div class="ph"><span class="label">Photo à fournir</span></div></div>
     <div>
-      <div class="eyebrow"><i>06</i>Qui je suis</div>
-      <h2>Un interlocuteur unique : <em>développeur, chef de projet, motion designer.</em></h2>
-      <p class="lead">Je suis Oussama, fondateur de Studio Ouza. Du cadrage à la dernière animation, je pilote et je réalise votre projet moi-même.</p>
-      <div class="facts">
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>10 ans d'expérience en développement web et gestion de projet</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Motion design, publicités et automatisation n8n par la même personne</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Expérience en agence française spécialisée en CRO</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Échange direct, sans intermédiaire</div>
-      </div>
+      <div class="sec-label label nonode"><b>Qui je suis</b></div>
+      <h2>Ouza Studio, c'est un interlocuteur : Oussama.</h2>
+      <p>Développeur web et chef de projet, je prends en charge le design, le code, le motion et les automatisations. J'ai travaillé en agence CRO française avant de lancer Ouza Studio.</p>
     </div>
   </div>
 </section>
 
-<section class="bg-white">
+<!-- FAQ -->
+<section class="sec t-ivoire" id="faq">
   <div class="wrap">
-    <div class="head center">
-      <div class="eyebrow"><i>07</i>Méthode</div>
-      <h2>Un process simple, <em>du brief à la mise en ligne.</em></h2>
-      <p class="lead">Chaque étape a un livrable clair. Vous savez toujours où en est votre projet.</p>
-    </div>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><div><h3>Cadrage</h3><p>On définit vos objectifs, votre marque et le périmètre.</p></div></div>
-      <div class="step"><div class="num">2</div><div><h3>Design</h3><p>Maquettes sur mesure, validées avant tout développement.</p></div></div>
-      <div class="step"><div class="num">3</div><div><h3>Développement</h3><p>Intégration Shopify propre, rapide et facile à gérer.</p></div></div>
-      <div class="step"><div class="num">4</div><div><h3>Lancement</h3><p>Tests, mise en ligne et passation de votre boutique.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="bg-tint" id="abo">
-  <div class="wrap">
-    <div class="head center">
-      <div class="eyebrow"><i>08</i>Abonnement</div>
-      <h2>Un développeur et motion designer <em>à vos côtés, chaque mois.</em></h2>
-      <p class="lead">Votre boutique évolue en continu. L'abonnement vous garantit du temps de travail réservé, sans recruter ni relancer.</p>
-    </div>
-    <div class="plans">
-      <div class="plan2">
-        
-        <h3>Essentiel</h3><p class="sm">Pour entretenir et faire évoluer votre boutique.</p>
-        <div class="pr"><b>590</b><span> €&nbsp;/ mois</span></div>
-        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>1 demande à la fois</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Corrections et petites évolutions du thème</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Maintenance de la boutique</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Réponse sous 48 h</li></ul>
-        <a class="btn sec" href="mailto:oussamayero@gmail.com?subject=Abonnement%20Essentiel">Choisir Essentiel</a>
-      </div>
-      <div class="plan2 rec">
-        <span class="pill">Recommandé</span>
-        <h3>Croissance</h3><p class="sm">Pour une boutique qui lance régulièrement.</p>
-        <div class="pr"><b>1 290</b><span> €&nbsp;/ mois</span></div>
-        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>2 demandes en parallèle</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Nouvelles sections et pages premium</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>1 publicité animée par mois</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Workflows n8n simples</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Réponse sous 24 h</li></ul>
-        <a class="btn" href="mailto:oussamayero@gmail.com?subject=Abonnement%20Croissance">Choisir Croissance</a>
-      </div>
-      <div class="plan2">
-        
-        <h3>Studio</h3><p class="sm">Pour les marques qui avancent vite.</p>
-        <div class="pr"><b>2 490</b><span> €&nbsp;/ mois</span></div>
-        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>3 demandes en parallèle</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Jusqu’à 4 publicités animées par mois</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Workflows n8n sur mesure</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Point de suivi mensuel</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Réponse prioritaire</li></ul>
-        <a class="btn sec" href="mailto:oussamayero@gmail.com?subject=Abonnement%20Studio">Choisir Studio</a>
-      </div>
-    </div>
-    <p class="plan-note">Facturation mensuelle, sans engagement de durée. Tarifs HT, adaptables à votre volume de besoins.</p>
-  </div>
-</section>
-
-<section class="bg-white" id="faq">
-  <div class="wrap">
-    <div class="head center">
-      <div class="eyebrow"><i>09</i>Questions</div>
-      <h2>Les questions <em>qu'on me pose souvent.</em></h2>
-    </div>
+    <div class="sec-label label"><b>Questions</b></div>
+    <h2>Ce qu'on me demande souvent.</h2>
     <div class="faq">
-      <details class="q" open><summary>Combien coûte une boutique sur mesure ?</summary><p>Une boutique sur mesure démarre à partir de 3 500 €. Après un premier échange, je vous envoie un devis précis selon votre périmètre.</p></details>
-      <details class="q"><summary>Combien de temps prend un projet ?</summary><p>Cela varie selon la taille de la boutique. Un calendrier précis est fixé dès le cadrage.</p></details>
-      <details class="q"><summary>Puis-je gérer ma boutique seul après la livraison ?</summary><p>Oui. Le thème est conçu pour que vous modifiiez vos contenus depuis l'éditeur Shopify, sans code.</p></details>
-      <details class="q"><summary>L'abonnement convient-il à ma marque ?</summary><p>Si vous avez des besoins réguliers sur votre boutique, oui. On en parle pour ajuster le format.</p></details>
+      <details open><summary>Combien coûte un projet ?</summary><p>Les tarifs sont établis sur devis, après un premier échange sur votre besoin. Aucun prix fixe n'est affiché ici.</p></details>
+      <details><summary>Combien de temps prend un projet ?</summary><p>Cela dépend du périmètre. Un calendrier est défini au cadrage.</p></details>
+      <details><summary>Pouvez-vous intervenir sur ma boutique actuelle ?</summary><p>Oui. Une section, une page, une vidéo ou un workflow peuvent s'ajouter à une boutique existante.</p></details>
+      <details><summary>Puis-je gérer le contenu moi-même ensuite ?</summary><p>Oui. Les sections sont conçues pour être modifiées depuis l'éditeur Shopify, sans toucher au code.</p></details>
+      <details><summary>À qui s'adresse l'accompagnement mensuel ?</summary><p>Aux marques qui font régulièrement évoluer leur boutique : nouveautés, campagnes, contenus animés, automatisations.</p></details>
     </div>
   </div>
 </section>
 
-<section class="bg-brand cta" id="contact">
+<!-- CONTACT -->
+<section class="sec contact t-orange" id="contact">
   <div class="wrap">
-    <div class="eyebrow"><i>10</i>Contact</div>
-    <h2>Parlons de votre boutique.</h2>
-    <p class="lead">Décrivez votre projet en quelques lignes. Je vous réponds avec une première proposition.</p>
-    <a class="btn on-dark" href="mailto:oussamayero@gmail.com?subject=Projet%20Shopify">Réserver un échange</a>
-    <p class="sub2">Premier échange gratuit · Réponse sous quelques jours</p>
+    <div class="grid">
+      <div>
+        <div class="sec-label label"><b>Contact</b></div>
+        <h2>Parlons de votre boutique.</h2>
+        <p class="lead">Dites-moi où vous en êtes. Je vous réponds avec une première piste.</p>
+        <p class="mail" id="mail-text">oussamayero@gmail.com</p>
+        <div class="mailrow">
+          <a class="btn" href="mailto:oussamayero@gmail.com?subject=Projet%20Ouza%20Studio">Écrire à Ouza Studio</a>
+          <button class="copy" type="button" id="copy-mail">Copier l'adresse</button>
+        </div>
+      </div>
+      <ul class="briefs" aria-label="Choisir un sujet">
+        <li><a href="mailto:oussamayero@gmail.com?subject=Projet%20Shopify%20%E2%80%94%20Ouza%20Studio">Un projet Shopify <span aria-hidden="true">→</span></a></li>
+        <li><a href="mailto:oussamayero@gmail.com?subject=Projet%20motion%20%E2%80%94%20Ouza%20Studio">Une vidéo ou une pub animée <span aria-hidden="true">→</span></a></li>
+        <li><a href="mailto:oussamayero@gmail.com?subject=Automatisation%20%E2%80%94%20Ouza%20Studio">Un workflow à automatiser <span aria-hidden="true">→</span></a></li>
+      </ul>
+    </div>
+    <p class="end label" aria-hidden="true"><span>Fin de séquence</span><span>00:00:04:00</span></p>
   </div>
 </section>
-
 </main>
+
 <footer>
   <div class="wrap">
-    <span class="logo">Studio Ouza</span>
-    <nav><a href="#realisations">Réalisations</a><a href="#abo">Abonnement</a><a href="#contact">Contact</a></nav>
-    <span>© 2026 Studio Ouza · Boutiques Shopify sur mesure</span>
+    <span class="brand"><span class="mark" aria-hidden="true"></span>Ouza Studio</span>
+    <nav class="label" aria-label="Pied de page"><a href="#realisations">Réalisations</a><a href="#collaboration">Collaboration</a><a href="#contact">Contact</a></nav>
+    <span class="label">© 2026 Ouza Studio</span>
   </div>
-
 </footer>
+
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
