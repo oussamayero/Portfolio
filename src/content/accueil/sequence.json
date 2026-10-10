@@ -1,0 +1,10 @@
+{
+  "statut": "Concept de démonstration · marque fictive",
+  "titre": "De la fiche produit à la commande traitée.",
+  "description": "Séquence signature : une fiche produit se compose, sa photo devient une publicité verticale, puis une commande déclenche trois actions automatiques. Marque fictive, créée pour ce site.",
+  "chapitres": [
+    { "titre": "La boutique", "legende": "Une fiche produit se compose : grille, photo, prix, bouton." },
+    { "titre": "Le produit s'anime", "legende": "La photo sort de la page et devient une publicité verticale." },
+    { "titre": "La commande part", "legende": "Un workflow met le suivi à jour et prévient l'équipe." }
+  ]
+}

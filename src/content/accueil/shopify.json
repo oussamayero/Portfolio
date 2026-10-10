@@ -1,0 +1,46 @@
+{
+  "surtitre": "01 · Boutiques Shopify",
+  "titre": "Une boutique Shopify dessinée pour votre marque et vos produits.",
+  "texte": "Création, refonte ou nouvelle section : je conçois les maquettes, puis je les intègre dans Shopify. Chaque page est pensée pour le téléphone autant que pour l'ordinateur.",
+  "situations": [
+    { "texte": "Votre boutique tourne, mais ne ressemble plus à votre marque.", "type": "Refonte" },
+    { "texte": "Vous lancez votre marque et votre première boutique.", "type": "Création" },
+    { "texte": "Il vous manque une page, une section, un parcours.", "type": "Sections et évolutions" }
+  ],
+  "projets": [
+    {
+      "statut": "Projet réalisé en agence",
+      "secteur": "",
+      "contribution": "",
+      "captureDesktop": "",
+      "captureMobile": "",
+      "description": ""
+    },
+    {
+      "statut": "Projet réalisé en agence",
+      "secteur": "",
+      "contribution": "",
+      "captureDesktop": "",
+      "captureMobile": "",
+      "description": ""
+    },
+    {
+      "statut": "Projet réalisé en agence",
+      "secteur": "",
+      "contribution": "",
+      "captureDesktop": "",
+      "captureMobile": "",
+      "description": ""
+    }
+  ],
+  "livraisonsTitre": "Ce que vous recevez",
+  "livrables": [
+    { "texte": "Maquettes desktop et mobile, validées avant le développement" },
+    { "texte": "Thème personnalisé ou développé sur mesure", "aConfirmer": true },
+    { "texte": "Sections modifiables depuis l'éditeur Shopify", "aConfirmer": true },
+    { "texte": "Pages produit, collections et pages de marque" },
+    { "texte": "Mise en ligne et prise en main de l'éditeur" },
+    { "texte": "Évolutions après le lancement" }
+  ],
+  "lien": "Un projet Shopify ? Présenter mon projet"
+}

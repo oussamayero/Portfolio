@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Fil from '../components/Fil.astro';
 import Hero from '../components/Hero.astro';
+import Sequence from '../components/Sequence.astro';
+import Shopify from '../components/Shopify.astro';
 import Chantier from '../components/Chantier.astro';
 import site from '../content/site.json';
 ---
@@ -12,6 +14,8 @@ import site from '../content/site.json';
   <main id="main" class="page" tabindex="-1">
     <Fil />
     <Hero />
+    <Sequence />
+    <Shopify />
     {site.chantier && <Chantier />}
   </main>
 </Base>

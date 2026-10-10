@@ -1,0 +1,428 @@
+---
+// Section Shopify : situations, projets anonymisés réalisés en agence, livrables.
+// Les captures se déposent dans src/assets/projets/ et se référencent par leur nom de fichier dans shopify.json.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import shopify from '../content/accueil/shopify.json';
+import site from '../content/site.json';
+import Wp from './Wp.astro';
+import { typo } from '../lib/typo';
+
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/projets/*.{jpg,jpeg,png,webp,avif}', { eager: true });
+const capture = (file: string) => {
+  if (!file) return undefined;
+  const key = Object.keys(images).find((k) => k.endsWith(`/${file}`));
+  return key ? images[key].default : undefined;
+};
+
+const projets = shopify.projets.map((p, n) => ({
+  ...p,
+  n: n + 1,
+  desktop: capture(p.captureDesktop),
+  mobile: capture(p.captureMobile),
+}));
+const total = projets.length;
+---
+
+<section class="shopify" id="shopify" aria-labelledby="shopify-title">
+  <div class="wrap">
+    <p class="t-label eyebrow"><Wp i={32} node="o" style="left:var(--gut);top:50%" />{typo(shopify.surtitre)}</p>
+
+    <div class="intro">
+      <div class="intro-text">
+        <h2 class="t-h2" id="shopify-title">{typo(shopify.titre)}</h2>
+        <p class="t-lead">{typo(shopify.texte)}</p>
+      </div>
+      <ul class="situations">
+        {
+          shopify.situations.map((s) => (
+            <li>
+              <span class="s-text">{typo(s.texte)}</span>
+              <span class="s-type">{typo(s.type)}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="cases" data-cases>
+      <p class="sr-only" aria-live="polite" data-cases-status>Projet 1 sur {total}</p>
+      {
+        projets.map((p) => (
+          <article class="case" data-case hidden={p.n !== 1} aria-label={`Projet ${p.n} sur ${total}`}>
+            <div class="shots">
+              <figure class="browser">
+                <div class="bar" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                  <span>Adresse masquée</span>
+                </div>
+                {p.desktop ? (
+                  <Image src={p.desktop} alt={typo(p.description || 'Capture desktop du projet')} widths={[640, 960, 1280, 1600]} sizes="(min-width: 900px) 70vw, 100vw" />
+                ) : (
+                  <div class="placeholder ratio-d">
+                    <span>Capture desktop réelle d’un projet anonymisé · à fournir</span>
+                  </div>
+                )}
+              </figure>
+              <figure class="phone">
+                {p.mobile ? (
+                  <Image src={p.mobile} alt={typo(p.description || 'Capture mobile du projet')} widths={[360, 540, 720]} sizes="(min-width: 900px) 18vw, 80vw" />
+                ) : (
+                  <div class="placeholder ratio-m">
+                    <span>Capture mobile · à fournir</span>
+                  </div>
+                )}
+              </figure>
+            </div>
+            <div class="meta">
+              <span class="tag">{typo(p.statut)}</span>
+              <span>Secteur : {p.secteur ? typo(p.secteur) : <span class="a-fournir">à fournir</span>}</span>
+              <span>Contribution : {p.contribution ? typo(p.contribution) : <span class="a-fournir">à fournir</span>}</span>
+            </div>
+          </article>
+        ))
+      }
+      {
+        total > 1 && (
+          <div class="nav">
+            <button type="button" class="pill" data-cases-prev>
+              ← Précédent
+            </button>
+            <span class="count" aria-hidden="true" data-cases-count>
+              1 / {total}
+            </span>
+            <button type="button" class="pill" data-cases-next>
+              Suivant →
+            </button>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="deliverables">
+      <h3 class="t-label">{typo(shopify.livraisonsTitre)}</h3>
+      <ul>
+        {
+          shopify.livrables.map((l) => (
+            <li>
+              {typo(l.texte)}
+              {l.aConfirmer && <span class="a-fournir">à confirmer</span>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <p class="cta"><a class="tlink" href={site.actionPrincipale.ancre} data-need="shopify">{typo(shopify.lien)}&nbsp;→</a></p>
+  </div>
+</section>
+
+<style>
+  .wrap {
+    padding-block: 40px var(--s-section);
+  }
+
+  .eyebrow {
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .intro {
+    display: grid;
+    gap: 32px;
+  }
+
+  .intro-text .t-lead {
+    margin-top: 18px;
+    max-width: 32em;
+  }
+
+  .situations li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 0;
+    border-top: 1.5px solid var(--trait);
+  }
+
+  .situations li:last-child {
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  .s-text {
+    font-family: var(--f-disp);
+    font-weight: 650;
+    font-stretch: 92%;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+  }
+
+  .s-type {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--pierre);
+  }
+
+  .cases {
+    margin-top: 48px;
+  }
+
+  .shots {
+    display: grid;
+    gap: 16px;
+  }
+
+  .browser {
+    display: none;
+    overflow: hidden;
+    border: 1.5px solid var(--trait);
+    border-radius: 16px;
+    background: var(--papier);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 38px;
+    padding: 0 16px;
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  .bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--trait);
+  }
+
+  .bar span {
+    margin-left: 14px;
+    padding: 0.25em 1em;
+    border-radius: var(--r-pill);
+    background: var(--ivoire-2);
+    font-size: 0.75rem;
+    color: var(--pierre);
+  }
+
+  .phone {
+    overflow: hidden;
+    border: 1.5px solid var(--trait);
+    border-radius: 18px;
+    background: var(--papier);
+  }
+
+  .shots :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .placeholder {
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    text-align: center;
+    background: repeating-linear-gradient(135deg, var(--ivoire-2) 0 1.5px, var(--papier) 1.5px 12px);
+  }
+
+  .placeholder span,
+  .a-fournir {
+    padding: 0.2em 0.55em;
+    border-radius: 5px;
+    background: var(--todo-bg);
+    color: var(--todo);
+    font-weight: 650;
+    font-size: 0.85em;
+  }
+
+  .ratio-d {
+    aspect-ratio: 16 / 9.6;
+  }
+
+  .ratio-m {
+    aspect-ratio: 4 / 5;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 22px;
+    margin-top: 16px;
+    font-size: 0.95rem;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .count {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.92rem;
+  }
+
+  .deliverables {
+    margin-top: 56px;
+    display: grid;
+    gap: 14px;
+  }
+
+  .deliverables ul {
+    display: grid;
+  }
+
+  .deliverables li {
+    position: relative;
+    padding: 14px 0 14px 28px;
+    border-top: 1.5px solid var(--trait);
+  }
+
+  .deliverables li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 19px;
+    width: 12px;
+    height: 12px;
+    border: 2.5px solid var(--corail);
+    border-radius: 50%;
+  }
+
+  .deliverables .a-fournir {
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  .cta {
+    margin-top: 40px;
+  }
+
+  @media (min-width: 900px) {
+    .wrap {
+      padding-top: 0;
+    }
+
+    .eyebrow {
+      margin-bottom: 30px;
+    }
+
+    .intro {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+    }
+
+    .intro-text {
+      grid-column: 1 / span 5;
+    }
+
+    .situations {
+      grid-column: 7 / span 6;
+    }
+
+    .situations li {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 24px;
+      padding: 20px 0;
+    }
+
+    .s-text {
+      font-size: 1.3rem;
+    }
+
+    .s-type {
+      white-space: nowrap;
+    }
+
+    .cases {
+      margin-top: 90px;
+    }
+
+    .shots {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      align-items: start;
+    }
+
+    .browser {
+      display: block;
+      grid-column: 1 / span 9;
+    }
+
+    .phone {
+      grid-column: 10 / span 3;
+      margin-top: 40px;
+      border: 1.5px solid var(--encre);
+      border-radius: 30px;
+      padding: 8px;
+    }
+
+    .phone .placeholder,
+    .phone :global(img) {
+      border-radius: 22px;
+    }
+
+    .ratio-m {
+      aspect-ratio: 9 / 18.5;
+    }
+
+    .case {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .nav {
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+
+    .deliverables {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      margin-top: 80px;
+    }
+
+    .deliverables h3 {
+      grid-column: 1 / span 3;
+    }
+
+    .deliverables ul {
+      grid-column: 4 / span 9;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+    }
+
+    .cta {
+      margin-top: 56px;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cases]');
+  if (root) {
+    const cases = Array.from(root.querySelectorAll<HTMLElement>('[data-case]'));
+    const count = root.querySelector('[data-cases-count]');
+    const status = root.querySelector('[data-cases-status]');
+    let index = 0;
+    const show = (next: number) => {
+      index = (next + cases.length) % cases.length;
+      cases.forEach((c, i) => (c.hidden = i !== index));
+      const text = `${index + 1} / ${cases.length}`;
+      if (count) count.textContent = text;
+      if (status) status.textContent = `Projet ${index + 1} sur ${cases.length}`;
+    };
+    root.querySelector('[data-cases-prev]')?.addEventListener('click', () => show(index - 1));
+    root.querySelector('[data-cases-next]')?.addEventListener('click', () => show(index + 1));
+  }
+</script>

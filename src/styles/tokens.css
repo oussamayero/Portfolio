@@ -16,6 +16,8 @@
   --nuit-2: #2a221c;
   --sable: #bfb3a6;
   --brique: #b3261e;
+  --todo: #7a4300; /* repères « à fournir », à retirer avant la mise en ligne */
+  --todo-bg: #ffe3b8;
 
   /* Polices */
   --f-disp: 'Bricolage Grotesque Variable', 'Arial Narrow', system-ui, sans-serif;

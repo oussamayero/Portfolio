@@ -1,0 +1,413 @@
+---
+// Séquence signature : une marque fictive traverse les trois métiers en une seule scène.
+import sequence from '../content/accueil/sequence.json';
+import Wp from './Wp.astro';
+import { typo } from '../lib/typo';
+---
+
+<section class="seq" id="demonstrations" aria-labelledby="seq-title" data-sequence>
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="jar" viewBox="0 0 100 160">
+      <rect x="31" y="1" width="38" height="24" rx="5" fill="#1b1612" stroke="#fffcf8" stroke-width="2"></rect>
+      <rect x="37" y="24" width="26" height="9" fill="#1b1612"></rect>
+      <rect x="12" y="31" width="76" height="127" rx="22" fill="#fffcf8" stroke="#1b1612" stroke-width="3"></rect>
+      <rect x="22" y="70" width="56" height="52" rx="4" fill="#f2482a"></rect>
+      <rect x="30" y="82" width="40" height="5" rx="2" fill="#fffcf8"></rect>
+      <rect x="30" y="94" width="26" height="4" rx="2" fill="#fffcf8"></rect>
+      <rect x="30" y="104" width="32" height="4" rx="2" fill="#fffcf8"></rect>
+      <path d="M24 46 V60" fill="none" stroke="#dcd1c3" stroke-width="4" stroke-linecap="round"></path>
+    </symbol>
+  </svg>
+
+  <div class="wrap">
+    <div class="top">
+      <div class="heading">
+        <Wp i={20} node="o" style="left:var(--gut);top:16px" />
+        <span class="tag">{typo(sequence.statut)}</span>
+        <h2 class="title" id="seq-title">{typo(sequence.titre)}</h2>
+      </div>
+      <div class="controls">
+        <button type="button" class="pill" data-seq-play data-play="Lecture" data-pause="Pause" data-reduced="Lire l’animation">Lecture</button>
+        <button type="button" class="pill" data-seq-replay>Rejouer</button>
+      </div>
+    </div>
+
+    <div class="stage" data-stage>
+      <svg class="sv sv-d" viewBox="0 0 1280 720" role="img" aria-labelledby="sv-d-title">
+        <title id="sv-d-title">{typo(sequence.description)}</title>
+        <rect class="k-iv2" width="1280" height="720"></rect>
+        <path class="s-filin k-fil" pathLength="1" d="M-10 384 H160"></path>
+        <g class="s-page">
+          <rect class="s-card k-pap k-strk" x="160" y="80" width="600" height="560" rx="18"></rect>
+          <g class="s-head">
+            <text class="k-t" x="192" y="128" font-size="18" font-weight="700" letter-spacing="5">ILVANE</text>
+            <text class="k-t k-mut" x="728" y="128" font-size="15" text-anchor="end">Huiles    Soins    Journal</text>
+            <line class="k-hair" x1="160" y1="152" x2="760" y2="152"></line>
+          </g>
+          <rect class="s-img k-cor" x="192" y="176" width="264" height="320" rx="12"></rect>
+          <use class="s-jar" href="#jar" x="252" y="214" width="144" height="232"></use>
+          <g class="s-info">
+            <text class="k-t k-mut" x="488" y="212" font-size="15" letter-spacing="3" font-weight="650">HUILE VISAGE</text>
+            <text class="k-d" x="488" y="268" font-size="54">Huile n°3</text>
+            <text class="k-t k-mut" x="488" y="302" font-size="18">30 ml · nouvelle formule</text>
+            <text class="k-t" x="488" y="356" font-size="27" font-weight="650">34,00 €</text>
+            <g><rect class="k-enc" x="488" y="384" width="240" height="56" rx="28"></rect><text class="k-t k-ivt" x="608" y="418" font-size="18" font-weight="650" text-anchor="middle">Ajouter au panier</text></g>
+            <text class="k-t k-mut" x="488" y="482" font-size="16">Flacon rechargeable</text>
+          </g>
+          <g class="s-thumbs">
+            <rect class="k-iv2" x="192" y="524" width="80" height="80" rx="10"></rect><use href="#jar" x="216" y="532" width="32" height="52"></use>
+            <rect class="k-iv2" x="284" y="524" width="80" height="80" rx="10"></rect><use href="#jar" x="308" y="532" width="32" height="52"></use>
+            <rect class="k-iv2" x="376" y="524" width="80" height="80" rx="10"></rect><use href="#jar" x="400" y="532" width="32" height="52"></use>
+          </g>
+          <path class="s-cardline k-fil" pathLength="1" d="M160 384 V98 Q160 80 178 80 H742 Q760 80 760 98 V622 Q760 640 742 640 H178 Q160 640 160 622 Z"></path>
+          <path class="s-imgline k-out" pathLength="1" d="M192 176 H456 V496 H192 Z"></path>
+          <path class="s-tline k-out" pathLength="1" d="M488 252 H700 M488 296 H640"></path>
+        </g>
+        <path class="s-arc k-dash" d="M456 200 C560 70 600 52 680 104"></path>
+        <rect class="s-lift k-cor" x="192" y="176" width="264" height="320" rx="12"></rect>
+        <g class="s-ad">
+          <rect class="k-enc" x="680" y="56" width="344" height="608" rx="18"></rect>
+          <text class="s-adfmt k-t k-sab" x="706" y="94" font-size="15" font-weight="650" letter-spacing="1">9:16</text>
+          <use class="s-adjar" href="#jar" x="780" y="120" width="144" height="232"></use>
+          <text class="s-adt1 k-t k-cort" x="852" y="418" font-size="15" font-weight="700" letter-spacing="3" text-anchor="middle">NOUVELLE FORMULE</text>
+          <text class="s-adt2 k-d k-ivt" x="852" y="482" font-size="54" text-anchor="middle">Huile n°3</text>
+          <g class="s-adbtn"><rect class="k-cor" x="760" y="520" width="184" height="56" rx="28"></rect><text class="k-t" x="852" y="555" font-size="19" font-weight="650" text-anchor="middle">Découvrir</text></g>
+          <circle class="s-tap" cx="852" cy="548" r="8"></circle>
+        </g>
+        <path class="s-conn k-dash" d="M340 470 C430 470 440 330 512 328"></path>
+        <g class="s-order">
+          <rect class="k-pap k-strk" x="144" y="256" width="384" height="208" rx="18"></rect>
+          <text class="k-t k-mut" x="176" y="306" font-size="15" font-weight="650" letter-spacing="3">NOUVELLE COMMANDE</text>
+          <text class="k-d" x="176" y="372" font-size="52">n° 1042</text>
+          <text class="k-t k-mut" x="176" y="420" font-size="19">Huile n°3 × 1</text>
+        </g>
+        <path class="s-filout k-fil" pathLength="1" d="M528 360 H632"></path>
+        <path class="s-br k-sapl" pathLength="1" d="M632 360 C744 360 768 176 888 176"></path>
+        <path class="s-br k-sapl" pathLength="1" d="M632 360 H888"></path>
+        <path class="s-br k-sapl" pathLength="1" d="M632 360 C744 360 768 544 888 544"></path>
+        <circle class="s-nd k-sap" cx="904" cy="176" r="16"></circle>
+        <circle class="s-nd k-sap" cx="904" cy="360" r="16"></circle>
+        <circle class="s-nd k-sap" cx="904" cy="544" r="16"></circle>
+        <text class="s-lb k-t" x="940" y="185" font-size="27" font-weight="600">Suivi mis à jour</text>
+        <text class="s-lb k-t" x="940" y="369" font-size="27" font-weight="600">Fournisseur prévenu</text>
+        <text class="s-lb k-t" x="940" y="553" font-size="27" font-weight="600">Équipe prévenue</text>
+      </svg>
+
+      <svg class="sv sv-m" viewBox="0 0 400 500" role="img" aria-labelledby="sv-m-title">
+        <title id="sv-m-title">{typo(sequence.description)}</title>
+        <rect class="k-iv2" width="400" height="500"></rect>
+        <path class="s-filin k-fil" pathLength="1" d="M-6 250 H24"></path>
+        <g class="s-page">
+          <rect class="s-card k-pap k-strk" x="24" y="40" width="352" height="420" rx="14"></rect>
+          <g class="s-head">
+            <text class="k-t" x="48" y="72" font-size="12" font-weight="700" letter-spacing="3">ILVANE</text>
+            <line class="k-hair" x1="24" y1="88" x2="376" y2="88"></line>
+          </g>
+          <rect class="s-img k-cor" x="48" y="104" width="150" height="190" rx="8"></rect>
+          <use class="s-jar" href="#jar" x="83" y="122" width="80" height="128"></use>
+          <g class="s-info">
+            <text class="k-t k-mut" x="214" y="122" font-size="9.5" letter-spacing="1.6" font-weight="650">HUILE VISAGE</text>
+            <text class="k-d" x="214" y="152" font-size="27">Huile n°3</text>
+            <text class="k-t k-mut" x="214" y="170" font-size="9.5">30 ml · nouvelle formule</text>
+            <text class="k-t" x="214" y="200" font-size="15" font-weight="650">34,00 €</text>
+            <g><rect class="k-enc" x="214" y="214" width="140" height="36" rx="18"></rect><text class="k-t k-ivt" x="284" y="236" font-size="11" font-weight="650" text-anchor="middle">Ajouter au panier</text></g>
+            <text class="k-t k-mut" x="214" y="274" font-size="10">Flacon rechargeable</text>
+          </g>
+          <g class="s-thumbs">
+            <rect class="k-iv2" x="48" y="312" width="60" height="60" rx="8"></rect><use href="#jar" x="64" y="318" width="28" height="46"></use>
+            <rect class="k-iv2" x="116" y="312" width="60" height="60" rx="8"></rect><use href="#jar" x="132" y="318" width="28" height="46"></use>
+            <rect class="k-iv2" x="184" y="312" width="60" height="60" rx="8"></rect><use href="#jar" x="200" y="318" width="28" height="46"></use>
+          </g>
+          <path class="s-cardline k-fil" pathLength="1" d="M24 250 V54 Q24 40 38 40 H362 Q376 40 376 54 V446 Q376 460 362 460 H38 Q24 460 24 446 Z"></path>
+          <path class="s-imgline k-out" pathLength="1" d="M48 104 H198 V294 H48 Z"></path>
+          <path class="s-tline k-out" pathLength="1" d="M214 144 H340 M214 166 H310"></path>
+        </g>
+        <path class="s-arc k-dash" d="M198 150 C236 120 236 80 214 64"></path>
+        <rect class="s-lift k-cor" x="48" y="104" width="150" height="190" rx="8"></rect>
+        <g class="s-ad">
+          <rect class="k-enc" x="88" y="48" width="224" height="398" rx="14"></rect>
+          <text class="s-adfmt k-t k-sab" x="104" y="74" font-size="10" font-weight="650">9:16</text>
+          <use class="s-adjar" href="#jar" x="150" y="92" width="100" height="160"></use>
+          <text class="s-adt1 k-t k-cort" x="200" y="300" font-size="10.5" font-weight="700" letter-spacing="2" text-anchor="middle">NOUVELLE FORMULE</text>
+          <text class="s-adt2 k-d k-ivt" x="200" y="342" font-size="36" text-anchor="middle">Huile n°3</text>
+          <g class="s-adbtn"><rect class="k-cor" x="140" y="368" width="120" height="40" rx="20"></rect><text class="k-t" x="200" y="393" font-size="14" font-weight="650" text-anchor="middle">Découvrir</text></g>
+          <circle class="s-tap" cx="200" cy="388" r="6"></circle>
+        </g>
+        <path class="s-conn k-dash" d="M92 160 C112 160 114 95 130 95"></path>
+        <g class="s-order">
+          <rect class="k-pap k-strk" x="130" y="40" width="246" height="110" rx="14"></rect>
+          <text class="k-t k-mut" x="148" y="68" font-size="9.5" letter-spacing="1.6" font-weight="650">NOUVELLE COMMANDE</text>
+          <text class="k-d" x="148" y="108" font-size="30">n° 1042</text>
+          <text class="k-t k-mut" x="148" y="134" font-size="12">Huile n°3 × 1</text>
+        </g>
+        <path class="s-filout k-fil" pathLength="1" d="M253 150 V190"></path>
+        <path class="s-br k-sapl" pathLength="1" d="M253 190 Q253 206 237 206 H166 Q150 206 150 222 V250"></path>
+        <path class="s-br k-sapl" pathLength="1" d="M150 250 V330"></path>
+        <path class="s-br k-sapl" pathLength="1" d="M150 330 V410"></path>
+        <circle class="s-nd k-sap" cx="150" cy="250" r="9"></circle>
+        <circle class="s-nd k-sap" cx="150" cy="330" r="9"></circle>
+        <circle class="s-nd k-sap" cx="150" cy="410" r="9"></circle>
+        <text class="s-lb k-t" x="172" y="256" font-size="17" font-weight="600">Suivi mis à jour</text>
+        <text class="s-lb k-t" x="172" y="336" font-size="17" font-weight="600">Fournisseur prévenu</text>
+        <text class="s-lb k-t" x="172" y="416" font-size="17" font-weight="600">Équipe prévenue</text>
+      </svg>
+    </div>
+
+    <div class="chapters">
+      <Wp i={22} only="d" style="left:var(--gut);top:0" />
+      <ol aria-label="Chapitres de la séquence">
+        {
+          sequence.chapitres.map((ch, n) => (
+            <li data-chapter>
+              <span class="node" data-i={24 + n} aria-hidden="true" />
+              <button type="button">
+                <span class="num" aria-hidden="true">{n + 1}</span>
+                <span class="ch-title">{typo(ch.titre)}</span>
+                <span class="ch-text">{typo(ch.legende)}</span>
+                <span class="bar" aria-hidden="true" />
+              </button>
+            </li>
+          ))
+        }
+      </ol>
+      <Wp i={28} only="d" style="left:calc(100% + var(--pr) / 2);top:0" />
+    </div>
+    <Wp i={29} only="d" style="left:calc(100% - var(--pr) / 2);bottom:56px" />
+    <Wp i={30} only="d" style="left:calc(var(--pl) + var(--gut));bottom:56px" />
+  </div>
+</section>
+
+<style>
+  .sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .wrap {
+    padding-top: 28px;
+    padding-bottom: 80px;
+  }
+
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px 24px;
+    margin-bottom: 24px;
+  }
+
+  .heading {
+    position: relative;
+  }
+
+  .title {
+    margin-top: 14px;
+    font-family: var(--f-disp);
+    font-weight: 740;
+    font-stretch: 90%;
+    font-size: clamp(1.4rem, 1rem + 1vw, 1.9rem);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stage {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--ivoire-2);
+  }
+
+  .sv {
+    width: 100%;
+    height: auto;
+  }
+
+  .sv-d {
+    display: none;
+  }
+
+  /* Avant le chargement de l'animation : la fiche produit seule, comme affiche. */
+  .sv :global(:is(.s-ad, .s-order, .s-lift, .s-conn, .s-arc, .s-filout, .s-br, .s-nd, .s-lb, .s-tap, .s-cardline, .s-imgline, .s-tline)) {
+    opacity: 0;
+  }
+
+  .stage :global(.k-iv2) { fill: var(--ivoire-2); }
+  .stage :global(.k-pap) { fill: var(--papier); }
+  .stage :global(.k-enc) { fill: var(--encre); }
+  .stage :global(.k-cor) { fill: var(--corail); }
+  .stage :global(.k-sap) { fill: var(--sapin); }
+  .stage :global(.k-strk) { stroke: var(--trait); stroke-width: 2; }
+  .stage :global(.k-hair) { stroke: var(--trait); stroke-width: 2; }
+  .stage :global(.k-t) { font-family: var(--f-body); fill: var(--encre); }
+  .stage :global(.k-d) { font-family: var(--f-disp); font-weight: 790; font-stretch: 88%; letter-spacing: -0.03em; fill: var(--encre); }
+  .stage :global(.k-mut) { fill: var(--pierre); }
+  .stage :global(.k-ivt) { fill: var(--ivoire); }
+  .stage :global(.k-sab) { fill: var(--sable); }
+  .stage :global(.k-cort) { fill: var(--corail); }
+  .stage :global(.k-fil) { fill: none; stroke: var(--corail); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .stage :global(.k-out) { fill: none; stroke: var(--encre); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .stage :global(.k-dash) { fill: none; stroke: var(--corail); stroke-width: 2; stroke-dasharray: 6 6; stroke-linecap: round; }
+  .stage :global(.k-sapl) { fill: none; stroke: var(--sapin); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .stage :global(.s-tap) { fill: none; stroke: var(--corail); stroke-width: 3; }
+
+  .chapters {
+    position: relative;
+    margin-top: 24px;
+  }
+
+  li {
+    position: relative;
+    border-top: 1.5px solid var(--trait);
+  }
+
+  li:last-child {
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  button {
+    all: unset;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 4px;
+    width: 100%;
+    padding: 14px 0;
+    cursor: pointer;
+    color: var(--pierre);
+    border-radius: 8px;
+    transition: color var(--d-2) var(--ease);
+  }
+
+  button:focus-visible {
+    box-shadow: 0 0 0 3px var(--ivoire), 0 0 0 5px var(--encre);
+  }
+
+  button:hover,
+  li.is-current button {
+    color: var(--encre);
+  }
+
+  .num {
+    display: none;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ch-title {
+    font-family: var(--f-disp);
+    font-weight: 720;
+    font-stretch: 90%;
+    font-size: 1.3rem;
+    letter-spacing: -0.015em;
+  }
+
+  .ch-text {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+    height: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--trait);
+  }
+
+  .bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--encre);
+    transform: scaleX(var(--progress, 0));
+    transform-origin: left;
+  }
+
+  .node {
+    position: absolute;
+    left: var(--gut);
+    top: 50%;
+    z-index: 5;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 4px solid var(--corail);
+    border-radius: 50%;
+    background: var(--ivoire);
+    transition: background var(--d-3) var(--ease);
+  }
+
+  li.is-done .node {
+    background: var(--corail);
+  }
+
+  @media (min-width: 900px) {
+    .wrap {
+      padding-bottom: 150px;
+    }
+
+    .sv-d {
+      display: block;
+    }
+
+    .sv-m {
+      display: none;
+    }
+
+    .stage {
+      border-radius: 24px;
+    }
+
+    .stage :global(.k-fil) { stroke-width: 4; }
+    .stage :global(.k-dash) { stroke-width: 2.5; stroke-dasharray: 9 9; }
+    .stage :global(.k-sapl) { stroke-width: 4; }
+
+    .chapters {
+      margin-top: 46px;
+    }
+
+    ol {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    li,
+    li:last-child {
+      border: 0;
+    }
+
+    button {
+      grid-template-columns: 24px minmax(0, 1fr);
+      padding: 30px 32px 6px 0;
+    }
+
+    .num {
+      display: block;
+      grid-row: span 3;
+      padding-top: 3px;
+    }
+
+    .node {
+      left: 0;
+      top: 0;
+    }
+  }
+</style>
+
+<script>
+  import { initSequence } from '../scripts/sequence';
+
+  const section = document.querySelector<HTMLElement>('[data-sequence]');
+  if (section) initSequence(section);
+</script>
