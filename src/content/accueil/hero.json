@@ -1,0 +1,10 @@
+{
+  "titre": ["Je conçois la boutique,", "ce qui l'anime", "et ce qui la fait tourner."],
+  "chapeau": "Boutiques Shopify sur mesure, contenus animés et automatisations pour les marques e-commerce. Une seule personne s'en charge, du premier échange à la mise en ligne.",
+  "lienSecondaire": { "libelle": "Voir les démonstrations", "ancre": "#demonstrations" },
+  "expertises": [
+    { "numero": "01", "titre": "Boutiques Shopify", "detail": "Création, refonte, sections sur mesure", "ancre": "#shopify" },
+    { "numero": "02", "titre": "Motion design", "detail": "Publicités, produits, identités animées", "ancre": "#motion" },
+    { "numero": "03", "titre": "Automatisation", "detail": "Commandes, stocks, suivi, relances", "ancre": "#automatisation" }
+  ]
+}

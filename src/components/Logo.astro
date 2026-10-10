@@ -1,0 +1,61 @@
+---
+// Logotype : le fil trace le O d'Ouza, suivi du nom en texte.
+import site from '../content/site.json';
+
+interface Props {
+  href?: string;
+  label?: string;
+}
+
+const { href, label } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+
+<Tag class="logo" href={href} aria-label={label}>
+  <svg viewBox="0 0 64 32" aria-hidden="true" focusable="false">
+    <path d="M3 29 H24 C35 29 41 22 41 15.5 C41 8 35 3 27.5 3 C20 3 14 8.5 14 15.5 C14 23 20.5 29 29 29 H61"></path>
+  </svg>
+  <span>{site.nom}</span>
+</Tag>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--f-disp);
+    font-weight: 780;
+    font-stretch: 90%;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--encre);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  svg {
+    width: 42px;
+    height: 21px;
+    overflow: visible;
+  }
+
+  path {
+    fill: none;
+    stroke: var(--corail);
+    stroke-width: 3.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 899px) {
+    .logo {
+      font-size: 1.12rem;
+      gap: 7px;
+    }
+
+    svg {
+      width: 34px;
+      height: 17px;
+    }
+  }
+</style>

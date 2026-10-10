@@ -1,0 +1,274 @@
+---
+import site from '../content/site.json';
+import Logo from './Logo.astro';
+import { typo } from '../lib/typo';
+
+const cta = site.actionPrincipale;
+---
+
+<header class="hd" data-header>
+  <div class="wrap hd-row">
+    <Logo href="#top" label={`${site.nom}, retour en haut de page`} />
+    <nav class="nav" aria-label="Navigation principale">
+      <ul>
+        {site.navigation.map((item) => <li><a href={item.ancre}>{typo(item.libelle)}</a></li>)}
+      </ul>
+    </nav>
+    <a class="btn btn--sm cta-desktop" href={cta.ancre}>{typo(cta.libelle)}</a>
+    <a class="btn btn--sm mobile-only" href={cta.ancre} aria-label={typo(cta.libelle)}>{typo(cta.libelleCourt)}</a>
+    <button type="button" class="pill mobile-only" aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" data-menu-open>Menu</button>
+  </div>
+  <span class="progress" aria-hidden="true"></span>
+</header>
+
+<dialog class="menu" id="menu" aria-label="Menu">
+  <div class="menu-top">
+    <Logo />
+    <button type="button" class="pill" data-menu-close>Fermer</button>
+  </div>
+  <nav aria-label="Navigation mobile">
+    <ul class="menu-links">
+      {site.navigation.map((item) => <li><a href={item.ancre}>{typo(item.libelle)}</a></li>)}
+    </ul>
+  </nav>
+  <a class="btn" href={cta.ancre}>{typo(cta.libelle)}</a>
+</dialog>
+
+<style>
+  .hd {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    border-bottom: 1.5px solid transparent;
+    transition: background var(--d-3) var(--ease), border-color var(--d-3) var(--ease);
+  }
+
+  .hd-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 72px;
+    transition: height var(--d-3) var(--ease);
+  }
+
+  .hd-row > :global(.logo) {
+    margin-right: auto;
+  }
+
+  .hd.is-scrolled {
+    background: rgb(247 242 235 / 0.94);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-color: var(--trait);
+  }
+
+  .hd.is-compact .hd-row {
+    height: 64px;
+  }
+
+  .progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.5px;
+    height: 3px;
+    background: var(--corail);
+    transform: scaleX(var(--p, 0));
+    transform-origin: left;
+    opacity: 0;
+    transition: opacity var(--d-3) var(--ease);
+  }
+
+  .hd.is-compact .progress {
+    opacity: 1;
+  }
+
+  .nav,
+  .cta-desktop {
+    display: none;
+  }
+
+  .nav ul {
+    display: flex;
+    gap: 26px;
+  }
+
+  .nav a {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 0.95rem;
+    text-decoration: none;
+    background-image: linear-gradient(var(--corail), var(--corail));
+    background-size: 0 2px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size var(--d-2) var(--ease);
+  }
+
+  .nav a:hover {
+    background-size: 100% 2px;
+  }
+
+  @media (min-width: 900px) {
+    .hd-row {
+      gap: 26px;
+      height: 84px;
+    }
+
+    .hd.is-compact .hd-row {
+      height: 68px;
+    }
+
+    .nav,
+    .cta-desktop {
+      display: flex;
+    }
+
+    .mobile-only {
+      display: none;
+    }
+  }
+
+  /* Menu mobile */
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 0px)) 40px;
+    border: 0;
+    background: var(--ivoire);
+    color: var(--encre);
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity var(--d-2) var(--ease), transform var(--d-2) var(--ease), overlay var(--d-2) allow-discrete, display var(--d-2) allow-discrete;
+  }
+
+  .menu[open] {
+    display: flex;
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    .menu[open] {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  .menu::backdrop {
+    background: transparent;
+  }
+
+  .menu-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: -20px;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .menu nav {
+    margin: auto 0;
+  }
+
+  .menu-links {
+    position: relative;
+    display: grid;
+    gap: 6px;
+  }
+
+  .menu-links::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--corail);
+  }
+
+  .menu-links a {
+    position: relative;
+    display: block;
+    padding: 4px 0;
+    font-family: var(--f-disp);
+    font-weight: 770;
+    font-stretch: 88%;
+    font-size: 2.6rem;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    text-decoration: none;
+  }
+
+  .menu-links a::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 50%;
+    width: 17px;
+    height: 17px;
+    margin-top: -8.5px;
+    border-radius: 50%;
+    border: 3px solid var(--corail);
+    background: var(--ivoire);
+  }
+
+  .menu-links a:hover::before {
+    background: var(--corail);
+  }
+
+  .menu > .btn {
+    width: 100%;
+  }
+</style>
+
+<script>
+  import { desktopQuery } from '../scripts/motion';
+
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const hero = document.getElementById('top');
+  const menu = document.getElementById('menu') as HTMLDialogElement | null;
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+
+  // Header compact après le hero, avec la barre d'avancée dans la page.
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking || !header) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const limit = hero ? hero.offsetHeight - 140 : 400;
+      header.classList.toggle('is-scrolled', y > 8);
+      header.classList.toggle('is-compact', y > limit);
+      header.style.setProperty('--p', String(max > 0 ? Math.min(1, y / max) : 0));
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Menu mobile : boîte de dialogue native (focus piégé, Échap, fond inerte).
+  if (menu && openBtn && closeBtn) {
+    openBtn.addEventListener('click', () => {
+      menu.showModal();
+      openBtn.setAttribute('aria-expanded', 'true');
+    });
+    closeBtn.addEventListener('click', () => menu.close());
+    menu.addEventListener('close', () => openBtn.setAttribute('aria-expanded', 'false'));
+    menu.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) menu.close();
+    });
+    desktopQuery.addEventListener('change', () => {
+      if (desktopQuery.matches && menu.open) menu.close();
+    });
+  }
+</script>

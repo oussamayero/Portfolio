@@ -1,0 +1,53 @@
+---
+// Couche du fil, placée une seule fois en haut de <main class="page">.
+---
+
+<svg class="fil-layer" aria-hidden="true" focusable="false">
+  <path class="fil"></path>
+  <g class="nodes"></g>
+</svg>
+
+<style>
+  .fil-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 4;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .fil {
+    fill: none;
+    stroke: var(--corail);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fil-layer :global(.nd) {
+    stroke: var(--corail);
+    fill: var(--ivoire);
+    transition: fill 300ms var(--ease);
+  }
+
+  .fil-layer :global(.nd.od) {
+    fill: var(--nuit);
+  }
+
+  .fil-layer :global(.nd.s) {
+    fill: var(--sapin);
+    stroke: var(--sapin);
+  }
+
+  .fil-layer :global(.nd.on) {
+    fill: var(--corail);
+  }
+</style>
+
+<script>
+  import { initFil } from '../scripts/fil';
+
+  const page = document.querySelector<HTMLElement>('main.page');
+  if (page) initFil(page);
+</script>

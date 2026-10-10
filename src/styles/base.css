@@ -1,0 +1,254 @@
+/* Base commune : réinitialisation, typographie, boutons, liens, fil. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  background: var(--ivoire);
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-text-size-adjust: 100%;
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--ivoire);
+  color: var(--encre);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 900px) {
+  body {
+    font-size: 17px;
+  }
+}
+
+p, ul, ol, dl, dd, figure, h1, h2, h3, fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ivoire), 0 0 0 5px var(--encre);
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  background: var(--encre);
+  color: var(--ivoire);
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+/* Conteneur */
+.wrap {
+  position: relative;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-left: var(--pl);
+  padding-right: var(--pr);
+}
+
+/* Typographie */
+.t-hero {
+  font-family: var(--f-disp);
+  font-weight: 790;
+  font-stretch: 88%;
+  font-size: var(--t-hero);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.t-h2 {
+  font-family: var(--f-disp);
+  font-weight: 760;
+  font-stretch: 90%;
+  font-size: var(--t-h2);
+  line-height: 1.03;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.t-h3 {
+  font-family: var(--f-disp);
+  font-weight: 730;
+  font-stretch: 90%;
+  font-size: var(--t-h3);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.t-lead {
+  font-size: var(--t-lead);
+  line-height: 1.55;
+  color: var(--pierre);
+}
+
+.t-label {
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 650;
+  color: var(--pierre);
+}
+
+/* Boutons et liens */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--corail);
+  color: var(--encre);
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--d-2) var(--ease), color var(--d-2) var(--ease), transform var(--d-1) var(--ease);
+}
+
+.btn:hover {
+  background: var(--encre);
+  color: var(--ivoire);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--sm {
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 0.92rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1.5px solid currentColor;
+  border-radius: var(--r-pill);
+  background: transparent;
+  font-weight: 650;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background var(--d-2) var(--ease), color var(--d-2) var(--ease), border-color var(--d-2) var(--ease);
+}
+
+.pill:hover {
+  background: var(--encre);
+  border-color: var(--encre);
+  color: var(--ivoire);
+}
+
+.tlink {
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: var(--corail);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.32em;
+  transition: text-decoration-color var(--d-2) var(--ease);
+}
+
+.tlink:hover {
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 3px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 13px;
+  border: 1.5px solid currentColor;
+  border-radius: var(--r-pill);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 650;
+}
+
+/* Fil : couche SVG et repères posés dans les sections */
+.page {
+  position: relative;
+}
+
+.wp {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Animations réduites */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}

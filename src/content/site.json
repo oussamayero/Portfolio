@@ -1,0 +1,21 @@
+{
+  "nom": "Ouza Studio",
+  "signature": "Boutiques Shopify, motion design et automatisation.",
+  "meta": {
+    "titre": "Ouza Studio · Boutiques Shopify, motion design et automatisation",
+    "description": "Ouza Studio conçoit des boutiques Shopify sur mesure, des contenus animés et des automatisations pour les marques e-commerce."
+  },
+  "actionPrincipale": {
+    "libelle": "Présenter mon projet",
+    "libelleCourt": "Mon projet",
+    "ancre": "#contact"
+  },
+  "navigation": [
+    { "libelle": "Shopify", "ancre": "#shopify" },
+    { "libelle": "Motion", "ancre": "#motion" },
+    { "libelle": "Automatisation", "ancre": "#automatisation" },
+    { "libelle": "Méthode", "ancre": "#methode" },
+    { "libelle": "FAQ", "ancre": "#faq" }
+  ],
+  "chantier": true
+}

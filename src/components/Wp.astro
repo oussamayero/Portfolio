@@ -1,0 +1,24 @@
+---
+// Repère du fil : un point invisible que le tracé traverse.
+// `only` limite le repère au desktop (« d ») ou au mobile (« m »).
+interface Props {
+  i: number;
+  node?: 'o' | 'od' | 'f' | 's';
+  route?: 'hv' | 'vh';
+  loop?: boolean;
+  only?: 'd' | 'm';
+  style?: string;
+}
+
+const { i, node, route, loop, only, style } = Astro.props;
+---
+
+<i
+  class:list={['wp', only]}
+  data-i={i}
+  data-node={node}
+  data-route={route}
+  data-loop={loop ? '' : undefined}
+  style={style}
+  aria-hidden="true"
+></i>

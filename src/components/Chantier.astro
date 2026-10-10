@@ -1,0 +1,72 @@
+---
+// Bloc temporaire, visible uniquement pendant le développement par lots (site.json → "chantier").
+// Il donne une destination réelle aux liens de navigation tant que les sections n'existent pas.
+import Wp from './Wp.astro';
+
+const sections = [
+  { id: 'demonstrations', titre: 'Séquence signature', lot: 'B' },
+  { id: 'shopify', titre: 'Boutiques Shopify', lot: 'B' },
+  { id: 'motion', titre: 'Motion design', lot: 'C' },
+  { id: 'automatisation', titre: 'Automatisation', lot: 'C' },
+  { id: 'methode', titre: 'Méthode et formules', lot: 'D' },
+  { id: 'faq', titre: 'Questions fréquentes', lot: 'D' },
+  { id: 'contact', titre: 'Contact et pied de page', lot: 'D' },
+];
+---
+
+<section class="chantier" aria-labelledby="chantier-title">
+  <div class="wrap">
+    <p class="t-label" id="chantier-title" style="position:relative">
+      <Wp i={20} node="o" style="left:var(--gut);top:50%" />
+      Chantier · suite de la page en cours de développement
+    </p>
+    <ul>
+      {
+        sections.map((s) => (
+          <li id={s.id}>
+            <span>{s.titre}</span>
+            <span class="lot">Lot {s.lot}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .wrap {
+    padding-block: 40px 140px;
+  }
+
+  ul {
+    margin-top: 20px;
+    border: 1.5px dashed var(--trait);
+    border-radius: var(--r-l);
+    padding: 8px 24px;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    color: var(--pierre);
+    scroll-margin-top: 120px;
+  }
+
+  li + li {
+    border-top: 1px solid var(--trait);
+  }
+
+  li:target {
+    color: var(--encre);
+    font-weight: 650;
+  }
+
+  .lot {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 650;
+  }
+</style>

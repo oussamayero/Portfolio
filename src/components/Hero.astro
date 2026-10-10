@@ -1,0 +1,194 @@
+---
+import hero from '../content/accueil/hero.json';
+import site from '../content/site.json';
+import Wp from './Wp.astro';
+import { typo } from '../lib/typo';
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="wrap">
+    <Wp i={10} only="m" style="left:calc(var(--pl) + var(--gut));top:30px" />
+    <h1 class="t-hero" id="hero-title">
+      {hero.titre.map((ligne, n) => <><span>{typo(ligne)}</span>{n < hero.titre.length - 1 ? ' ' : ''}</>)}
+    </h1>
+
+    <div class="rail" aria-hidden="true">
+      <Wp i={10} only="d" style="left:calc(-1 * var(--pl) - 12px);top:0" />
+      <Wp i={12} only="d" loop style="left:41%;top:0" />
+    </div>
+
+    <div class="grid">
+      <div class="intro">
+        <p class="t-lead">{typo(hero.chapeau)}</p>
+        <div class="ctas">
+          <a class="btn" href={site.actionPrincipale.ancre}>{typo(site.actionPrincipale.libelle)}</a>
+          <a class="tlink" href={hero.lienSecondaire.ancre}>{typo(hero.lienSecondaire.libelle)}&nbsp;↓</a>
+        </div>
+      </div>
+      <ol class="index" aria-label="Expertises">
+        {
+          hero.expertises.map((item, n) => (
+            <li>
+              <Wp i={14 + n} node="o" />
+              <span class="num" aria-hidden="true">{item.numero}</span>
+              <a href={item.ancre}>{typo(item.titre)}</a>
+              <span class="detail">{typo(item.detail)}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="end" aria-hidden="true">
+      <Wp i={18} only="d" route="vh" style="left:var(--gut);top:0" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .wrap {
+    padding-top: 28px;
+  }
+
+  .rail {
+    position: relative;
+    height: 0;
+  }
+
+  .grid {
+    display: grid;
+    gap: 36px;
+    margin-top: 20px;
+  }
+
+  .intro .t-lead {
+    max-width: 30em;
+  }
+
+  .ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px 24px;
+    margin-top: 28px;
+  }
+
+  .ctas .tlink {
+    align-self: flex-start;
+  }
+
+  .index li {
+    position: relative;
+    display: grid;
+    padding: 14px 0;
+    border-top: 1.5px solid var(--trait);
+  }
+
+  .index li:last-child {
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  .num {
+    display: none;
+  }
+
+  .index a {
+    font-family: var(--f-disp);
+    font-weight: 720;
+    font-stretch: 90%;
+    font-size: 1.3rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+  }
+
+  .index a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--corail);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+  }
+
+  .detail {
+    font-size: 0.875rem;
+    color: var(--pierre);
+  }
+
+  .index :global(.wp) {
+    left: var(--gut);
+    top: 50%;
+  }
+
+  .end {
+    position: relative;
+    height: 0;
+    margin-top: 56px;
+  }
+
+  @media (min-width: 900px) {
+    .wrap {
+      padding-top: 44px;
+    }
+
+    h1 span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .rail {
+      margin-top: 44px;
+    }
+
+    .grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      margin-top: 46px;
+    }
+
+    .intro {
+      grid-column: 1 / span 5;
+    }
+
+    .index {
+      grid-column: 8 / span 5;
+    }
+
+    .ctas {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .ctas .tlink {
+      align-self: center;
+    }
+
+    .index li {
+      grid-template-columns: 34px minmax(0, 1fr);
+      padding: 10px 0 14px;
+      border: 0;
+    }
+
+    .index li:last-child {
+      border: 0;
+    }
+
+    .num {
+      display: block;
+      grid-row: span 2;
+      padding-top: 6px;
+      font-size: 0.75rem;
+      color: var(--pierre);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .index :global(.wp) {
+      left: -30px;
+      top: 23px;
+    }
+
+    .end {
+      margin-top: 72px;
+    }
+  }
+</style>

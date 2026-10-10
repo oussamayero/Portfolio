@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Fil from '../components/Fil.astro';
+import Hero from '../components/Hero.astro';
+import Chantier from '../components/Chantier.astro';
+import site from '../content/site.json';
+---
+
+<Base>
+  <Header />
+  <main id="main" class="page" tabindex="-1">
+    <Fil />
+    <Hero />
+    {site.chantier && <Chantier />}
+  </main>
+</Base>
