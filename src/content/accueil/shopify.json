@@ -2,11 +2,63 @@
   "surtitre": "01 · Boutiques Shopify",
   "titre": "Une boutique Shopify dessinée pour votre marque et vos produits.",
   "texte": "Création, refonte ou nouvelle section : je conçois les maquettes, puis je les intègre dans Shopify. Chaque page est pensée pour le téléphone autant que pour l'ordinateur.",
+  "situationsTitre": "Votre situation",
   "situations": [
-    { "texte": "Votre boutique tourne, mais ne ressemble plus à votre marque.", "type": "Refonte" },
-    { "texte": "Vous lancez votre marque et votre première boutique.", "type": "Création" },
-    { "texte": "Il vous manque une page, une section, un parcours.", "type": "Sections et évolutions" }
+    {
+      "texte": "Votre boutique tourne, mais ne ressemble plus à votre marque.",
+      "type": "Refonte",
+      "cle": "refonte"
+    },
+    {
+      "texte": "Vous lancez votre marque et votre première boutique.",
+      "type": "Création",
+      "cle": "creation"
+    },
+    {
+      "texte": "Il vous manque une page, une section, un parcours.",
+      "type": "Sections et évolutions",
+      "cle": "sections"
+    }
   ],
+  "atelier": {
+    "statut": "Concept de démonstration · marque fictive",
+    "titre": "Une section, plusieurs mises en page.",
+    "texte": "Changez les réglages : la même section de collection se recompose, sur ordinateur comme sur mobile.",
+    "note": "Dans Shopify, ces réglages peuvent devenir des options modifiables depuis l'éditeur de thème.",
+    "noteAConfirmer": true,
+    "section": {
+      "surtitre": "Collection automne",
+      "titre": "Manteaux d'automne",
+      "lien": "Voir tout"
+    },
+    "produits": [
+      {
+        "nom": "Trench Ligne",
+        "prix": "320,00 €",
+        "photo": "ostral-trench-ciel.jpg",
+        "cadrage": "50% 40%",
+        "badge": "Nouveau"
+      },
+      {
+        "nom": "Manteau Nuit",
+        "prix": "380,00 €",
+        "photo": "ostral-manteau-nuit.jpg",
+        "cadrage": "50% 45%"
+      },
+      {
+        "nom": "Veste Arche",
+        "prix": "260,00 €",
+        "photo": "ostral-architecture.jpg",
+        "cadrage": "30% 100%"
+      },
+      {
+        "nom": "Manteau Falaise",
+        "prix": "410,00 €",
+        "photo": "ostral-trio-falaise.jpg",
+        "cadrage": "60% 40%"
+      }
+    ]
+  },
   "projets": [
     {
       "statut": "Projet réalisé en agence",
@@ -35,12 +87,26 @@
   ],
   "livraisonsTitre": "Ce que vous recevez",
   "livrables": [
-    { "texte": "Maquettes desktop et mobile, validées avant le développement" },
-    { "texte": "Thème personnalisé ou développé sur mesure", "aConfirmer": true },
-    { "texte": "Sections modifiables depuis l'éditeur Shopify", "aConfirmer": true },
-    { "texte": "Pages produit, collections et pages de marque" },
-    { "texte": "Mise en ligne et prise en main de l'éditeur" },
-    { "texte": "Évolutions après le lancement" }
+    {
+      "texte": "Maquettes desktop et mobile, validées avant le développement"
+    },
+    {
+      "texte": "Thème personnalisé ou développé sur mesure",
+      "aConfirmer": true
+    },
+    {
+      "texte": "Sections modifiables depuis l'éditeur Shopify",
+      "aConfirmer": true
+    },
+    {
+      "texte": "Pages produit, collections et pages de marque"
+    },
+    {
+      "texte": "Mise en ligne et prise en main de l'éditeur"
+    },
+    {
+      "texte": "Évolutions après le lancement"
+    }
   ],
   "lien": "Un projet Shopify ? Présenter mon projet"
 }

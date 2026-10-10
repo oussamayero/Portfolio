@@ -9,7 +9,7 @@ import { typo } from '../lib/typo';
   <div class="wrap">
     <Wp i={10} only="m" style="left:calc(var(--pl) + var(--gut));top:30px" />
     <h1 class="t-hero" id="hero-title">
-      {hero.titre.map((ligne, n) => <><span>{typo(ligne)}</span>{n < hero.titre.length - 1 ? ' ' : ''}</>)}
+      {hero.titre.map((ligne, n) => <><span class="line"><span style={`--n:${n}`}>{typo(ligne)}</span></span>{n < hero.titre.length - 1 ? ' ' : ''}</>)}
     </h1>
 
     <div class="rail" aria-hidden="true">
@@ -28,8 +28,8 @@ import { typo } from '../lib/typo';
       <ol class="index" aria-label="Expertises">
         {
           hero.expertises.map((item, n) => (
-            <li>
-              <Wp i={14 + n} node="o" />
+            <li style={`--n:${n}`}>
+              <Wp i={14 + n} node="o" href={item.ancre} />
               <span class="num" aria-hidden="true">{item.numero}</span>
               <a href={item.ancre}>{typo(item.titre)}</a>
               <span class="detail">{typo(item.detail)}</span>
@@ -102,11 +102,14 @@ import { typo } from '../lib/typo';
     text-decoration: none;
   }
 
+  .index a {
+    justify-self: start;
+    background: linear-gradient(var(--corail), var(--corail)) 0 100% / 0% 2px no-repeat;
+    transition: background-size var(--d-4) var(--ease);
+  }
+
   .index a:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--corail);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.25em;
+    background-size: 100% 2px;
   }
 
   .detail {
@@ -125,6 +128,43 @@ import { typo } from '../lib/typo';
     margin-top: 56px;
   }
 
+  /* Entrée : le titre monte, puis le chapeau et l'index se posent pendant que le fil démarre. */
+  @media (prefers-reduced-motion: no-preference) {
+    h1 {
+      animation: h-in 800ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .intro > *,
+    .index li > :not(.wp) {
+      animation: h-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .intro > :first-child {
+      animation-delay: 300ms;
+    }
+
+    .intro > :nth-child(2) {
+      animation-delay: 380ms;
+    }
+
+    .index li > :not(.wp) {
+      animation-delay: calc(420ms + var(--n) * 80ms);
+    }
+  }
+
+  @keyframes h-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  @keyframes h-rise {
+    from {
+      transform: translateY(108%);
+    }
+  }
+
   @media (min-width: 900px) {
     .wrap {
       padding-top: 44px;
@@ -133,6 +173,13 @@ import { typo } from '../lib/typo';
     h1 span {
       display: block;
       white-space: nowrap;
+    }
+
+    /* Chaque ligne du titre est un masque : le texte monte depuis sa ligne de base. */
+    .line {
+      overflow: hidden;
+      padding-block: 0.06em 0.12em;
+      margin-block: -0.06em -0.12em;
     }
 
     .rail {
@@ -189,6 +236,17 @@ import { typo } from '../lib/typo';
 
     .end {
       margin-top: 72px;
+    }
+  }
+
+  @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+    h1 {
+      animation: none;
+    }
+
+    .line > span {
+      animation: h-rise 1000ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: calc(60ms + var(--n) * 90ms);
     }
   }
 </style>

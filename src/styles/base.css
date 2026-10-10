@@ -201,18 +201,22 @@ a {
   color: var(--ivoire);
 }
 
+/* Lien texte : trait corail ; au survol, un trait encre le parcourt de gauche à droite. */
 .tlink {
   font-weight: 650;
-  text-decoration: underline;
-  text-decoration-color: var(--corail);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.32em;
-  transition: text-decoration-color var(--d-2) var(--ease);
+  text-decoration: none;
+  padding-bottom: 0.18em;
+  background-image: linear-gradient(currentColor, currentColor), linear-gradient(var(--corail), var(--corail));
+  background-size: 0% 2px, 100% 2px;
+  background-position: 0 100%, 0 100%;
+  background-repeat: no-repeat;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size var(--d-4) var(--ease);
 }
 
 .tlink:hover {
-  text-decoration-color: currentColor;
-  text-decoration-thickness: 3px;
+  background-size: 100% 2px, 100% 2px;
 }
 
 .tag {

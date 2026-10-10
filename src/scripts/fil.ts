@@ -4,13 +4,18 @@ import { desktopQuery, onReducedMotionChange, reducedMotion } from './motion';
 
 interface NodeMark {
   el: SVGCircleElement;
+  ring: SVGCircleElement;
   len: number;
+  on: boolean;
 }
 
 const LOOP_WIDTH = 150;
 const TIP_POSITION = 0.62; // pointe du fil : 62 % de la hauteur d'écran
 const SMOOTHING = 0.12;
 const SAMPLE_STEP = 6;
+const START_DELAY = 380; // le fil attend la fin de l'entrée du titre
+
+const esc = (v: string) => v.replace(/[&"<>]/g, (c) => `&#${c.charCodeAt(0)};`);
 
 const fmt = (n: number) => n.toFixed(1);
 
@@ -43,6 +48,9 @@ export function initFil(page: HTMLElement): void {
   let target = 0;
   let frame = 0;
   let built = false;
+  let pulses = false;
+  let waiting = 0;
+  const startAt = performance.now() + START_DELAY;
 
   const nearestLength = (x: number, y: number) => {
     let best = 0;
@@ -75,7 +83,18 @@ export function initFil(page: HTMLElement): void {
 
   const apply = () => {
     path.style.strokeDashoffset = String(total - current);
-    for (const n of nodes) n.el.classList.toggle('on', current >= n.len - 2);
+    for (const n of nodes) {
+      const on = current >= n.len - 2;
+      if (on === n.on) continue;
+      n.on = on;
+      n.el.classList.toggle('on', on);
+      // Une impulsion quand le fil atteint le nœud.
+      if (on && pulses && !reducedMotion()) {
+        n.ring.classList.remove('pulse');
+        void n.ring.getBoundingClientRect();
+        n.ring.classList.add('pulse');
+      }
+    }
   };
 
   const tick = () => {
@@ -90,6 +109,11 @@ export function initFil(page: HTMLElement): void {
     if (reducedMotion()) {
       current = target = total;
       apply();
+      return;
+    }
+    const wait = startAt - performance.now();
+    if (wait > 0) {
+      if (!waiting) waiting = window.setTimeout(() => ((waiting = 0), update()), wait);
       return;
     }
     target = targetLength();
@@ -113,7 +137,7 @@ export function initFil(page: HTMLElement): void {
     let d = '';
     let cx = 0;
     let cy = 0;
-    const found: { x: number; y: number; type: string }[] = [];
+    const found: { x: number; y: number; type: string; href?: string }[] = [];
 
     marks.forEach((el, k) => {
       const r = el.getBoundingClientRect();
@@ -127,7 +151,7 @@ export function initFil(page: HTMLElement): void {
         d += ` C${p(80, 0)} ${p(104, 54)} ${p(72, 74)} C${p(42, 93)} ${p(6, 66)} ${p(24, 34)} C${p(40, 6)} ${p(90, 0)} ${p(LOOP_WIDTH, 0)}`;
         cx += LOOP_WIDTH * scale;
       }
-      if (el.dataset.node) found.push({ x, y, type: el.dataset.node });
+      if (el.dataset.node) found.push({ x, y, type: el.dataset.node, href: el.dataset.href });
     });
 
     path.setAttribute('d', d);
@@ -150,15 +174,30 @@ export function initFil(page: HTMLElement): void {
     const radiusNode = desktop ? 9 : 8;
     const stroke = desktop ? 4 : 3;
     nodesGroup.innerHTML = found
-      .map((n) => `<circle class="nd ${n.type}" cx="${fmt(n.x)}" cy="${fmt(n.y)}" r="${radiusNode}" stroke-width="${stroke}"></circle>`)
+      .map((n) => {
+        const at = `cx="${fmt(n.x)}" cy="${fmt(n.y)}"`;
+        const inner =
+          `<circle class="nd-ring" ${at} r="${radiusNode}" stroke-width="${stroke - 1}"></circle>` +
+          `<circle class="nd ${n.type}" ${at} r="${radiusNode}" stroke-width="${stroke}"></circle>`;
+        return n.href
+          ? `<a class="nd-g nd-link" href="${esc(n.href)}" tabindex="-1"><circle class="nd-hit" ${at} r="18"></circle>${inner}</a>`
+          : `<g class="nd-g">${inner}</g>`;
+      })
       .join('');
-    nodes = found.map((n, i) => ({ el: nodesGroup.children[i] as SVGCircleElement, len: nearestLength(n.x, n.y) }));
+    nodes = Array.from(nodesGroup.children).map((g, i) => ({
+      el: g.querySelector<SVGCircleElement>('.nd')!,
+      ring: g.querySelector<SVGCircleElement>('.nd-ring')!,
+      len: nearestLength(found[i].x, found[i].y),
+      on: false,
+    }));
     path.style.strokeWidth = `${stroke}px`;
     path.style.strokeDasharray = `${total} ${total + 20}`;
     if (reducedMotion()) current = total;
     else if (current > total) current = total;
     built = true;
+    pulses = false;
     apply();
+    pulses = true;
     update();
   };
 

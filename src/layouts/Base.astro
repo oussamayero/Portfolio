@@ -4,6 +4,8 @@ import '@fontsource-variable/figtree';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import site from '../content/site.json';
+import titleFont from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wdth-normal.woff2?url';
+import bodyFont from '@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url';
 
 interface Props {
   title?: string;
@@ -19,6 +21,8 @@ const { title = site.meta.titre, description = site.meta.description } = Astro.p
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
+    <link rel="preload" href={titleFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f7f2eb" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

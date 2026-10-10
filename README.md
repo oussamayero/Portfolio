@@ -23,7 +23,7 @@ Les textes sont dans `src/content/`, au format JSON. Il n'est pas nécessaire de
 | `src/content/site.json` | Nom, titre et description de la page, navigation, bouton principal |
 | `src/content/accueil/hero.json` | Titre, chapeau et liste des expertises du haut de page |
 | `src/content/accueil/sequence.json` | Titre, statut et chapitres de la séquence signature |
-| `src/content/accueil/shopify.json` | Section Shopify : situations, projets, livrables |
+| `src/content/accueil/shopify.json` | Section Shopify : situations, livrables, atelier de section, projets |
 
 ### Ajouter un projet Shopify
 
@@ -31,7 +31,15 @@ Les textes sont dans `src/content/`, au format JSON. Il n'est pas nécessaire de
 2. Dans `shopify.json`, renseigner pour le projet : `captureDesktop` et `captureMobile` (nom du fichier), `secteur`, `contribution` et `description` (texte alternatif des images).
 3. Les images sont redimensionnées et compressées automatiquement au moment du build.
 
-Tant qu'un champ est vide, la page affiche un repère « à fournir ». Les livrables marqués `"aConfirmer": true` affichent « à confirmer ».
+Seuls les projets qui ont au moins une capture sont affichés. Tant qu'aucune capture n'est fournie, un repère compact « emplacements prêts » les remplace (visible uniquement avec `"chantier": true`). Un champ vide affiche « à fournir » ; les livrables marqués `"aConfirmer": true` affichent « à confirmer ».
+
+### Démonstrations (marque fictive Ostral)
+
+La séquence signature et l'atelier de section utilisent une marque fictive, Ostral, et les photos de `src/assets/demo/`. Elles sont toujours présentées comme « Concept de démonstration · marque fictive ».
+
+- Remplacer une photo : garder le même nom de fichier dans `src/assets/demo/`, ou changer le champ `photo` d'un produit dans `shopify.json` (atelier).
+- Produits, prix et textes de l'atelier : bloc `atelier` de `shopify.json`. Le champ `cadrage` règle le point de recadrage de la photo (`object-position` CSS).
+- Avant la mise en ligne, vérifier les droits d'utilisation des photos (licence, modèles).
 
 Écrire les textes normalement : les apostrophes typographiques et les espaces avant `: ; ? !` sont ajoutées automatiquement.
 
@@ -45,14 +53,16 @@ src/
   components/   sections et éléments réutilisables
   layouts/      structure HTML commune (balises meta, polices)
   scripts/      le fil, la séquence signature, préférences d'animation
-  assets/       images optimisées au build (captures de projets)
+  assets/       images optimisées au build (projets, photos de démonstration)
   styles/       jetons du design system et styles de base
 public/         favicon, robots.txt
 ```
 
 Les animations de la séquence signature utilisent GSAP, chargé uniquement à l'approche de la section.
 
-Le fil corail est calculé à partir de repères (`<Wp />`) posés dans chaque section : chaque repère a un numéro d'ordre (`i`), et peut porter un nœud (`node`), un virage (`route`) ou la boucle (`loop`).
+Le fil corail est calculé à partir de repères (`<Wp />`) posés dans chaque section : chaque repère a un numéro d'ordre (`i`), et peut porter un nœud (`node`), un virage (`route`) ou la boucle (`loop`). Un nœud avec `href` devient un raccourci cliquable vers sa section ; il émet une impulsion quand le fil l'atteint.
+
+L'atelier de section utilise les View Transitions du navigateur quand elles sont disponibles ; sinon, les réglages s'appliquent sans animation. Toutes les animations respectent le réglage « réduire les animations » du système.
 
 ## Mise en ligne
 

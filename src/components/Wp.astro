@@ -1,16 +1,18 @@
 ---
 // Repère du fil : un point invisible que le tracé traverse.
 // `only` limite le repère au desktop (« d ») ou au mobile (« m »).
+// `href` rend le nœud cliquable à la souris (raccourci ; la navigation clavier passe par les liens de la page).
 interface Props {
   i: number;
   node?: 'o' | 'od' | 'f' | 's';
   route?: 'hv' | 'vh';
   loop?: boolean;
   only?: 'd' | 'm';
+  href?: string;
   style?: string;
 }
 
-const { i, node, route, loop, only, style } = Astro.props;
+const { i, node, route, loop, only, href, style } = Astro.props;
 ---
 
 <i
@@ -19,6 +21,7 @@ const { i, node, route, loop, only, style } = Astro.props;
   data-node={node}
   data-route={route}
   data-loop={loop ? '' : undefined}
+  data-href={node ? href : undefined}
   style={style}
   aria-hidden="true"
 ></i>

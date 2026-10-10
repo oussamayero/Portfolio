@@ -6,6 +6,7 @@ import type { ImageMetadata } from 'astro';
 import shopify from '../content/accueil/shopify.json';
 import site from '../content/site.json';
 import Wp from './Wp.astro';
+import Atelier from './Atelier.astro';
 import { typo } from '../lib/typo';
 
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/projets/*.{jpg,jpeg,png,webp,avif}', { eager: true });
@@ -15,90 +16,42 @@ const capture = (file: string) => {
   return key ? images[key].default : undefined;
 };
 
-const projets = shopify.projets.map((p, n) => ({
-  ...p,
-  n: n + 1,
-  desktop: capture(p.captureDesktop),
-  mobile: capture(p.captureMobile),
-}));
+// Seuls les projets dont au moins une capture est fournie sont affichés.
+const projets = shopify.projets
+  .map((p) => ({ ...p, desktop: capture(p.captureDesktop), mobile: capture(p.captureMobile) }))
+  .filter((p) => p.desktop || p.mobile)
+  .map((p, n) => ({ ...p, n: n + 1 }));
 const total = projets.length;
+const enAttente = shopify.projets.length - total;
 ---
 
 <section class="shopify" id="shopify" aria-labelledby="shopify-title">
   <div class="wrap">
-    <p class="t-label eyebrow"><Wp i={32} node="o" style="left:var(--gut);top:50%" />{typo(shopify.surtitre)}</p>
+    <p class="t-label eyebrow"><Wp i={32} node="o" href="#shopify" style="left:var(--gut);top:50%" />{typo(shopify.surtitre)}</p>
 
     <div class="intro">
       <div class="intro-text">
         <h2 class="t-h2" id="shopify-title">{typo(shopify.titre)}</h2>
         <p class="t-lead">{typo(shopify.texte)}</p>
       </div>
-      <ul class="situations">
-        {
-          shopify.situations.map((s) => (
-            <li>
-              <span class="s-text">{typo(s.texte)}</span>
-              <span class="s-type">{typo(s.type)}</span>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-
-    <div class="cases" data-cases>
-      <p class="sr-only" aria-live="polite" data-cases-status>Projet 1 sur {total}</p>
-      {
-        projets.map((p) => (
-          <article class="case" data-case hidden={p.n !== 1} aria-label={`Projet ${p.n} sur ${total}`}>
-            <div class="shots">
-              <figure class="browser">
-                <div class="bar" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                  <span>Adresse masquée</span>
-                </div>
-                {p.desktop ? (
-                  <Image src={p.desktop} alt={typo(p.description || 'Capture desktop du projet')} widths={[640, 960, 1280, 1600]} sizes="(min-width: 900px) 70vw, 100vw" />
-                ) : (
-                  <div class="placeholder ratio-d">
-                    <span>Capture desktop réelle d’un projet anonymisé · à fournir</span>
-                  </div>
-                )}
-              </figure>
-              <figure class="phone">
-                {p.mobile ? (
-                  <Image src={p.mobile} alt={typo(p.description || 'Capture mobile du projet')} widths={[360, 540, 720]} sizes="(min-width: 900px) 18vw, 80vw" />
-                ) : (
-                  <div class="placeholder ratio-m">
-                    <span>Capture mobile · à fournir</span>
-                  </div>
-                )}
-              </figure>
-            </div>
-            <div class="meta">
-              <span class="tag">{typo(p.statut)}</span>
-              <span>Secteur : {p.secteur ? typo(p.secteur) : <span class="a-fournir">à fournir</span>}</span>
-              <span>Contribution : {p.contribution ? typo(p.contribution) : <span class="a-fournir">à fournir</span>}</span>
-            </div>
-          </article>
-        ))
-      }
-      {
-        total > 1 && (
-          <div class="nav">
-            <button type="button" class="pill" data-cases-prev>
-              ← Précédent
-            </button>
-            <span class="count" aria-hidden="true" data-cases-count>
-              1 / {total}
-            </span>
-            <button type="button" class="pill" data-cases-next>
-              Suivant →
-            </button>
-          </div>
-        )
-      }
+      <div class="situations">
+        <p class="t-label">{typo(shopify.situationsTitre)}</p>
+        <ul>
+          {
+            shopify.situations.map((s) => (
+              <li>
+                <a href={site.actionPrincipale.ancre} data-need={`shopify-${s.cle}`}>
+                  <span class="s-text">{typo(s.texte)}</span>
+                  <span class="s-type">
+                    {typo(s.type)}
+                    <span class="s-arrow" aria-hidden="true">→</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
 
     <div class="deliverables">
@@ -114,6 +67,76 @@ const total = projets.length;
         }
       </ul>
     </div>
+
+    <div class="atelier-wrap">
+      <Atelier />
+    </div>
+
+    {
+      total > 0 ? (
+        <div class="cases" data-cases>
+          <p class="sr-only" aria-live="polite" data-cases-status>Projet 1 sur {total}</p>
+          {
+            projets.map((p) => (
+              <article class="case" data-case hidden={p.n !== 1} aria-label={`Projet ${p.n} sur ${total}`}>
+                <div class="shots">
+                  <figure class="browser">
+                    <div class="bar" aria-hidden="true">
+                      <i />
+                      <i />
+                      <i />
+                      <span>Adresse masquée</span>
+                    </div>
+                    {p.desktop ? (
+                      <Image src={p.desktop} alt={typo(p.description || 'Capture desktop du projet')} widths={[640, 960, 1280, 1600]} sizes="(min-width: 900px) 70vw, 100vw" />
+                    ) : (
+                      <div class="placeholder ratio-d">
+                        <span>Capture desktop réelle d’un projet anonymisé · à fournir</span>
+                      </div>
+                    )}
+                  </figure>
+                  <figure class="phone">
+                    {p.mobile ? (
+                      <Image src={p.mobile} alt={typo(p.description || 'Capture mobile du projet')} widths={[360, 540, 720]} sizes="(min-width: 900px) 18vw, 80vw" />
+                    ) : (
+                      <div class="placeholder ratio-m">
+                        <span>Capture mobile · à fournir</span>
+                      </div>
+                    )}
+                  </figure>
+                </div>
+                <div class="meta">
+                  <span class="tag">{typo(p.statut)}</span>
+                  <span>Secteur : {p.secteur ? typo(p.secteur) : <span class="a-fournir">à fournir</span>}</span>
+                  <span>Contribution : {p.contribution ? typo(p.contribution) : <span class="a-fournir">à fournir</span>}</span>
+                </div>
+              </article>
+            ))
+          }
+          {
+            total > 1 && (
+              <div class="nav">
+                <button type="button" class="pill" data-cases-prev>
+                  ← Précédent
+                </button>
+                <span class="count" aria-hidden="true" data-cases-count>
+                  1 / {total}
+                </span>
+                <button type="button" class="pill" data-cases-next>
+                  Suivant →
+                </button>
+              </div>
+            )
+          }
+        </div>
+      ) : (
+        site.chantier && (
+          <p class="pending">
+            <span class="a-fournir">Projets réalisés en agence · {enAttente} emplacements prêts</span> captures desktop et mobile, secteur et contribution à fournir.
+          </p>
+        )
+      )
+    }
 
     <p class="cta"><a class="tlink" href={site.actionPrincipale.ancre} data-need="shopify">{typo(shopify.lien)}&nbsp;→</a></p>
   </div>
@@ -139,16 +162,31 @@ const total = projets.length;
     max-width: 32em;
   }
 
+  .situations > .t-label {
+    margin-bottom: 10px;
+  }
+
   .situations li {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 16px 0;
     border-top: 1.5px solid var(--trait);
   }
 
   .situations li:last-child {
     border-bottom: 1.5px solid var(--trait);
+  }
+
+  /* Chaque situation mène au formulaire, avec le besoin pré-renseigné (lot D). */
+  .situations a {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 0;
+    text-decoration: none;
+    background: linear-gradient(var(--corail), var(--corail)) 0 100% / 0% 2px no-repeat;
+    transition: background-size var(--d-4) var(--ease);
+  }
+
+  .situations a:hover {
+    background-size: 100% 2px;
   }
 
   .s-text {
@@ -161,11 +199,39 @@ const total = projets.length;
   }
 
   .s-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-size: 0.75rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: 650;
     color: var(--pierre);
+  }
+
+  .s-arrow {
+    font-size: 1rem;
+    letter-spacing: 0;
+    color: var(--encre);
+    transition: transform var(--d-3) var(--ease);
+  }
+
+  .situations a:hover .s-arrow {
+    transform: translateX(4px);
+  }
+
+  .atelier-wrap {
+    margin-top: 72px;
+  }
+
+  .pending {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: var(--pierre);
+  }
+
+  .pending .a-fournir {
+    margin-right: 6px;
   }
 
   .cases {
@@ -271,7 +337,7 @@ const total = projets.length;
   }
 
   .deliverables {
-    margin-top: 56px;
+    margin-top: 48px;
     display: grid;
     gap: 14px;
   }
@@ -328,7 +394,7 @@ const total = projets.length;
       grid-column: 7 / span 6;
     }
 
-    .situations li {
+    .situations a {
       flex-direction: row;
       justify-content: space-between;
       align-items: baseline;
@@ -342,6 +408,14 @@ const total = projets.length;
 
     .s-type {
       white-space: nowrap;
+    }
+
+    .atelier-wrap {
+      margin-top: 120px;
+    }
+
+    .pending {
+      margin-top: 64px;
     }
 
     .cases {
@@ -389,7 +463,7 @@ const total = projets.length;
     .deliverables {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       column-gap: var(--col-gap);
-      margin-top: 80px;
+      margin-top: 72px;
     }
 
     .deliverables h3 {

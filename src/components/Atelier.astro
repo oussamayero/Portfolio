@@ -1,0 +1,689 @@
+---
+// Atelier de section : une section de collection (marque fictive Ostral) que le visiteur règle lui-même.
+// Concept de démonstration ; les réglages recomposent la section, avec View Transitions quand c'est possible.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import shopify from '../content/accueil/shopify.json';
+import { typo } from '../lib/typo';
+
+const a = shopify.atelier;
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/demo/*.jpg', { eager: true });
+const photo = (file: string) => {
+  const key = Object.keys(photos).find((k) => k.endsWith(`/${file}`));
+  if (!key) throw new Error(`Photo de démonstration introuvable : ${file}`);
+  return photos[key].default;
+};
+
+const reglages = [
+  { name: 'layout', legend: 'Mise en page', options: [['grille', 'Grille'], ['avant', 'Mise en avant'], ['defilant', 'Défilant']] },
+  { name: 'cols', legend: 'Colonnes', options: [['2', '2'], ['3', '3'], ['4', '4']], value: '4', desktop: true, hint: 'En grille, aperçu ordinateur.' },
+  { name: 'acc', legend: 'Couleur d’accent', options: [['encre', 'Encre'], ['corail', 'Corail'], ['sapin', 'Sapin']], swatch: true },
+  { name: 'align', legend: 'Titre', options: [['gauche', 'Gauche'], ['centre', 'Centré']] },
+  { name: 'view', legend: 'Aperçu', options: [['desktop', 'Ordinateur'], ['mobile', 'Mobile']], desktop: true },
+];
+---
+
+<div class="atelier" data-atelier data-layout="grille" data-cols="4" data-acc="encre" data-align="gauche" data-prix="1" data-view="desktop">
+  <div class="atl-head">
+    <span class="tag">{typo(a.statut)}</span>
+    <h3 class="t-h3">{typo(a.titre)}</h3>
+    <p>{typo(a.texte)}</p>
+  </div>
+
+  <form class="atl-panel" aria-label="Réglages de la section">
+    {
+      reglages.map((r) => (
+        <fieldset class:list={['set', { 'only-d': r.desktop }]} data-set={r.name}>
+          <legend>{typo(r.legend)}</legend>
+          <div class="seg">
+            {r.options.map(([value, text], k) => (
+              <label>
+                <input type="radio" name={r.name} value={value} checked={r.value ? r.value === value : k === 0} />
+                <span>
+                  {r.swatch && <i class={`sw sw-${value}`} aria-hidden="true" />}
+                  <b class="opt">{typo(text)}</b>
+                </span>
+              </label>
+            ))}
+          </div>
+          {r.hint && <p class="hint">{typo(r.hint)}</p>}
+        </fieldset>
+      ))
+    }
+    <label class="switch">
+      <span>Afficher les prix</span>
+      <input type="checkbox" name="prix" role="switch" checked />
+      <i aria-hidden="true"></i>
+    </label>
+  </form>
+
+  <div class="atl-stage">
+    <div class="atl-frame">
+      <div class="atl-bar" aria-hidden="true"><i></i><i></i><i></i><span data-atl-view>Aperçu ordinateur</span></div>
+      <div class="atl-sec" role="group" aria-label="Aperçu de la section de collection">
+        <div class="atl-top">
+          <div>
+            <p class="atl-eb">{typo(a.section.surtitre)}</p>
+            <p class="atl-h">{typo(a.section.titre)}</p>
+          </div>
+          <span class="atl-all">{typo(a.section.lien)}&nbsp;→</span>
+        </div>
+        <ul class="atl-grid" aria-label="Produits" data-atl-grid>
+          {
+            a.produits.map((p, n) => (
+              <li class="atl-card" style={`view-transition-name:atl-c${n + 1}`}>
+                <div class="atl-img">
+                  <Image
+                    src={photo(p.photo)}
+                    alt={`${typo(p.nom)}, photo de démonstration`}
+                    width={720}
+                    widths={[300, 480, 720]}
+                    quality={72}
+                    sizes="(min-width: 900px) 30vw, 50vw"
+                    style={`object-position:${p.cadrage}`}
+                  />
+                  {p.badge && <span class="atl-badge">{typo(p.badge)}</span>}
+                </div>
+                <div class="atl-txt">
+                  <p class="atl-name">{typo(p.nom)}</p>
+                  <p class="atl-price">{typo(p.prix)}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+    <p class="atl-note">
+      {typo(a.note)}
+      {a.noteAConfirmer && <span class="a-fournir">à confirmer</span>}
+    </p>
+  </div>
+</div>
+
+<style>
+  .atelier {
+    --acc: var(--encre);
+    --acc-ink: var(--ivoire);
+    display: grid;
+    gap: 22px;
+  }
+
+  .atelier[data-acc='corail'] {
+    --acc: var(--corail);
+    --acc-ink: var(--encre);
+  }
+
+  .atelier[data-acc='sapin'] {
+    --acc: var(--sapin);
+    --acc-ink: var(--ivoire);
+  }
+
+  .atl-head h3 {
+    margin-top: 14px;
+  }
+
+  .atl-head p {
+    margin-top: 10px;
+    max-width: 30em;
+    color: var(--pierre);
+  }
+
+  /* Panneau de réglages */
+  .atl-panel {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+    padding: 20px;
+    border: 1.5px solid var(--trait);
+    border-radius: var(--r-l);
+    background: var(--papier);
+  }
+
+  .set {
+    min-width: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  legend,
+  .switch > span {
+    padding: 0;
+    margin-bottom: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--pierre);
+  }
+
+  .seg {
+    display: flex;
+    padding: 3px;
+    border-radius: var(--r-pill);
+    background: var(--ivoire-2);
+  }
+
+  .seg label {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .seg input,
+  .switch input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .seg span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 6px 8px;
+    border-radius: var(--r-pill);
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.15;
+    transition: background var(--d-2) var(--ease), color var(--d-2) var(--ease);
+  }
+
+  .seg input:checked + span {
+    background: var(--encre);
+    color: var(--ivoire);
+  }
+
+  .seg label:hover input:not(:checked, :disabled) + span {
+    background: rgb(27 22 18 / 0.08);
+  }
+
+  .seg input:focus-visible + span,
+  .switch input:focus-visible + i {
+    box-shadow: 0 0 0 2px var(--papier), 0 0 0 4px var(--encre);
+  }
+
+  .opt {
+    font-weight: inherit;
+  }
+
+  .sw {
+    width: 12px;
+    height: 12px;
+    flex: none;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px rgb(255 252 248 / 0.6);
+  }
+
+  .sw-encre {
+    background: var(--encre);
+  }
+
+  .sw-corail {
+    background: var(--corail);
+  }
+
+  .sw-sapin {
+    background: var(--sapin);
+  }
+
+  .set:disabled .seg {
+    opacity: 0.45;
+  }
+
+  .set:disabled input {
+    cursor: not-allowed;
+  }
+
+  .hint {
+    display: none;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--pierre);
+  }
+
+  .set:disabled .hint {
+    display: block;
+  }
+
+  .only-d {
+    display: none;
+  }
+
+  .switch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .switch > span {
+    margin: 0;
+  }
+
+  .switch i {
+    position: relative;
+    flex: none;
+    width: 46px;
+    height: 26px;
+    border-radius: var(--r-pill);
+    background: var(--sable);
+    transition: background var(--d-2) var(--ease);
+  }
+
+  .switch i::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--papier);
+    transition: transform var(--d-3) var(--ease);
+  }
+
+  .switch input:checked + i {
+    background: var(--encre);
+  }
+
+  .switch input:checked + i::after {
+    transform: translateX(20px);
+  }
+
+  /* Scène et cadre d'aperçu */
+  .atl-stage {
+    min-width: 0;
+  }
+
+  .atl-frame {
+    overflow: hidden;
+    border: 1.5px solid var(--trait);
+    border-radius: 16px;
+    background: var(--papier);
+    view-transition-name: atl-frame;
+  }
+
+  .atl-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 14px;
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  .atl-bar i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--trait);
+  }
+
+  .atl-bar span {
+    margin-left: 10px;
+    font-size: 0.75rem;
+    color: var(--pierre);
+  }
+
+  .atl-sec {
+    container-type: inline-size;
+    padding: 18px 16px 22px;
+  }
+
+  .atl-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    view-transition-name: atl-top;
+  }
+
+  .atelier[data-align='centre'] .atl-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .atl-eb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--pierre);
+  }
+
+  .atl-eb::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--acc);
+    transition: background var(--d-3) var(--ease);
+  }
+
+  .atl-h {
+    margin-top: 4px;
+    font-family: var(--f-disp);
+    font-weight: 760;
+    font-stretch: 88%;
+    font-size: 1.45rem;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  .atl-all {
+    flex: none;
+    font-size: 0.86rem;
+    font-weight: 650;
+    padding-bottom: 2px;
+    border-bottom: 2px solid var(--acc);
+    transition: border-color var(--d-3) var(--ease);
+  }
+
+  .atl-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 12px;
+  }
+
+  .atl-card {
+    min-width: 0;
+  }
+
+  .atl-img {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    border-radius: 8px;
+    background: var(--ivoire-2);
+  }
+
+  .atl-img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .atl-badge {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    padding: 3px 9px;
+    border-radius: var(--r-pill);
+    background: var(--acc);
+    color: var(--acc-ink);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: background var(--d-3) var(--ease), color var(--d-3) var(--ease);
+  }
+
+  .atl-txt {
+    padding-top: 8px;
+  }
+
+  .atl-name {
+    font-size: 0.9rem;
+    font-weight: 650;
+    line-height: 1.3;
+  }
+
+  .atl-price {
+    font-size: 0.86rem;
+    color: var(--pierre);
+  }
+
+  .atelier[data-prix='0'] .atl-price {
+    display: none;
+  }
+
+  /* Mise en avant : un produit en grand, les autres en liste. */
+  .atelier[data-layout='avant'] .atl-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atelier[data-layout='avant'] .atl-card:first-child .atl-img {
+    aspect-ratio: 4 / 5;
+  }
+
+  .atelier[data-layout='avant'] .atl-card:not(:first-child) {
+    display: grid;
+    grid-template-columns: 34% minmax(0, 1fr);
+    align-items: center;
+    column-gap: 12px;
+  }
+
+  .atelier[data-layout='avant'] .atl-card:not(:first-child) .atl-txt {
+    padding: 0;
+  }
+
+  /* Défilant : une rangée qui défile à l'horizontale. */
+  .atelier[data-layout='defilant'] .atl-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    padding-bottom: 10px;
+    border-radius: 8px;
+  }
+
+  .atelier[data-layout='defilant'] .atl-card {
+    flex: 0 0 62%;
+    scroll-snap-align: start;
+  }
+
+  @container (min-width: 520px) {
+    .atl-sec .atl-grid {
+      grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+      gap: 22px 16px;
+    }
+
+    .atelier[data-layout='avant'] .atl-grid {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      grid-template-rows: repeat(3, auto);
+    }
+
+    .atelier[data-layout='avant'] .atl-card:first-child {
+      grid-row: 1 / span 3;
+    }
+
+    .atelier[data-layout='defilant'] .atl-card {
+      flex-basis: 34%;
+    }
+
+    .atl-h {
+      font-size: 1.8rem;
+    }
+  }
+
+  .atelier[data-cols='2'] { --cols: 2; }
+  .atelier[data-cols='3'] { --cols: 3; }
+  .atelier[data-cols='4'] { --cols: 4; }
+
+  .atl-note {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: var(--pierre);
+  }
+
+  .atl-note .a-fournir {
+    margin-left: 6px;
+    padding: 0.2em 0.55em;
+    border-radius: 5px;
+    background: var(--todo-bg);
+    color: var(--todo);
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  /* Mobile : le panneau devient une barre d'outils collée sous l'en-tête, l'aperçu reste visible dessous. */
+  @media (max-width: 899px) {
+    .atl-panel {
+      position: sticky;
+      top: 72px;
+      z-index: 3;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 12px;
+      padding: 12px 12px 14px;
+      box-shadow: 0 14px 28px -18px rgb(27 22 18 / 0.45);
+    }
+
+    .set[data-set='layout'],
+    .switch {
+      grid-column: 1 / -1;
+    }
+
+    legend,
+    .switch > span {
+      margin-bottom: 5px;
+      font-size: 0.7rem;
+    }
+
+    .seg span {
+      min-height: 34px;
+      font-size: 0.82rem;
+    }
+
+    .set[data-set='acc'] .opt {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .sw {
+      width: 16px;
+      height: 16px;
+    }
+
+    .switch i {
+      width: 40px;
+      height: 22px;
+    }
+
+    .switch i::after {
+      width: 16px;
+      height: 16px;
+    }
+
+    .switch input:checked + i::after {
+      transform: translateX(18px);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .atelier {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      row-gap: 32px;
+    }
+
+    .atl-head {
+      grid-column: 1 / span 6;
+    }
+
+    .atl-panel {
+      grid-column: 1 / span 4;
+      align-self: start;
+      position: sticky;
+      top: 100px;
+      padding: 24px;
+    }
+
+    .only-d {
+      display: block;
+    }
+
+    .atl-stage {
+      grid-column: 5 / span 8;
+      padding: 28px;
+      border-radius: 24px;
+      background: var(--ivoire-2);
+    }
+
+    .atelier[data-view='mobile'] .atl-frame {
+      max-width: 360px;
+      margin-inline: auto;
+      border-radius: 26px;
+    }
+
+    .atl-sec {
+      padding: 26px 26px 30px;
+    }
+
+    .atelier[data-view='mobile'] .atl-sec {
+      padding: 18px 16px 22px;
+    }
+  }
+
+  /* Vers ou depuis le mode défilant, les cartes sortiraient du cadre pendant la transition : fondu simple. */
+  .atelier.vt-simple .atl-card {
+    view-transition-name: none !important;
+  }
+
+  /* View Transitions : seules les cartes, l'en-tête et le cadre se déplacent. */
+  :global(::view-transition-group(*)) {
+    animation-duration: 520ms;
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  :global(::view-transition-old(root)),
+  :global(::view-transition-new(root)) {
+    animation: none;
+  }
+</style>
+
+<script>
+  import { reducedMotion } from '../scripts/motion';
+
+  const root = document.querySelector<HTMLElement>('[data-atelier]');
+  const form = root?.querySelector('form');
+  if (root && form) {
+    const cols = form.querySelector<HTMLFieldSetElement>('[data-set="cols"]');
+    const grid = root.querySelector<HTMLElement>('[data-atl-grid]');
+    const viewLabel = root.querySelector('[data-atl-view]');
+    const value = (name: string) => form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? '';
+
+    const apply = () => {
+      const layout = value('layout');
+      const view = value('view');
+      root.dataset.layout = layout;
+      root.dataset.cols = value('cols');
+      root.dataset.acc = value('acc');
+      root.dataset.align = value('align');
+      root.dataset.view = view;
+      root.dataset.prix = form.querySelector<HTMLInputElement>('input[name="prix"]')?.checked ? '1' : '0';
+      if (cols) cols.disabled = layout !== 'grille' || view === 'mobile';
+      // En mode défilant, la rangée devient une zone de défilement atteignable au clavier.
+      if (grid) {
+        if (layout === 'defilant') grid.tabIndex = 0;
+        else grid.removeAttribute('tabindex');
+      }
+      if (viewLabel) viewLabel.textContent = view === 'mobile' ? 'Aperçu mobile' : 'Aperçu ordinateur';
+    };
+
+    form.addEventListener('submit', (e) => e.preventDefault());
+    form.addEventListener('change', () => {
+      if (!document.startViewTransition || reducedMotion()) return apply();
+      root.classList.toggle('vt-simple', root.dataset.layout === 'defilant' || value('layout') === 'defilant');
+      document.startViewTransition(apply).finished.finally(() => root.classList.remove('vt-simple'));
+    });
+    apply();
+  }
+</script>
