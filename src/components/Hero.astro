@@ -8,13 +8,16 @@ import { typo } from '../lib/typo';
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="wrap">
     <Wp i={10} only="m" style="left:calc(var(--pl) + var(--gut));top:30px" />
-    <h1 class="t-hero" id="hero-title">
-      {hero.titre.map((ligne, n) => <><span class="line"><span style={`--n:${n}`}>{typo(ligne)}</span></span>{n < hero.titre.length - 1 ? ' ' : ''}</>)}
-    </h1>
+    <div class="top">
+      <h1 class="t-hero" id="hero-title">
+        {hero.titre.map((ligne, n) => <><span class="line"><span style={`--n:${n}`}>{typo(ligne)}</span></span>{n < hero.titre.length - 1 ? ' ' : ''}</>)}
+      </h1>
+      <div class="knot-d" aria-hidden="true"><div class="knot" data-3d="knot"></div></div>
+    </div>
 
     <div class="rail" aria-hidden="true">
       <Wp i={10} only="d" style="left:calc(-1 * var(--pl) - 12px);top:0" />
-      <Wp i={12} only="d" loop style="left:41%;top:0" />
+      <Wp i={12} only="d" style="left:41%;top:0" />
     </div>
 
     <div class="grid">
@@ -39,6 +42,8 @@ import { typo } from '../lib/typo';
       </ol>
     </div>
 
+    <div class="knot-m" aria-hidden="true"><div class="knot" data-3d="knot"></div></div>
+
     <div class="end" aria-hidden="true">
       <Wp i={18} only="d" route="vh" style="left:var(--gut);top:0" />
     </div>
@@ -53,6 +58,21 @@ import { typo } from '../lib/typo';
   .rail {
     position: relative;
     height: 0;
+  }
+
+  /* Le fil en volume (three.js) : à droite du titre sur ordinateur, en bande sous l'index sur mobile. */
+  .knot-d {
+    display: none;
+  }
+
+  .knot-m {
+    height: 200px;
+    margin-top: 20px;
+  }
+
+  .knot {
+    width: 100%;
+    height: 100%;
   }
 
   .grid {
@@ -170,9 +190,32 @@ import { typo } from '../lib/typo';
       padding-top: 44px;
     }
 
+    .top {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      column-gap: 16px;
+    }
+
     h1 span {
       display: block;
       white-space: nowrap;
+    }
+
+    .knot-d {
+      display: block;
+      container-type: inline-size;
+      margin: -40px calc(-1 * var(--pr) + 8px) -110px 0;
+    }
+
+    /* Trop étroit à côté du titre : pas de fil en volume. */
+    @container (max-width: 230px) {
+      .knot {
+        display: none;
+      }
+    }
+
+    .knot-m {
+      display: none;
     }
 
     /* Chaque ligne du titre est un masque : le texte monte depuis sa ligne de base. */

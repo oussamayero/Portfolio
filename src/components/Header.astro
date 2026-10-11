@@ -3,15 +3,22 @@ import site from '../content/site.json';
 import Logo from './Logo.astro';
 import { typo } from '../lib/typo';
 
-const cta = site.actionPrincipale;
+interface Props {
+  // Préfixe des ancres hors de la page d'accueil (« / »).
+  prefix?: string;
+}
+
+const { prefix = '' } = Astro.props;
+const cta = { ...site.actionPrincipale, ancre: `${prefix}${site.actionPrincipale.ancre}` };
+const nav = site.navigation.map((item) => ({ ...item, ancre: `${prefix}${item.ancre}` }));
 ---
 
 <header class="hd" data-header>
   <div class="wrap hd-row">
-    <Logo href="#top" label={`${site.nom}, retour en haut de page`} />
+    <Logo href={prefix ? '/' : '#top'} label={prefix ? `${site.nom}, accueil` : `${site.nom}, retour en haut de page`} />
     <nav class="nav" aria-label="Navigation principale">
       <ul>
-        {site.navigation.map((item) => <li><a href={item.ancre}>{typo(item.libelle)}</a></li>)}
+        {nav.map((item) => <li><a href={item.ancre}>{typo(item.libelle)}</a></li>)}
       </ul>
     </nav>
     <a class="btn btn--sm cta-desktop" href={cta.ancre}>{typo(cta.libelle)}</a>
@@ -28,7 +35,7 @@ const cta = site.actionPrincipale;
   </div>
   <nav aria-label="Navigation mobile">
     <ul class="menu-links">
-      {site.navigation.map((item) => <li><a href={item.ancre}>{typo(item.libelle)}</a></li>)}
+      {nav.map((item) => <li><a href={item.ancre}>{typo(item.libelle)}</a></li>)}
     </ul>
   </nav>
   <a class="btn" href={cta.ancre}>{typo(cta.libelle)}</a>

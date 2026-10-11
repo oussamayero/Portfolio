@@ -1,0 +1,70 @@
+---
+// Page introuvable : le fil en volume, emmêlé (three.js), et deux sorties.
+import Page from '../layouts/Page.astro';
+import page from '../content/pages/introuvable.json';
+import site from '../content/site.json';
+import { typo } from '../lib/typo';
+---
+
+<Page title={`${typo(page.titre)} · ${site.nom}`} noindex>
+  <section class="nf wrap" aria-labelledby="nf-title">
+    <div class="text">
+      <p class="t-label">{typo(page.surtitre)}</p>
+      <h1 class="t-hero" id="nf-title">{typo(page.titre)}</h1>
+      <p class="t-lead">{typo(page.texte)}</p>
+      <div class="ctas">
+        <a class="btn" href="/">{typo(page.retour)}</a>
+        <a class="tlink" href={`/${site.actionPrincipale.ancre}`}>{typo(site.actionPrincipale.libelle)}&nbsp;→</a>
+      </div>
+    </div>
+    <div class="tangle" aria-hidden="true"><div class="knot" data-3d="knot" data-mode="tangle"></div></div>
+  </section>
+</Page>
+
+<style>
+  .nf {
+    display: grid;
+    gap: 24px;
+    align-items: center;
+    min-height: calc(100svh - 72px - 200px);
+    padding-block: 40px 80px;
+  }
+
+  .text {
+    display: grid;
+    gap: 18px;
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 24px;
+    margin-top: 10px;
+  }
+
+  .tangle {
+    height: 300px;
+  }
+
+  .knot {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (min-width: 900px) {
+    .nf {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+    }
+
+    .text {
+      grid-column: 1 / span 6;
+    }
+
+    .tangle {
+      grid-column: 7 / span 6;
+      height: 480px;
+    }
+  }
+</style>

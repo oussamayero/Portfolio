@@ -1,0 +1,40 @@
+{
+  "titre": "Mentions légales",
+  "intro": "Informations sur l'éditeur et l'hébergeur de ce site.",
+  "sections": [
+    {
+      "titre": "Éditeur du site",
+      "lignes": [
+        { "label": "Nom commercial", "valeur": "Ouza Studio" },
+        { "label": "Nom et prénom ou dénomination sociale", "valeur": null },
+        { "label": "Statut juridique", "valeur": null },
+        { "label": "Numéro SIRET", "valeur": null },
+        { "label": "Adresse", "valeur": null },
+        { "label": "Email", "valeur": null },
+        { "label": "Directeur ou directrice de la publication", "valeur": null }
+      ]
+    },
+    {
+      "titre": "Hébergement",
+      "lignes": [
+        { "label": "Hébergeur", "valeur": null },
+        { "label": "Adresse", "valeur": null },
+        { "label": "Téléphone", "valeur": null }
+      ]
+    },
+    {
+      "titre": "Propriété intellectuelle",
+      "paragraphes": [
+        "Les textes, visuels, animations et éléments graphiques de ce site sont la propriété d'Ouza Studio, sauf mention contraire. Leur reproduction sans autorisation est interdite.",
+        "Les marques présentées dans les démonstrations sont fictives et ont été créées pour ce site. Aucun client ne les a commandées."
+      ],
+      "lignes": [{ "label": "Photos de démonstration : crédits et licence", "valeur": null }]
+    },
+    {
+      "titre": "Crédits techniques",
+      "paragraphes": [
+        "Polices Bricolage Grotesque et Figtree (licence SIL Open Font). Animations réalisées avec GSAP. Scènes en volume réalisées avec three.js (licence MIT)."
+      ]
+    }
+  ]
+}

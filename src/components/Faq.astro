@@ -1,0 +1,180 @@
+---
+// Questions fréquentes : accordéon natif (details), une réponse ouverte à la fois.
+import faq from '../content/accueil/faq.json';
+import site from '../content/site.json';
+import Wp from './Wp.astro';
+import { typo } from '../lib/typo';
+---
+
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="side">
+      <h2 class="t-h2" id="faq-title"><Wp i={70} node="o" href="#faq" style="left:var(--gut);top:0.55em" />{typo(faq.titre)}</h2>
+      <p><a class="tlink" href={site.actionPrincipale.ancre}>{typo(faq.texte)}</a></p>
+    </div>
+    <div class="list">
+      {
+        faq.questions.map((q, n) => (
+          <details name="faq" open={n === 0}>
+            <summary>
+              <span>{typo(q.question)}</span>
+              <i aria-hidden="true" />
+            </summary>
+            <div class="answer">
+              <p>
+                {typo(q.reponse)}
+                {q.aConfirmer && <span class="a-fournir">à confirmer : {typo(q.aConfirmer)}</span>}
+              </p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .wrap {
+    display: grid;
+    gap: 28px;
+    padding-block: var(--s-section);
+  }
+
+  .side {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+  }
+
+  .side h2 {
+    position: relative;
+  }
+
+  .side p {
+    font-size: 0.95rem;
+  }
+
+  details {
+    border-top: 1.5px solid var(--trait);
+  }
+
+  details:last-child {
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 56px;
+    padding: 14px 0;
+    list-style: none;
+    cursor: pointer;
+    font-family: var(--f-disp);
+    font-weight: 680;
+    font-stretch: 92%;
+    font-size: 1.12rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Plus qui pivote en moins */
+  summary i {
+    position: relative;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid var(--encre);
+    border-radius: 50%;
+    transition: background var(--d-2) var(--ease), border-color var(--d-2) var(--ease);
+  }
+
+  summary i::before,
+  summary i::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 2px;
+    margin: -1px 0 0 -6px;
+    border-radius: 1px;
+    background: currentColor;
+    transition: transform var(--d-3) var(--ease);
+  }
+
+  summary i::after {
+    transform: rotate(90deg);
+  }
+
+  details[open] summary i {
+    background: var(--corail);
+    border-color: var(--corail);
+  }
+
+  details[open] summary i::after {
+    transform: rotate(0deg);
+  }
+
+  summary:hover i {
+    background: var(--ivoire-2);
+  }
+
+  .answer {
+    padding: 0 46px 20px 0;
+    color: var(--pierre);
+  }
+
+  .answer p {
+    max-width: 38em;
+  }
+
+  .a-fournir {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0.1em 0.5em;
+    border-radius: 5px;
+    background: var(--todo-bg);
+    color: var(--todo);
+    font-size: 0.85em;
+    font-weight: 650;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    details[open] .answer {
+      animation: faq-in var(--d-3) var(--ease);
+    }
+  }
+
+  @keyframes faq-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .wrap {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+    }
+
+    .side {
+      grid-column: 1 / span 4;
+    }
+
+    .list {
+      grid-column: 6 / span 7;
+    }
+
+    summary {
+      min-height: 64px;
+      font-size: 1.22rem;
+    }
+  }
+</style>

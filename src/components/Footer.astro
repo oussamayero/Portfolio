@@ -1,0 +1,118 @@
+---
+// Pied de page : logo, signature, navigation, pages légales.
+import site from '../content/site.json';
+import Logo from './Logo.astro';
+import { typo } from '../lib/typo';
+
+interface Props {
+  // Préfixe des ancres hors de la page d'accueil (« / »).
+  prefix?: string;
+}
+
+const { prefix = '' } = Astro.props;
+---
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="brand">
+      <Logo href={prefix ? '/' : '#top'} label={prefix ? `${site.nom}, accueil` : `${site.nom}, retour en haut de page`} />
+      <p>{typo(site.signature)}</p>
+    </div>
+    <nav aria-label="Pied de page">
+      <ul>
+        {site.navigation.map((item) => <li><a href={`${prefix}${item.ancre}`}>{typo(item.libelle)}</a></li>)}
+        <li><a href={`${prefix}${site.actionPrincipale.ancre}`}>{typo(site.actionPrincipale.libelle)}</a></li>
+      </ul>
+    </nav>
+    <p class="legal">
+      <a href={site.pages.mentions.url}>{typo(site.pages.mentions.libelle)}</a>
+      <span aria-hidden="true">·</span>
+      <a href={site.pages.confidentialite.url}>{typo(site.pages.confidentialite.libelle)}</a>
+      <span aria-hidden="true">·</span>
+      <span>© {site.annee} {site.nom}</span>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .ft {
+    background: var(--ivoire-2);
+    border-top: 1.5px solid var(--trait);
+  }
+
+  .wrap {
+    display: grid;
+    gap: 28px;
+    padding-block: 48px 40px;
+  }
+
+  .brand {
+    display: grid;
+    gap: 10px;
+  }
+
+  .brand p {
+    color: var(--pierre);
+    font-size: 0.95rem;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+  }
+
+  nav a,
+  .legal a {
+    display: inline-block;
+    padding: 6px 0;
+    text-decoration: none;
+    background: linear-gradient(var(--corail), var(--corail)) 0 100% / 0 2px no-repeat;
+    transition: background-size var(--d-3) var(--ease);
+  }
+
+  nav a:hover,
+  .legal a:hover {
+    background-size: 100% 2px;
+  }
+
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    font-size: 0.88rem;
+    color: var(--pierre);
+  }
+
+  .legal a {
+    color: var(--encre);
+  }
+
+  @media (min-width: 900px) {
+    .wrap {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      align-items: start;
+      padding-block: 64px 48px;
+    }
+
+    .brand {
+      grid-column: 1 / span 4;
+    }
+
+    nav {
+      grid-column: 6 / span 7;
+    }
+
+    nav ul {
+      justify-content: flex-end;
+    }
+
+    .legal {
+      grid-column: 1 / -1;
+      padding-top: 24px;
+      border-top: 1.5px solid var(--trait);
+    }
+  }
+</style>

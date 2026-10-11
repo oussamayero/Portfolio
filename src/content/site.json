@@ -11,11 +11,41 @@
     "ancre": "#contact"
   },
   "navigation": [
-    { "libelle": "Shopify", "ancre": "#shopify" },
-    { "libelle": "Motion", "ancre": "#motion" },
-    { "libelle": "Automatisation", "ancre": "#automatisation" },
-    { "libelle": "Méthode", "ancre": "#methode" },
-    { "libelle": "FAQ", "ancre": "#faq" }
+    {
+      "libelle": "Shopify",
+      "ancre": "#shopify"
+    },
+    {
+      "libelle": "Motion",
+      "ancre": "#motion"
+    },
+    {
+      "libelle": "Automatisation",
+      "ancre": "#automatisation"
+    },
+    {
+      "libelle": "Méthode",
+      "ancre": "#methode"
+    },
+    {
+      "libelle": "FAQ",
+      "ancre": "#faq"
+    }
   ],
-  "chantier": true
+  "chantier": true,
+  "formulaire": {
+    "action": "",
+    "email": ""
+  },
+  "pages": {
+    "mentions": {
+      "libelle": "Mentions légales",
+      "url": "/mentions-legales"
+    },
+    "confidentialite": {
+      "libelle": "Confidentialité",
+      "url": "/confidentialite"
+    }
+  },
+  "annee": "2026"
 }

@@ -1,0 +1,138 @@
+---
+// Contenu d'une page légale. Une valeur absente (null) affiche « à fournir » : rien n'est inventé.
+import { typo } from '../lib/typo';
+
+interface Ligne {
+  label: string;
+  valeur: string | null;
+  aConfirmer?: boolean;
+}
+
+interface Props {
+  page: {
+    titre: string;
+    intro: string;
+    sections: { titre: string; paragraphes?: string[]; lignes?: Ligne[] }[];
+    miseAJour?: string | null;
+  };
+}
+
+const { page } = Astro.props;
+---
+
+<div class="wrap">
+<article class="legal">
+  <header>
+    <a class="back tlink" href="/">← Accueil</a>
+    <h1 class="t-h2">{typo(page.titre)}</h1>
+    <p class="t-lead">{typo(page.intro)}</p>
+  </header>
+  {
+    page.sections.map((s) => (
+      <section>
+        <h2 class="t-h3">{typo(s.titre)}</h2>
+        {s.paragraphes?.map((p) => <p>{typo(p)}</p>)}
+        {s.lignes && (
+          <dl>
+            {s.lignes.map((l) => (
+              <div>
+                <dt>{typo(l.label)}</dt>
+                <dd>
+                  {l.valeur ? typo(l.valeur) : <span class="a-fournir">à fournir</span>}
+                  {l.aConfirmer && <span class="a-fournir">à confirmer</span>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </section>
+    ))
+  }
+  {'miseAJour' in page && (
+    <p class="maj">
+      Dernière mise à jour : {page.miseAJour ? typo(page.miseAJour) : <span class="a-fournir">à fournir</span>}
+    </p>
+  )}
+</article>
+</div>
+
+<style>
+  .legal {
+    display: grid;
+    gap: 40px;
+    max-width: 820px;
+    padding-block: 56px 96px;
+  }
+
+  header {
+    display: grid;
+    gap: 16px;
+  }
+
+  .back {
+    justify-self: start;
+    font-size: 0.92rem;
+  }
+
+  section {
+    display: grid;
+    gap: 14px;
+    padding-top: 28px;
+    border-top: 1.5px solid var(--trait);
+  }
+
+  section p {
+    max-width: 40em;
+  }
+
+  dl {
+    display: grid;
+  }
+
+  dl div {
+    display: grid;
+    gap: 2px 24px;
+    padding: 12px 0;
+    border-top: 1px solid var(--trait);
+  }
+
+  dl div:first-child {
+    border-top: 0;
+  }
+
+  dt {
+    color: var(--pierre);
+    font-size: 0.92rem;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .a-fournir {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 0.1em 0.5em;
+    border-radius: 5px;
+    background: var(--todo-bg);
+    color: var(--todo);
+    font-size: 0.85em;
+    font-weight: 650;
+  }
+
+  .maj {
+    color: var(--pierre);
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 900px) {
+    .legal {
+      padding-block: 88px 140px;
+    }
+
+    dl div {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+  }
+</style>

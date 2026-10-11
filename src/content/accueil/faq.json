@@ -1,0 +1,45 @@
+{
+  "titre": "Questions fréquentes",
+  "texte": "Une autre question ? Posez-la dans le formulaire.",
+  "questions": [
+    {
+      "question": "Je n'ai pas encore de boutique. Pouvez-vous la créer ?",
+      "reponse": "Oui. La création comprend le design, l'intégration dans Shopify et la mise en ligne.",
+      "aConfirmer": "périmètre : configuration du compte, paiements, livraison"
+    },
+    {
+      "question": "Ma boutique existe déjà. Faut-il tout refaire ?",
+      "reponse": "Non. Une refonte peut porter sur l'ensemble de la boutique ou sur quelques pages et sections, selon ce qui pose problème."
+    },
+    {
+      "question": "Pourrai-je modifier la boutique moi-même ?",
+      "reponse": "Oui. Les sections sont conçues pour être modifiées depuis l'éditeur Shopify : textes, images, produits mis en avant.",
+      "aConfirmer": "sections modifiables"
+    },
+    {
+      "question": "Puis-je commander uniquement du motion design ou une automatisation ?",
+      "reponse": "Oui. Chaque expertise se commande séparément, avec ou sans boutique Shopify."
+    },
+    {
+      "question": "Que signifie « Concept de démonstration » ?",
+      "reponse": "Ces animations ont été créées pour ce site, avec des marques fictives. Elles montrent ce qu'il est possible de produire. Aucun client ne les a commandées."
+    },
+    {
+      "question": "Combien coûte un projet ?",
+      "reponse": "Chaque projet fait l'objet d'un devis, après un premier échange. Le prix dépend du périmètre, du nombre de pages ou de formats et du niveau de sur-mesure."
+    },
+    {
+      "question": "Quels sont les délais ?",
+      "reponse": "Ils dépendent du périmètre. Ils sont indiqués dans la proposition, avant tout engagement."
+    },
+    {
+      "question": "Avec quels outils travaillez-vous pour l'automatisation ?",
+      "reponse": "Shopify Flow, n8n, Make, Zapier, ou une connexion directe entre vos outils par API. Le choix dépend de ce que vous utilisez déjà."
+    },
+    {
+      "question": "Travaillez-vous avec des agences ?",
+      "reponse": "Oui, en marque blanche ou en renfort, pour des projets Shopify ou motion.",
+      "aConfirmer": "sous-traitance acceptée ou non"
+    }
+  ]
+}

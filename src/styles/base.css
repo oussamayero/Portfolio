@@ -242,6 +242,17 @@ a {
   pointer-events: none;
 }
 
+/* Scènes 3D : apparition douce du canevas une fois three.js chargé. */
+[data-3d] canvas {
+  animation: fade-3d var(--d-4) var(--ease) both;
+}
+
+@keyframes fade-3d {
+  from {
+    opacity: 0;
+  }
+}
+
 /* Animations réduites */
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -1,0 +1,435 @@
+---
+// Section Automatisation : un scénario illustratif lu étape par étape, accroché au fil,
+// et sa maquette en volume (three.js, décorative : le texte suffit à tout comprendre).
+import auto from '../content/accueil/automatisation.json';
+import site from '../content/site.json';
+import Wp from './Wp.astro';
+import { typo } from '../lib/typo';
+
+const sc = auto.scenario;
+const m = auto.maquette;
+const etapes = [
+  { cle: 'Avant', texte: sc.avant },
+  { cle: 'Déclencheur', texte: sc.declencheur },
+  { cle: 'Actions', actions: sc.actions },
+  { cle: 'Résultat', texte: sc.resultat },
+];
+---
+
+<section class="auto" id="automatisation" aria-labelledby="auto-title">
+  <div class="wrap">
+    <p class="t-label eyebrow"><Wp i={50} node="o" href="#automatisation" style="left:var(--gut);top:50%" />{typo(auto.surtitre)}</p>
+
+    <div class="intro">
+      <h2 class="t-h2" id="auto-title">{typo(auto.titre)}</h2>
+      <p class="t-lead">{typo(auto.texte)}</p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="tag">{typo(sc.statut)}</span>
+        <p>{typo(sc.titre)}</p>
+      </div>
+
+      <ol class="flow" data-flow>
+        {
+          etapes.map((e, n) => (
+            <li class:list={['step', { 'is-actions': e.actions }]}>
+              <Wp i={52 + n} node={n < 2 ? 'o' : 's'} route={n === 0 ? 'vh' : undefined} />
+              <span class="k">{typo(e.cle)}</span>
+              {e.texte && <p>{typo(e.texte)}</p>}
+              {e.actions && (
+                <ul class="actions">
+                  {e.actions.map((a) => (
+                    <li data-action>{typo(a)}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="scene">
+        <div class="net" data-3d="network">
+          <ul class="net-labels" aria-hidden="true">
+            <li data-anchor="source" class="src">{typo(m.source)}</li>
+            <li data-anchor="hub" class="hub">{typo(m.workflow)}</li>
+            {m.destinations.map((d, n) => (
+              <li data-anchor={`e${n}`}>
+                <span class="l-long">{typo(d)}</span>
+                <span class="l-short">{typo(m.destinationsCourtes[n])}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <button type="button" class="pill replay" data-net-replay>{typo(m.rejouer)}</button>
+      </div>
+    </div>
+
+    <div class="more">
+      <h3 class="t-label">{typo(auto.exemplesTitre)}</h3>
+      <ul>
+        {auto.exemples.map((e) => <li>{typo(e)}</li>)}
+      </ul>
+    </div>
+
+    <div class="tools">
+      <p>{typo(auto.outils)}</p>
+      <a class="tlink" href={site.actionPrincipale.ancre} data-need="automatisation">{typo(auto.lien)}&nbsp;→</a>
+    </div>
+    <Wp i={58} only="d" route="vh" style="left:calc(var(--pl) + var(--gut));bottom:40px" />
+  </div>
+</section>
+
+<style>
+  .wrap {
+    padding-block: var(--s-section);
+  }
+
+  .eyebrow {
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .intro {
+    display: grid;
+    gap: 18px;
+  }
+
+  .intro .t-lead {
+    max-width: 32em;
+  }
+
+  .panel {
+    position: relative;
+    display: grid;
+    gap: 28px;
+    margin-top: 44px;
+  }
+
+  .panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    font-family: var(--f-disp);
+    font-weight: 680;
+    font-stretch: 92%;
+    font-size: 1.2rem;
+    letter-spacing: -0.012em;
+  }
+
+  .panel-head .tag {
+    color: var(--sapin);
+  }
+
+  /* Scénario : étapes lues de haut en bas, accrochées au fil. */
+  .step {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    padding: 16px 0;
+    border-top: 1.5px solid var(--trait);
+  }
+
+  .step:last-child {
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  .step :global(.wp) {
+    left: var(--gut);
+    top: 27px;
+  }
+
+  .k {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--pierre);
+  }
+
+  .step.is-actions .k {
+    color: var(--sapin);
+  }
+
+  .step p {
+    max-width: 34em;
+  }
+
+  .actions {
+    display: grid;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .actions li {
+    position: relative;
+    padding-left: 26px;
+  }
+
+  /* Chaque action reçoit sa coche quand l'impulsion de la maquette l'atteint. */
+  .actions li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.42em;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2.5px solid var(--sapin);
+    background: var(--sapin);
+    transition: background var(--d-3) var(--ease), border-color var(--d-3) var(--ease), transform var(--d-3) var(--ease);
+  }
+
+  .flow.is-waiting .actions li:not(.is-on)::before {
+    background: transparent;
+    border-color: var(--trait);
+    transform: scale(0.8);
+  }
+
+  /* Maquette 3D */
+  .scene {
+    position: relative;
+  }
+
+  .net {
+    position: relative;
+    container: net / inline-size;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-l);
+    background: var(--ivoire-2);
+    overflow: hidden;
+  }
+
+  .net-labels {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--d-4) var(--ease);
+  }
+
+  .net:global(.is-3d) .net-labels {
+    opacity: 1;
+  }
+
+  .l-short {
+    display: none;
+  }
+
+  /* Maquette étroite : étiquettes courtes pour rester dans le cadre. */
+  @container net (max-width: 560px) {
+    .l-long {
+      display: none;
+    }
+
+    .l-short {
+      display: inline;
+    }
+  }
+
+  .net-labels li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 3px 9px;
+    border: 1.5px solid var(--encre);
+    border-radius: var(--r-pill);
+    background: var(--papier);
+    font-size: 0.66rem;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  .net-labels .src {
+    background: var(--corail);
+    border-color: var(--corail);
+  }
+
+  .net-labels .hub {
+    background: var(--sapin);
+    border-color: var(--sapin);
+    color: var(--ivoire);
+  }
+
+  /* Sans WebGL (ou avant chargement) : la maquette s'efface, le scénario écrit suffit. */
+  .net:not(:global(.is-3d)) {
+    background: repeating-linear-gradient(135deg, var(--ivoire-2) 0 1.5px, transparent 1.5px 14px);
+  }
+
+  .scene:has(:global(.no-3d)) {
+    display: none;
+  }
+
+  .replay {
+    margin-top: 14px;
+  }
+
+  /* Mobile : la maquette avant les étapes, pour voir le scénario se jouer puis le lire. */
+  @media (max-width: 899px) {
+    .panel-head {
+      order: -2;
+    }
+
+    .scene {
+      order: -1;
+    }
+  }
+
+  .more {
+    display: grid;
+    gap: 14px;
+    margin-top: 56px;
+  }
+
+  .more ul {
+    display: grid;
+  }
+
+  .more li {
+    position: relative;
+    padding: 14px 0 14px 28px;
+    border-top: 1.5px solid var(--trait);
+  }
+
+  .more li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 19px;
+    width: 12px;
+    height: 12px;
+    border: 2.5px solid var(--sapin);
+    border-radius: 50%;
+  }
+
+  .tools {
+    display: grid;
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  .tools p {
+    font-size: 0.95rem;
+    color: var(--pierre);
+  }
+
+  .tools .tlink {
+    justify-self: start;
+  }
+
+  @media (min-width: 900px) {
+    .intro {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      align-items: end;
+    }
+
+    .intro h2 {
+      grid-column: 1 / span 6;
+    }
+
+    .intro .t-lead {
+      grid-column: 8 / span 5;
+    }
+
+    .panel {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      row-gap: 28px;
+      margin-top: 80px;
+      padding: 32px 0 0;
+      border-top: 1.5px solid var(--encre);
+    }
+
+    .panel-head {
+      grid-column: 1 / -1;
+    }
+
+    .flow {
+      grid-column: 1 / span 5;
+      align-self: start;
+    }
+
+    .step {
+      padding: 18px 0 18px 36px;
+      border: 0;
+    }
+
+    .step:last-child {
+      border: 0;
+    }
+
+    .step :global(.wp) {
+      left: 0;
+      top: 30px;
+    }
+
+    .scene {
+      grid-column: 6 / span 7;
+      position: sticky;
+      top: 110px;
+      align-self: start;
+    }
+
+    .net {
+      aspect-ratio: 16 / 12;
+      border-radius: 24px;
+    }
+
+    .net-labels li {
+      font-size: 0.8rem;
+    }
+
+    .more {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      margin-top: 96px;
+    }
+
+    .more h3 {
+      grid-column: 1 / span 3;
+    }
+
+    .more ul {
+      grid-column: 4 / span 9;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+    }
+
+    .tools {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      align-items: baseline;
+      margin-top: 48px;
+    }
+
+    .tools p {
+      grid-column: 4 / span 5;
+    }
+
+    .tools .tlink {
+      grid-column: 9 / span 4;
+      justify-self: end;
+    }
+  }
+</style>
+
+<script>
+  import { reducedMotion } from '../scripts/motion';
+
+  // Les coches des actions suivent les impulsions de la maquette 3D.
+  const flow = document.querySelector<HTMLElement>('[data-flow]');
+  const net = document.querySelector<HTMLElement>('[data-3d="network"]');
+  if (flow && net && !reducedMotion()) {
+    const items = Array.from(flow.querySelectorAll<HTMLElement>('[data-action]'));
+    net.addEventListener('net:progress', (e) => {
+      const t = (e as CustomEvent<number>).detail;
+      flow.classList.add('is-waiting');
+      items.forEach((li, i) => li.classList.toggle('is-on', t >= 1.2 + i * 0.12 + 0.9));
+    });
+  }
+</script>

@@ -1,0 +1,460 @@
+---
+// Contact : le fil s'arrête sur le bouton d'envoi. Le succès ne s'affiche qu'après confirmation
+// réelle du service d'envoi (site.json → formulaire.action). Sans service relié, la page le dit.
+import contact from '../content/accueil/contact.json';
+import site from '../content/site.json';
+import Wp from './Wp.astro';
+import { typo } from '../lib/typo';
+
+const c = contact.champs;
+const e = contact.erreurs;
+const s = contact.envoi;
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <h2 class="title" id="contact-title">
+      <Wp i={80} node="o" href="#contact" style="left:var(--gut);top:0.5em" />
+      {contact.titre.map((l) => <span>{typo(l)}</span>)}
+    </h2>
+
+    <div class="grid">
+      <div class="aside">
+        <p class="t-lead">{typo(contact.texte)}</p>
+        <p class="t-label next-title">{typo(contact.ensuiteTitre)}</p>
+        <ol class="next">
+          {contact.ensuite.map((t, n) => <li><span class="n" aria-hidden="true">{n + 1}</span>{typo(t)}</li>)}
+        </ol>
+      </div>
+
+      <form
+        class="form"
+        novalidate
+        data-contact
+        data-action={site.formulaire.action}
+        data-email={site.formulaire.email}
+        data-msg-sending={typo(s.enCours)}
+        data-msg-success={typo(s.succes)}
+        data-msg-error={typo(s.erreur)}
+        data-msg-fallback={typo(s.repli)}
+        data-msg-unlinked={typo(s.nonRelie)}
+        data-msg-unlinked-fallback={typo(s.nonRelieRepli)}
+        data-msg-unlinked-link={typo(s.nonRelieLien)}
+        action={site.formulaire.action || undefined}
+        method="post"
+      >
+        <div class="row">
+          <div class="field" data-field="nom">
+            <label for="f-nom">{typo(c.nom)}</label>
+            <input id="f-nom" name="nom" type="text" autocomplete="name" required aria-describedby="e-nom" />
+            <p class="err" id="e-nom" hidden><i aria-hidden="true">!</i>{typo(e.nom)}</p>
+          </div>
+          <div class="field" data-field="email">
+            <label for="f-email">{typo(c.email)}</label>
+            <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="e-email" />
+            <p class="err" id="e-email" hidden><i aria-hidden="true">!</i>{typo(e.email)}</p>
+          </div>
+        </div>
+
+        <fieldset class="field" data-field="besoin" aria-describedby="e-besoin">
+          <legend>{typo(c.besoin)}</legend>
+          <div class="chips">
+            {
+              contact.besoins.map((b) => (
+                <label class="chip">
+                  <input type="checkbox" name="besoin" value={b.valeur} />
+                  <span>{typo(b.libelle)}</span>
+                </label>
+              ))
+            }
+          </div>
+          <p class="err" id="e-besoin" hidden><i aria-hidden="true">!</i>{typo(e.besoin)}</p>
+        </fieldset>
+
+        <div class="field" data-field="projet">
+          <label for="f-projet">{typo(c.projet)}</label>
+          <textarea id="f-projet" name="projet" rows="5" required aria-describedby="e-projet"></textarea>
+          <p class="err" id="e-projet" hidden><i aria-hidden="true">!</i>{typo(e.projet)}</p>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="f-site">{typo(c.site)} <span class="opt">{typo(c.facultatif)}</span></label>
+            <input id="f-site" name="site" type="text" inputmode="url" autocomplete="url" />
+          </div>
+          <div class="field">
+            <label for="f-echeance">{typo(c.echeance)} <span class="opt">{typo(c.facultatif)}</span></label>
+            <select id="f-echeance" name="echeance">
+              <option value="">{typo(c.choisir)}</option>
+              {contact.echeances.map((x) => <option>{typo(x)}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <input type="hidden" name="situation" value="" data-situation />
+        <div class="trap" aria-hidden="true">
+          <label for="f-gotcha">Ne pas remplir</label>
+          <input id="f-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="end">
+          <span class="send">
+            <Wp i={88} node="f" route="vh" only="d" style="left:-26px;top:50%" />
+            <Wp i={88} node="f" only="m" style="left:var(--gut);top:50%" />
+            <button type="submit" class="btn" data-submit>{typo(s.bouton)}</button>
+          </span>
+          <p class="note">
+            {typo(contact.mention)} <a href={site.pages.confidentialite.url}>{typo(contact.confidentialite)}</a>.
+          </p>
+        </div>
+        <div class="status" role="status" aria-live="polite" data-status hidden></div>
+        {
+          !site.formulaire.action && site.chantier && (
+            <p class="todo"><span>À relier avant la mise en ligne</span> service d'envoi et adresse de réception (site.json → formulaire).</p>
+          )
+        }
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wrap {
+    padding-block: var(--s-section) calc(var(--s-section) + 20px);
+  }
+
+  .title {
+    position: relative;
+    font-family: var(--f-disp);
+    font-weight: 800;
+    font-stretch: 85%;
+    font-size: var(--t-contact);
+    line-height: 0.93;
+    letter-spacing: -0.045em;
+  }
+
+  .title span {
+    display: block;
+  }
+
+  .grid {
+    display: grid;
+    gap: 40px;
+    margin-top: 36px;
+  }
+
+  .aside .t-lead {
+    max-width: 26em;
+  }
+
+  .next-title {
+    margin: 32px 0 12px;
+  }
+
+  .next {
+    display: grid;
+    gap: 12px;
+  }
+
+  .next li {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .next .n {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--encre);
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  /* Formulaire */
+  .form {
+    position: relative;
+    display: grid;
+    gap: 22px;
+  }
+
+  .row {
+    display: grid;
+    gap: 22px;
+  }
+
+  .field {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  label,
+  legend {
+    padding: 0;
+    font-weight: 650;
+    font-size: 0.95rem;
+  }
+
+  .opt {
+    font-weight: 400;
+    color: var(--pierre);
+  }
+
+  input:not([type='checkbox']),
+  textarea,
+  select {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--sable);
+    border-radius: var(--r-m);
+    background: var(--papier);
+    color: var(--encre);
+    font: inherit;
+    transition: border-color var(--d-2) var(--ease), box-shadow var(--d-2) var(--ease);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--encre) 50%), linear-gradient(135deg, var(--encre) 50%, transparent 50%);
+    background-position: calc(100% - 22px) 52%, calc(100% - 16px) 52%;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 44px;
+  }
+
+  input:not([type='checkbox']):hover,
+  textarea:hover,
+  select:hover {
+    border-color: var(--pierre);
+  }
+
+  input:not([type='checkbox']):focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    border-color: var(--encre);
+    border-radius: var(--r-m);
+  }
+
+  [aria-invalid='true'] {
+    border-color: var(--brique) !important;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chip {
+    position: relative;
+    font-weight: 600;
+  }
+
+  .chip input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .chip span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 9px 16px;
+    border: 1.5px solid var(--sable);
+    border-radius: var(--r-pill);
+    background: var(--papier);
+    transition: background var(--d-2) var(--ease), color var(--d-2) var(--ease), border-color var(--d-2) var(--ease);
+  }
+
+  .chip span::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    transition: background var(--d-2) var(--ease);
+  }
+
+  .chip:hover span {
+    border-color: var(--encre);
+  }
+
+  .chip input:checked + span {
+    background: var(--encre);
+    border-color: var(--encre);
+    color: var(--ivoire);
+  }
+
+  .chip input:checked + span::before {
+    background: var(--corail);
+    border-color: var(--corail);
+  }
+
+  .chip input:focus-visible + span {
+    box-shadow: 0 0 0 3px var(--ivoire), 0 0 0 5px var(--encre);
+  }
+
+  .err {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--brique);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .err[hidden] {
+    display: none;
+  }
+
+  .err i {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: var(--brique);
+    color: var(--papier);
+    font-style: normal;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .end {
+    display: grid;
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .send {
+    position: relative;
+    display: inline-flex;
+    justify-self: start;
+  }
+
+  .send .btn {
+    min-height: 56px;
+    padding-inline: 30px;
+  }
+
+  .send .btn[aria-busy='true'] {
+    background: var(--encre);
+    color: var(--ivoire);
+    cursor: progress;
+  }
+
+  .note {
+    font-size: 0.85rem;
+    color: var(--pierre);
+  }
+
+  .note a {
+    color: var(--encre);
+  }
+
+  .status {
+    padding: 14px 16px;
+    border-radius: var(--r-m);
+    font-weight: 600;
+  }
+
+  .status[data-state='sending'] {
+    background: var(--ivoire-2);
+  }
+
+  .status[data-state='success'] {
+    background: var(--menthe);
+    color: var(--sapin);
+  }
+
+  .status[data-state='error'],
+  .status[data-state='unlinked'] {
+    background: #fbe4df;
+    color: var(--brique);
+  }
+
+  .status a {
+    color: inherit;
+  }
+
+  .todo {
+    font-size: 0.85rem;
+    color: var(--pierre);
+  }
+
+  .todo span {
+    margin-right: 6px;
+    padding: 0.2em 0.55em;
+    border-radius: 5px;
+    background: var(--todo-bg);
+    color: var(--todo);
+    font-weight: 650;
+  }
+
+  @media (min-width: 900px) {
+    .title {
+      max-width: 9.5em;
+    }
+
+    .grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      margin-top: 64px;
+    }
+
+    .aside {
+      grid-column: 1 / span 4;
+    }
+
+    .form {
+      grid-column: 6 / span 7;
+      gap: 26px;
+    }
+
+    .row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 20px;
+    }
+
+    .end {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 24px;
+    }
+  }
+</style>
+
+<script>
+  import { initContact } from '../scripts/contact';
+
+  const form = document.querySelector<HTMLFormElement>('[data-contact]');
+  if (form) initContact(form);
+</script>

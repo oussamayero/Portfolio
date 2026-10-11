@@ -1,0 +1,45 @@
+{
+  "titre": ["Présentez", "votre projet."],
+  "texte": "Quelques lignes suffisent. Je vous réponds par email pour en parler.",
+  "ensuiteTitre": "Ensuite",
+  "ensuite": [
+    "Je lis votre demande.",
+    "Je vous réponds par email, avec mes questions ou une proposition d'échange.",
+    "Si le projet correspond, je vous envoie une proposition."
+  ],
+  "champs": {
+    "nom": "Nom",
+    "email": "Email",
+    "besoin": "Votre besoin",
+    "projet": "Votre projet en quelques lignes",
+    "site": "Site ou marque",
+    "echeance": "Échéance",
+    "facultatif": "(facultatif)",
+    "choisir": "Choisir"
+  },
+  "besoins": [
+    { "valeur": "shopify", "libelle": "Boutique Shopify" },
+    { "valeur": "motion", "libelle": "Motion design" },
+    { "valeur": "automatisation", "libelle": "Automatisation" },
+    { "valeur": "nsp", "libelle": "Je ne sais pas encore" }
+  ],
+  "echeances": ["Pas de date précise", "Dans le mois", "Dans 1 à 3 mois", "Plus tard"],
+  "erreurs": {
+    "nom": "Indiquez votre nom.",
+    "email": "Indiquez une adresse email valide, par exemple nom@marque.fr.",
+    "besoin": "Cochez au moins un besoin, ou « Je ne sais pas encore ».",
+    "projet": "Décrivez votre projet en quelques lignes."
+  },
+  "envoi": {
+    "bouton": "Envoyer ma demande",
+    "enCours": "Envoi en cours…",
+    "succes": "Demande envoyée. Je vous réponds par email.",
+    "erreur": "La demande n'est pas partie. Vérifiez votre connexion et réessayez.",
+    "repli": "Si le problème continue, écrivez à",
+    "nonRelie": "Le formulaire n'est pas encore relié à une adresse de réception : votre demande n'a pas été envoyée.",
+    "nonRelieRepli": "Vous pouvez l'envoyer par email :",
+    "nonRelieLien": "ouvrir un email prérempli"
+  },
+  "mention": "Vos informations servent uniquement à traiter votre demande.",
+  "confidentialite": "Politique de confidentialité"
+}

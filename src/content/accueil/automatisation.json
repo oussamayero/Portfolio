@@ -1,0 +1,44 @@
+{
+  "surtitre": "03 · Automatisation",
+  "titre": "Les tâches qui reviennent chaque jour, confiées à un workflow.",
+  "texte": "Recopier une commande, prévenir un fournisseur, relancer un client : je relie vos outils pour que ces actions se déclenchent seules, avec une vérification humaine là où elle compte.",
+  "scenario": {
+    "statut": "Scénario illustratif",
+    "titre": "Une marque vend des pièces en précommande.",
+    "avant": "Chaque commande est recopiée à la main dans un tableau, puis le fournisseur est prévenu par email.",
+    "declencheur": "Une commande contenant un produit en précommande arrive dans Shopify.",
+    "actions": [
+      "La commande s'ajoute au tableau de suivi",
+      "Le fournisseur reçoit un récapitulatif",
+      "L'équipe est prévenue sur sa messagerie",
+      "Le client reçoit la date d'expédition prévue"
+    ],
+    "resultat": "Le suivi est à jour sans ressaisie. L'équipe vérifie au lieu de recopier."
+  },
+  "maquette": {
+    "source": "Commande Shopify",
+    "workflow": "Workflow",
+    "destinations": [
+      "Tableau de suivi",
+      "Fournisseur",
+      "Équipe",
+      "Client"
+    ],
+    "rejouer": "Rejouer le scénario",
+    "destinationsCourtes": [
+      "Tableau",
+      "Fournisseur",
+      "Équipe",
+      "Client"
+    ]
+  },
+  "exemplesTitre": "Autres exemples",
+  "exemples": [
+    "Alerte quand un stock passe sous un seuil",
+    "Récapitulatif des ventes envoyé chaque lundi",
+    "Demandes SAV triées et attribuées",
+    "Clients synchronisés avec votre outil d'emailing"
+  ],
+  "outils": "Selon vos outils : Shopify Flow, n8n, Make, Zapier ou connexion directe par API.",
+  "lien": "Une tâche à automatiser ? Présenter mon projet"
+}

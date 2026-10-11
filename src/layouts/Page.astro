@@ -1,0 +1,23 @@
+---
+// Gabarit des pages secondaires (légales, page introuvable) : même en-tête et pied de page,
+// ancres de navigation renvoyées vers l'accueil.
+import Base from './Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex } = Astro.props;
+---
+
+<Base title={title} description={description} noindex={noindex}>
+  <Header prefix="/" />
+  <main id="main" class="sub" tabindex="-1">
+    <slot />
+  </main>
+  <Footer prefix="/" />
+</Base>

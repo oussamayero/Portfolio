@@ -1,0 +1,10 @@
+---
+import Page from '../layouts/Page.astro';
+import LegalPage from '../components/LegalPage.astro';
+import confidentialite from '../content/pages/confidentialite.json';
+import site from '../content/site.json';
+---
+
+<Page title={`${confidentialite.titre} · ${site.nom}`} description={`${confidentialite.titre} du site ${site.nom}.`}>
+  <LegalPage page={confidentialite} />
+</Page>

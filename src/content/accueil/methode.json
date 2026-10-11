@@ -1,0 +1,28 @@
+{
+  "surtitre": "04 · Méthode",
+  "titre": "Un seul interlocuteur, du premier échange à la mise en ligne.",
+  "texte": "Ouza Studio, c'est une personne. Celle qui vous répond est celle qui conçoit, anime et développe votre projet.",
+  "etapes": [
+    { "titre": "Échange", "texte": "Vous présentez le projet. Je pose les questions qui en fixent le périmètre." },
+    { "titre": "Proposition", "texte": "Périmètre, étapes et devis. Rien ne démarre sans votre accord." },
+    { "titre": "Conception", "texte": "Maquettes ou storyboards, validés avant la production." },
+    { "titre": "Production", "texte": "Développement, animation ou workflow, avec des points d'avancement." },
+    { "titre": "Livraison", "texte": "Mise en ligne, fichiers finaux, prise en main." },
+    { "titre": "Suite", "texte": "Évolutions ponctuelles ou accompagnement." }
+  ],
+  "formulesTitre": "Deux façons de travailler ensemble",
+  "formules": [
+    {
+      "titre": "Projet ponctuel",
+      "accroche": "Un besoin défini.",
+      "texte": "Une boutique, une refonte, une série de contenus, un workflow. Un périmètre, un devis, une livraison."
+    },
+    {
+      "titre": "Accompagnement",
+      "accroche": "Des besoins qui reviennent.",
+      "texte": "Nouvelles sections, contenus animés réguliers, ajustement des automatisations. Le rythme et le volume se définissent ensemble."
+    }
+  ],
+  "votreCote": "De votre côté : vos contenus (textes, photos, logo), les accès nécessaires et une personne pour valider.",
+  "tarifs": "Tarifs sur devis, après un premier échange."
+}

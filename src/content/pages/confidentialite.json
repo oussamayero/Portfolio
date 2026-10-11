@@ -1,0 +1,49 @@
+{
+  "titre": "Politique de confidentialité",
+  "intro": "Ce que deviennent les informations envoyées par le formulaire de contact.",
+  "sections": [
+    {
+      "titre": "Responsable du traitement",
+      "lignes": [
+        { "label": "Nom", "valeur": "Ouza Studio" },
+        { "label": "Coordonnées", "valeur": null }
+      ]
+    },
+    {
+      "titre": "Données collectées",
+      "paragraphes": [
+        "Par le formulaire de contact : votre nom, votre adresse email, votre besoin, la description de votre projet et, si vous les indiquez, votre site ou votre marque et l'échéance souhaitée."
+      ]
+    },
+    {
+      "titre": "Utilisation",
+      "paragraphes": [
+        "Ces informations servent uniquement à répondre à votre demande et, si le projet se concrétise, à préparer une proposition. Elles ne sont ni vendues ni cédées."
+      ],
+      "lignes": [{ "label": "Base légale", "valeur": "Mesures précontractuelles prises à votre demande (article 6.1.b du RGPD)", "aConfirmer": true }]
+    },
+    {
+      "titre": "Destinataires",
+      "paragraphes": ["Ouza Studio, seul destinataire de vos messages."],
+      "lignes": [{ "label": "Service d'envoi du formulaire", "valeur": null }]
+    },
+    {
+      "titre": "Durée de conservation",
+      "lignes": [{ "label": "Durée", "valeur": "3 ans après le dernier échange", "aConfirmer": true }]
+    },
+    {
+      "titre": "Vos droits",
+      "paragraphes": [
+        "Vous pouvez accéder à vos données, les rectifier, les effacer, vous opposer à leur traitement, en demander la limitation ou la portabilité. Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr)."
+      ],
+      "lignes": [{ "label": "Adresse pour exercer vos droits", "valeur": null }]
+    },
+    {
+      "titre": "Cookies et mesure d'audience",
+      "paragraphes": [
+        "Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience. Les polices et les scripts sont hébergés avec le site : la navigation n'envoie aucune requête à un service tiers. Seul l'envoi du formulaire transmet vos informations au service d'envoi."
+      ]
+    }
+  ],
+  "miseAJour": null
+}

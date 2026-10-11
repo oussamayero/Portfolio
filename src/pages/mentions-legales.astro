@@ -1,0 +1,10 @@
+---
+import Page from '../layouts/Page.astro';
+import LegalPage from '../components/LegalPage.astro';
+import mentions from '../content/pages/mentions.json';
+import site from '../content/site.json';
+---
+
+<Page title={`${mentions.titre} · ${site.nom}`} description={`${mentions.titre} du site ${site.nom}.`}>
+  <LegalPage page={mentions} />
+</Page>
