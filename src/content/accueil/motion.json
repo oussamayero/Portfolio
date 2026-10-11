@@ -1,0 +1,74 @@
+{
+  "surtitre": "02 · Motion design",
+  "titre": "Des contenus animés, conçus pour l'endroit où ils seront vus.",
+  "texte": "Une publicité verticale ne se raconte pas comme une animation de page d'accueil. Je conçois chaque contenu pour son format, son canal et sa durée.",
+  "prestationsTitre": "Ce que vous pouvez commander",
+  "prestations": [
+    "Publicités et formats pour les réseaux sociaux",
+    "Mise en scène de produits",
+    "Logo et identité animés",
+    "Animations typographiques et messages de marque",
+    "Animations intégrées à un site ou une boutique"
+  ],
+  "lien": "Un besoin en motion design ? Présenter mon projet",
+  "lienAncre": "#contact",
+  "statut": "Concept de démonstration",
+  "lecteur": {
+    "nom": "Lecteur de la vitrine motion design",
+    "lecture": "Lecture",
+    "pause": "Pause",
+    "coulisses": "Voir les coulisses",
+    "calques": "Calques et images clés",
+    "boucle": "en boucle",
+    "secondes": "s",
+    "formats": "Format affiché",
+    "liste": "Pièces de la vitrine"
+  },
+  "infos": {
+    "commande": "Ce que vous commandez",
+    "usage": "Usage",
+    "format": "Format présenté"
+  },
+  "pieces": [
+    {
+      "id": "annonce",
+      "type": "demo",
+      "titre": "Annonce typographique",
+      "commande": "Une animation de message : lancement, offre, manifeste",
+      "usage": "Réseaux sociaux, ouverture de vidéo, page d'accueil",
+      "format": "16:9 et 1:1",
+      "duree": "6 s",
+      "description": "Animation pour la marque fictive ILVANE. Sur fond corail, un trait encre traverse l'image, puis les mots « Nouvelle », « collection » et « en ligne. » montent l'un après l'autre. Une pastille « Édition 01 » tourne et se pose. Les mots sortent par le haut, le fond passe à l'encre et le logo ILVANE apparaît."
+    },
+    {
+      "id": "publicite",
+      "type": "demo",
+      "titre": "Publicité produit courte",
+      "commande": "Une publicité courte pour les réseaux sociaux ou une fiche produit",
+      "usage": "Réseaux sociaux, fiche produit",
+      "format": "9:16",
+      "duree": "10 s",
+      "description": "Publicité verticale pour l'huile n°3 de la marque fictive ILVANE. Le flacon descend et se pose, puis trois étiquettes l'entourent : « Nouvelle formule », « 30 ml » et « Rechargeable ». Le fond glisse vers le corail et le flacon s'incline. L'image de fin affiche ILVANE, « Huile n°3 » et un bouton « Découvrir ». Le haut et le bas de l'image restent libres pour l'interface des réseaux sociaux."
+    },
+    {
+      "id": "logo",
+      "type": "demo",
+      "titre": "Logo et système graphique animés",
+      "commande": "Une animation de logo et des éléments graphiques réutilisables",
+      "usage": "Intro et signature vidéo, site, présentations",
+      "format": "16:9",
+      "duree": "5 s",
+      "description": "Animation du logo de la marque fictive ILVANE. Un point au centre s'étire en arc et en barre pour former le monogramme, le nom ILVANE s'écrit à côté, puis un motif d'arcs remplit l'image avant de se replier vers le logo."
+    },
+    {
+      "id": "formats",
+      "type": "demo",
+      "titre": "Un concept, deux formats",
+      "commande": "Les déclinaisons d'un même contenu pour plusieurs canaux",
+      "usage": "Campagne sur plusieurs canaux",
+      "format": "16:9 et 9:16",
+      "duree": "10 s",
+      "description": "La publicité de l'huile n°3 jouée en même temps en 16:9 et en 9:16. En 16:9, le flacon entre à gauche et les informations se rangent en colonne ; en 9:16, le flacon est au centre et les informations l'entourent. Le fond change au même moment dans les deux formats. À la fin, le logo et le bouton sont côte à côte en 16:9, l'un au-dessus de l'autre en 9:16."
+    }
+  ]
+}

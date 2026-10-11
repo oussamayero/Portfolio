@@ -1,0 +1,60 @@
+---
+// Publicité verticale 9:16 de la marque fictive ILVANE (pièces 2 et 4 de la vitrine motion).
+// Zones réservées à l'interface des réseaux sociaux : 14 % en haut, 20 % en bas ; rien d'important n'y est placé.
+// L'état au repos est l'image du milieu (flacon posé, étiquettes) ; l'animation est dans src/scripts/vitrine.ts.
+interface Props {
+  uid: string;
+}
+
+const { uid } = Astro.props;
+---
+
+<svg class="ad ad-v" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid meet" data-ad="v">
+  <defs>
+    <clipPath id={`${uid}-title`}><rect x="0" y="1000" width="1080" height="215"></rect></clipPath>
+  </defs>
+  <rect class="f-iv2" width="1080" height="1920"></rect>
+  <g data-layer="Fond · glissement" data-nobox><rect class="b-bg f-cor" x="1080" y="-10" width="1100" height="1940"></rect></g>
+
+  <g class="b-fl" data-layer="Flacon · position, rotation">
+    <use href="#ilv-flacon" x="368.6" y="470" width="342.9" height="900"></use>
+  </g>
+
+  <g class="b-lab" data-layer="Étiquette 1 · échelle">
+    <rect class="f-pap s-enc" x="56" y="300" width="543" height="120" rx="60"></rect>
+    <circle class="f-cor" cx="100" cy="360" r="13"></circle>
+    <text class="t-lab" x="132" y="379" font-size="54">Nouvelle formule</text>
+  </g>
+  <g class="b-lab" data-layer="Étiquette 2 · échelle">
+    <rect class="f-pap s-enc" x="767" y="760" width="257" height="120" rx="60"></rect>
+    <circle class="f-cor" cx="811" cy="820" r="13"></circle>
+    <text class="t-lab" x="843" y="839" font-size="54">30 ml</text>
+  </g>
+  <g class="b-lab" data-layer="Étiquette 3 · échelle">
+    <rect class="f-pap s-enc" x="56" y="1280" width="458" height="120" rx="60"></rect>
+    <circle class="f-cor" cx="100" cy="1340" r="13"></circle>
+    <text class="t-lab" x="132" y="1359" font-size="54">Rechargeable</text>
+  </g>
+
+  <g class="b-brand" data-layer="Marque · opacité" opacity="0">
+    <use class="c-enc" href="#ilv-logo" x="354.4" y="380" width="371.2" height="96"></use>
+  </g>
+  <g data-layer="Titre · masque">
+    <rect data-box x="236" y="1018" width="608" height="166" fill="none"></rect>
+    <g clip-path={`url(#${uid}-title)`}>
+      <text class="b-title t-disp" x="540" y="1150" font-size="170" text-anchor="middle" opacity="0">Huile n°3</text>
+    </g>
+  </g>
+  <g class="b-btn" data-layer="Bouton · échelle" opacity="0">
+    <rect class="f-enc" x="320" y="1220" width="440" height="136" rx="68"></rect>
+    <text class="t-btn" x="540" y="1308" font-size="56" text-anchor="middle">Découvrir</text>
+  </g>
+
+  <g class="safe">
+    <rect class="safe-z" width="1080" height="269"></rect>
+    <rect class="safe-z" y="1536" width="1080" height="384"></rect>
+    <path class="safe-l" d="M0 269 H1080 M0 1536 H1080"></path>
+    <text class="safe-t" x="56" y="160" font-size="42">Interface du réseau · 14 %</text>
+    <text class="safe-t" x="56" y="1740" font-size="42">Interface du réseau · 20 %</text>
+  </g>
+</svg>

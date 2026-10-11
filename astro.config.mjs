@@ -7,4 +7,6 @@ export default defineConfig({
   compressHTML: true,
   build: { assets: 'assets' },
   devToolbar: { enabled: false },
+  // three.js (scènes 3D) forme un fichier de ~540 Ko, chargé seulement à la demande.
+  vite: { build: { chunkSizeWarningLimit: 600 } },
 });

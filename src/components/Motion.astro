@@ -1,0 +1,1023 @@
+---
+// Section Motion design : une vitrine de contenus animés codés (GSAP + SVG), lus dans un seul lecteur.
+// Marque fictive ILVANE ; chaque pièce est présentée comme « Concept de démonstration ».
+// Les pièces vidéo réelles se déclarent dans motion.json : { "type": "video", "src", "poster", "statut", "format", … }.
+import motion from '../content/accueil/motion.json';
+import Wp from './Wp.astro';
+import IlvaneSymbols from './IlvaneSymbols.astro';
+import IlvaneAd from './IlvaneAd.astro';
+import { typo } from '../lib/typo';
+
+interface Piece {
+  id: string;
+  type: 'demo' | 'video';
+  titre: string;
+  commande: string;
+  usage: string;
+  format: string;
+  duree: string;
+  description: string;
+  src?: string;
+  poster?: string;
+  statut?: string;
+}
+
+const pieces = motion.pieces as Piece[];
+const total = pieces.length;
+const L = motion.lecteur;
+const pad = (n: number) => String(n).padStart(2, '0');
+const now = (n: number) => typo(`${pieces[n].titre} · ${n + 1} / ${total}`);
+
+// Format du lecteur sur mobile : celui de la pièce (le desktop reste en 16:9).
+const RATIO_M: Record<string, string> = { annonce: '1/1', publicite: '9/16', logo: '16/9', formats: '16/9' };
+const ratioOf = (p: Piece) => {
+  if (p.type === 'demo' && RATIO_M[p.id]) return RATIO_M[p.id];
+  const m = p.format.match(/(\d+)\s*:\s*(\d+)/);
+  return m ? `${m[1]}/${m[2]}` : '16/9';
+};
+const [arw, arh] = ratioOf(pieces[0]).split('/');
+
+const at = (id: string) => pieces.findIndex((p) => p.type === 'demo' && p.id === id);
+const I = { annonce: at('annonce'), publicite: at('publicite'), logo: at('logo'), formats: at('formats') };
+
+// Motif d'arcs de la pièce « Logo » : grille 10 × 6, sans les cases qui touchent le logo.
+const arcs: { d: string; x: number; y: number }[] = [];
+for (let r = 0; r < 6; r++) {
+  for (let c = 0; c < 10; c++) {
+    const x = 80 + c * 160;
+    const y = 75 + r * 150;
+    if ((r === 2 || r === 3) && x > 255 && x < 1345) continue;
+    const s = (r + c) % 2 ? -1 : 1;
+    arcs.push({ x, y, d: `M${x - 44} ${y + 14 * s} C${x - 29} ${y - 30 * s} ${x + 29} ${y - 30 * s} ${x + 44} ${y + 14 * s}` });
+  }
+}
+---
+
+<section class="motion" id="motion" aria-labelledby="motion-title" data-vitrine>
+  <IlvaneSymbols />
+  <div class="wrap">
+    <p class="t-label eyebrow"><Wp i={40} node="od" href="#motion" style="left:var(--gut);top:50%" />{typo(motion.surtitre)}</p>
+
+    <div class="intro">
+      <div class="intro-text">
+        <h2 class="t-h2" id="motion-title">{typo(motion.titre)}</h2>
+        <p class="t-lead">{typo(motion.texte)}</p>
+      </div>
+      <div class="offer">
+        <h3 class="t-label">{typo(motion.prestationsTitre)}</h3>
+        <ul>
+          {motion.prestations.map((p) => <li>{typo(p)}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="vitrine">
+      <div class="vcol">
+        <div class="vtop" data-vtop>
+          <div class="fmt" role="group" aria-label={typo(L.formats)} data-fmt hidden={pieces[0].id !== 'formats'}>
+            <button type="button" class="fmt-b" data-fmt-b="h" aria-pressed="true">16:9</button>
+            <button type="button" class="fmt-b" data-fmt-b="v" aria-pressed="false">9:16</button>
+          </div>
+
+          <div class="pbox" data-pbox style={`--arw:${arw};--arh:${arh}`} role="group" aria-label={typo(L.nom)} aria-describedby="motion-desc">
+            <div class="player" id="motion-player" data-player>
+              <div class="stage" aria-hidden="true">
+                {
+                  I.annonce >= 0 && (
+                    <div class="scene sc-annonce" data-scene={I.annonce} data-kind="demo" data-demo="annonce" data-ar={ratioOf(pieces[I.annonce])} hidden={I.annonce !== 0}>
+                      <svg class="fr fr-d" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                          <clipPath id="vt-a-d1"><rect y="92" width="1600" height="270" /></clipPath>
+                          <clipPath id="vt-a-d2"><rect y="301" width="1600" height="270" /></clipPath>
+                          <clipPath id="vt-a-d3"><rect y="510" width="1600" height="270" /></clipPath>
+                          <path id="vt-a-rd" d="M1330 534 A112 112 0 1 1 1330 758 A112 112 0 1 1 1330 534" />
+                        </defs>
+                        <rect class="f-cor" width="1600" height="900" />
+                        <g data-layer="Trait · position, largeur"><rect class="a-bar f-enc" x="0" y="437" width="0" height="26" /></g>
+                        <g data-layer="Texte 1 · masque">
+                          <rect data-box x="94" y="112" width="820" height="200" fill="none" />
+                          <g clip-path="url(#vt-a-d1)"><text class="a-w t-disp" x="104" y="292" font-size="232">Nouvelle</text></g>
+                        </g>
+                        <g data-layer="Texte 2 · masque, décalé">
+                          <rect data-box x="94" y="321" width="905" height="200" fill="none" />
+                          <g clip-path="url(#vt-a-d2)"><text class="a-w t-disp" x="104" y="501" font-size="232">collection</text></g>
+                        </g>
+                        <g data-layer="Texte 3 · masque, décalé">
+                          <rect data-box x="94" y="530" width="763" height="240" fill="none" />
+                          <g clip-path="url(#vt-a-d3)"><text class="a-w t-disp" x="104" y="710" font-size="232">en ligne.</text></g>
+                        </g>
+                        <g class="a-disc" data-layer="Pastille · échelle, rotation" data-origin="1330 646">
+                          <circle class="f-iv" cx="1330" cy="646" r="150" />
+                          <g class="a-ring">
+                            <text class="t-ring" font-size="27" textLength="690" lengthAdjust="spacing"><textPath href="#vt-a-rd">ÉDITION 01 · ÉDITION 01 · </textPath></text>
+                          </g>
+                          <text class="t-disp" x="1330" y="688" font-size="122" text-anchor="middle">01</text>
+                        </g>
+                        <g data-layer="Fond · position" data-nobox><rect class="a-ink f-enc" x="-10" y="900" width="1620" height="920" /></g>
+                        <g class="a-logo" data-layer="Logo · position, opacité" opacity="0"><use class="c-iv" href="#ilv-logo" x="471.3" y="357" width="657.4" height="170" /></g>
+                      </svg>
+
+                      <svg class="fr fr-m" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                          <clipPath id="vt-a-m1"><rect y="413" width="1080" height="245" /></clipPath>
+                          <clipPath id="vt-a-m2"><rect y="597" width="1080" height="245" /></clipPath>
+                          <clipPath id="vt-a-m3"><rect y="781" width="1080" height="245" /></clipPath>
+                          <path id="vt-a-rm" d="M862 106 A130 130 0 1 1 862 366 A130 130 0 1 1 862 106" />
+                        </defs>
+                        <rect class="f-cor" width="1080" height="1080" />
+                        <g data-layer="Trait · position, largeur"><rect class="a-bar f-enc" x="0" y="527" width="0" height="26" /></g>
+                        <g data-layer="Texte 1 · masque">
+                          <rect data-box x="64" y="440" width="720" height="176" fill="none" />
+                          <g clip-path="url(#vt-a-m1)"><text class="a-w t-disp" x="72" y="598" font-size="204">Nouvelle</text></g>
+                        </g>
+                        <g data-layer="Texte 2 · masque, décalé">
+                          <rect data-box x="64" y="624" width="795" height="176" fill="none" />
+                          <g clip-path="url(#vt-a-m2)"><text class="a-w t-disp" x="72" y="782" font-size="204">collection</text></g>
+                        </g>
+                        <g data-layer="Texte 3 · masque, décalé">
+                          <rect data-box x="64" y="808" width="667" height="210" fill="none" />
+                          <g clip-path="url(#vt-a-m3)"><text class="a-w t-disp" x="72" y="966" font-size="204">en ligne.</text></g>
+                        </g>
+                        <g class="a-disc" data-layer="Pastille · échelle, rotation" data-origin="862 236">
+                          <circle class="f-iv" cx="862" cy="236" r="172" />
+                          <g class="a-ring">
+                            <text class="t-ring" font-size="31" textLength="800" lengthAdjust="spacing"><textPath href="#vt-a-rm">ÉDITION 01 · ÉDITION 01 · </textPath></text>
+                          </g>
+                          <text class="t-disp" x="862" y="286" font-size="142" text-anchor="middle">01</text>
+                        </g>
+                        <g data-layer="Fond · position" data-nobox><rect class="a-ink f-enc" x="-10" y="1080" width="1100" height="1100" /></g>
+                        <g class="a-logo" data-layer="Logo · position, opacité" opacity="0"><use class="c-iv" href="#ilv-logo" x="250" y="458" width="580" height="150" /></g>
+                      </svg>
+                    </div>
+                  )
+                }
+
+                {
+                  I.publicite >= 0 && (
+                    <div class="scene sc-solo" data-scene={I.publicite} data-kind="demo" data-demo="publicite" data-ar={ratioOf(pieces[I.publicite])} hidden={I.publicite !== 0}>
+                      <div class="frame solo">
+                        <IlvaneAd uid="vt-b" />
+                      </div>
+                      <span class="cap cap-solo">9:16 · 1080 × 1920</span>
+                    </div>
+                  )
+                }
+
+                {
+                  I.logo >= 0 && (
+                    <div class="scene" data-scene={I.logo} data-kind="demo" data-demo="logo" data-ar={ratioOf(pieces[I.logo])} hidden={I.logo !== 0}>
+                      <svg class="fr" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+                        <defs>
+                          <clipPath id="vt-c-name" data-layer="Nom · masque"><rect class="c-nclip" x="585" y="410" width="715" height="170" /></clipPath>
+                        </defs>
+                        <rect class="f-pap" width="1600" height="900" />
+                        <g class="c-pat" data-layer="Motif · tracé" data-nobox>
+                          {arcs.map((a) => <path d={a.d} data-x={a.x} data-y={a.y} pathLength="1" />)}
+                        </g>
+                        <g transform="translate(442 458)">
+                          <g class="c-mono" data-layer="Monogramme · position">
+                            <g data-layer="Arc · tracé">
+                              <path class="c-arc" d="M0 -91 C-35 -91 -70 -70 -84 -28" pathLength="1" />
+                              <path class="c-arc" d="M0 -91 C35 -91 70 -70 84 -28" pathLength="1" />
+                            </g>
+                            <rect class="c-bar f-enc" data-layer="Barre · échelle" x="-17.5" y="-42" width="35" height="133" rx="14" />
+                            <circle class="c-dot f-enc" data-layer="Point · échelle, position" cx="0" cy="-91" r="15.75" />
+                          </g>
+                        </g>
+                        <g data-layer="Nom · masque">
+                          <rect data-box x="592" y="430" width="672" height="136" fill="none" />
+                          <g clip-path="url(#vt-c-name)"><text class="t-word" x="606" y="549" font-size="150">ILVANE</text></g>
+                        </g>
+                      </svg>
+                    </div>
+                  )
+                }
+
+                {
+                  I.formats >= 0 && (
+                    <div class="scene sc-duo" data-scene={I.formats} data-kind="demo" data-demo="formats" data-ar="16/9" data-show="h" hidden={I.formats !== 0}>
+                      <div class="frame duo-h">
+                        <svg class="ad ad-h" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" data-ad="h">
+                          <defs>
+                            <clipPath id="vt-d-title"><rect y="236" width="1600" height="244" /></clipPath>
+                          </defs>
+                          <rect class="f-iv2" width="1600" height="900" />
+                          <g data-layer="Fond · glissement" data-nobox><rect class="b-bg f-cor" x="1600" y="-10" width="1620" height="920" /></g>
+                          <g class="b-fl" data-layer="Flacon · position, rotation"><use href="#ilv-flacon" x="266.7" y="120" width="266.6" height="700" /></g>
+                          <g class="b-lab" data-layer="Étiquette 1 · échelle">
+                            <rect class="f-pap s-enc" x="680" y="230" width="527" height="116" rx="58" />
+                            <circle class="f-cor" cx="724" cy="288" r="12" />
+                            <text class="t-lab" x="754" y="306" font-size="52">Nouvelle formule</text>
+                          </g>
+                          <g class="b-lab" data-layer="Étiquette 2 · échelle">
+                            <rect class="f-pap s-enc" x="680" y="386" width="251" height="116" rx="58" />
+                            <circle class="f-cor" cx="724" cy="444" r="12" />
+                            <text class="t-lab" x="754" y="462" font-size="52">30 ml</text>
+                          </g>
+                          <g class="b-lab" data-layer="Étiquette 3 · échelle">
+                            <rect class="f-pap s-enc" x="680" y="542" width="445" height="116" rx="58" />
+                            <circle class="f-cor" cx="724" cy="600" r="12" />
+                            <text class="t-lab" x="754" y="618" font-size="52">Rechargeable</text>
+                          </g>
+                          <g class="b-brand" data-layer="Marque · opacité" opacity="0"><use class="c-enc" href="#ilv-logo" x="678" y="543" width="324.8" height="84" /></g>
+                          <g data-layer="Titre · masque">
+                            <rect data-box x="664" y="280" width="800" height="190" fill="none" />
+                            <g clip-path="url(#vt-d-title)"><text class="b-title t-disp" x="676" y="430" font-size="170" opacity="0">Huile n°3</text></g>
+                          </g>
+                          <g class="b-btn" data-layer="Bouton · échelle" opacity="0">
+                            <rect class="f-enc" x="1100" y="521" width="400" height="128" rx="64" />
+                            <text class="t-btn" x="1300" y="603" font-size="52" text-anchor="middle">Découvrir</text>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="frame duo-v">
+                        <IlvaneAd uid="vt-dv" />
+                      </div>
+                      <span class="cap cap-h">16:9 · 1920 × 1080</span>
+                      <span class="cap cap-v">9:16 · 1080 × 1920</span>
+                    </div>
+                  )
+                }
+
+                {
+                  pieces.map(
+                    (p, n) =>
+                      p.type === 'video' && (
+                        <div class="scene sc-video" data-scene={n} data-kind="video" data-ar={ratioOf(p)} hidden={n !== 0}>
+                          <video muted playsinline loop preload="none" poster={p.poster} data-video>
+                            <source src={p.src} type="video/mp4" />
+                          </video>
+                        </div>
+                      ),
+                  )
+                }
+              </div>
+              <div class="ov" aria-hidden="true" data-ov>
+                <svg class="ov-ants" data-ov-ants></svg>
+              </div>
+            </div>
+
+            <div class="ptrack" aria-hidden="true">
+              <Wp i={42} only="d" style="left:var(--gut);top:50%" />
+              <Wp i={43} only="d" style="left:0;top:50%" />
+              <Wp i={44} only="d" style="left:calc(100% + 12px);top:50%" />
+              <i class="pdot"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="sr-only" id="motion-desc">
+          {pieces.map((p, n) => <p hidden={n !== 0} data-desc>{typo(p.description)}</p>)}
+        </div>
+        <p class="sr-only" aria-live="polite" data-live></p>
+
+        <div class="ctrl">
+          <button type="button" class="pill play" data-play data-l-play={typo(L.lecture)} data-l-pause={typo(L.pause)}>
+            <span class="ico" aria-hidden="true"></span><span data-play-text>{typo(L.lecture)}</span>
+          </button>
+          <button type="button" class="pill" data-coul aria-pressed="false" aria-controls="motion-coulisses" hidden={pieces[0].type === 'video'}>
+            {typo(L.coulisses)}
+          </button>
+          <p class="now" data-now>{now(0)}</p>
+        </div>
+
+        <div class="coulp" id="motion-coulisses" data-coulp data-l-loop={typo(L.boucle)} data-l-s={L.secondes} hidden>
+          <p class="cp-head"><span class="t-label">{typo(L.calques)}</span><span class="cp-dur" data-cp-dur></span></p>
+          <div class="cp-body" data-cp-body>
+            <div class="cp-ruler" aria-hidden="true" data-cp-ruler></div>
+            <ul class="cp-rows" data-cp-rows></ul>
+            <i class="cp-ph" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcol">
+        <ol class="pieces" aria-label={typo(L.liste)}>
+          {
+            pieces.map((p, n) => (
+              <li>
+                <button type="button" class="pbtn" data-piece={n} data-now={now(n)} aria-pressed={n === 0 ? 'true' : 'false'} aria-controls="motion-player">
+                  <span class="pt">{typo(p.titre)}</span>
+                  <span class="pm">
+                    <span class="pn">{pad(n + 1)}</span> {typo(p.format)} · {typo(p.duree)}
+                  </span>
+                </button>
+                <div class="pinfo" data-info hidden={n !== 0}>
+                  <dl>
+                    <dt>{typo(motion.infos.commande)}</dt>
+                    <dd>{typo(p.commande)}</dd>
+                    <dt>{typo(motion.infos.usage)}</dt>
+                    <dd>{typo(p.usage)}</dd>
+                    <dt>{typo(motion.infos.format)}</dt>
+                    <dd>{typo(p.format)}</dd>
+                  </dl>
+                  <span class="tag">{typo(p.statut ?? motion.statut)}</span>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="cta"><a class="tlink" href={motion.lienAncre} data-need="motion">{typo(motion.lien)}&nbsp;→</a></p>
+      </div>
+    </div>
+
+    <Wp
+      i={47}
+      only="d"
+      style="left:calc(var(--pl) + (100% - var(--pl) - var(--pr) - 11 * var(--col-gap)) * 8 / 12 + 7.5 * var(--col-gap));bottom:56px"
+    />
+    <Wp i={48} only="d" style="left:calc(var(--pl) + var(--gut));bottom:56px" />
+  </div>
+</section>
+
+<style>
+  .motion {
+    background: var(--nuit);
+    color: var(--ivoire);
+  }
+
+  .wrap {
+    padding-block: 76px var(--s-section);
+  }
+
+  .motion .eyebrow {
+    position: relative;
+    margin-bottom: 24px;
+    color: var(--corail);
+  }
+
+  .motion .t-lead {
+    margin-top: 20px;
+    max-width: 32em;
+    color: var(--sable);
+  }
+
+  .intro {
+    display: grid;
+    gap: 40px;
+  }
+
+  .motion .offer .t-label {
+    margin-bottom: 10px;
+    color: var(--sable);
+  }
+
+  .offer li {
+    position: relative;
+    padding: 13px 0 13px 28px;
+    border-top: 1.5px solid var(--nuit-2);
+  }
+
+  .offer li:last-child {
+    border-bottom: 1.5px solid var(--nuit-2);
+  }
+
+  .offer li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    border: 2.5px solid var(--corail);
+    border-radius: 50%;
+  }
+
+  /* Vitrine */
+  .vitrine {
+    display: grid;
+    gap: 36px;
+    margin-top: 56px;
+  }
+
+  .vcol {
+    position: relative;
+    min-width: 0;
+  }
+
+  .motion :focus-visible {
+    box-shadow: 0 0 0 3px var(--nuit), 0 0 0 5px var(--corail);
+  }
+
+  .motion .pill {
+    min-height: 44px;
+  }
+
+  .motion .pill:hover,
+  .motion .pill[aria-pressed='true'] {
+    background: var(--ivoire);
+    border-color: var(--ivoire);
+    color: var(--encre);
+  }
+
+  /* Sélecteur de format (pièce 4, mobile) */
+  .fmt {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .fmt-b {
+    min-width: 72px;
+    min-height: 44px;
+    padding: 8px 16px;
+    border: 1.5px solid var(--nuit-2);
+    border-radius: var(--r-pill);
+    background: transparent;
+    font-weight: 650;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--sable);
+    transition: background var(--d-2) var(--ease), color var(--d-2) var(--ease), border-color var(--d-2) var(--ease);
+  }
+
+  .fmt-b[aria-pressed='true'] {
+    background: var(--ivoire);
+    border-color: var(--ivoire);
+    color: var(--encre);
+  }
+
+  /* Lecteur : au format de la pièce sur mobile (hauteur limitée), 16:9 sur desktop. */
+  .pbox {
+    width: min(100%, calc(70vh * var(--arw) / var(--arh)));
+    width: min(100%, calc(70svh * var(--arw) / var(--arh)));
+    margin-inline: auto;
+  }
+
+  .player {
+    position: relative;
+    aspect-ratio: var(--arw) / var(--arh);
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--nuit-2);
+  }
+
+  .stage,
+  .scene,
+  .fr {
+    position: absolute;
+    inset: 0;
+  }
+
+  .fr {
+    width: 100%;
+    height: 100%;
+  }
+
+  .fr-d {
+    display: none;
+  }
+
+  .frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .frame :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cap {
+    display: none;
+  }
+
+  /* Pièce 4 sur mobile : un format à la fois, les deux restent synchronisés. */
+  .sc-duo[data-show='h'] .duo-v,
+  .sc-duo[data-show='v'] .duo-h {
+    visibility: hidden;
+  }
+
+  .sc-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: var(--nuit-2);
+  }
+
+  /* Couleurs et textes des démonstrations (SVG) */
+  .stage :global(.f-cor) { fill: var(--corail); }
+  .stage :global(.f-enc) { fill: var(--encre); }
+  .stage :global(.f-iv) { fill: var(--ivoire); }
+  .stage :global(.f-iv2) { fill: var(--ivoire-2); }
+  .stage :global(.f-pap) { fill: var(--papier); }
+  .stage :global(.s-enc) { stroke: var(--encre); stroke-width: 4; }
+  .stage :global(.c-enc) { color: var(--encre); }
+  .stage :global(.c-iv) { color: var(--ivoire); }
+  .stage :global(.t-disp) { font-family: var(--f-disp); font-weight: 800; font-stretch: 85%; letter-spacing: -0.045em; fill: var(--encre); }
+  .stage :global(.t-lab) { font-family: var(--f-body); font-weight: 650; fill: var(--encre); }
+  .stage :global(.t-btn) { font-family: var(--f-body); font-weight: 650; fill: var(--ivoire); }
+  .stage :global(.t-ring) { font-family: var(--f-body); font-weight: 700; fill: var(--encre); }
+  .stage :global(.t-word) { font-family: var(--f-body); font-weight: 700; letter-spacing: 0.16em; fill: var(--encre); }
+  .stage :global(.c-arc) { fill: none; stroke: var(--encre); stroke-width: 31.5; stroke-linecap: round; }
+  .stage :global(.c-pat path) { fill: none; stroke: var(--corail); stroke-width: 16; stroke-linecap: round; }
+
+  /* Zones réservées à l'interface des réseaux sociaux, visibles dans les coulisses. */
+  .stage :global(.safe) { opacity: 0; transition: opacity var(--d-3) var(--ease); }
+  .player.is-coul .stage :global(.safe) { opacity: 1; }
+  .stage :global(.safe-z) { fill: var(--encre); fill-opacity: 0.6; }
+  .stage :global(.safe-l) { fill: none; stroke: var(--ivoire); stroke-width: 4; stroke-dasharray: 16 12; }
+  .stage :global(.safe-t) { font-family: var(--f-body); font-weight: 650; fill: var(--ivoire); }
+
+  /* Coulisses : contours et noms des calques, posés sur l'image. */
+  .ov {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: none;
+  }
+
+  .player.is-coul .ov {
+    display: block;
+  }
+
+  .ov-ants {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .ov :global(.ant-a),
+  .ov :global(.ant-b) {
+    fill: none;
+    stroke-width: 1.5;
+    stroke-dasharray: 5 5;
+  }
+
+  .ov :global(.ant-a) { stroke: var(--encre); }
+  .ov :global(.ant-b) { stroke: var(--ivoire); stroke-dashoffset: 5; }
+
+  .ov :global(.ov-tag) {
+    position: absolute;
+    max-width: calc(100% - 8px);
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--encre);
+    color: var(--ivoire);
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Piste : le fil corail devient la barre de lecture. */
+  .ptrack {
+    position: relative;
+    height: 44px;
+  }
+
+  .ptrack::before,
+  .ptrack::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 3px;
+    margin-top: -1.5px;
+    border-radius: 2px;
+    background: var(--nuit-2);
+  }
+
+  .ptrack::after {
+    background: var(--corail);
+    transform: scaleX(var(--p, 0));
+    transform-origin: left;
+  }
+
+  .pdot {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--p, 0) * 100%);
+    z-index: 5;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+    background: var(--corail);
+  }
+
+  /* Commandes */
+  .ctrl {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 12px;
+  }
+
+  .play {
+    justify-content: center;
+    min-width: 118px;
+  }
+
+  .ico {
+    width: 10px;
+    height: 12px;
+    background: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  .play.is-playing .ico {
+    background: none;
+    clip-path: none;
+    border-left: 3.5px solid currentColor;
+    border-right: 3.5px solid currentColor;
+  }
+
+  .now {
+    font-size: 0.9rem;
+    color: var(--sable);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Panneau des coulisses : un rang par calque, images clés à leur vrai temps. */
+  .coulp {
+    margin-top: 18px;
+    padding: 14px 16px 18px;
+    border: 1.5px solid var(--nuit-2);
+    border-radius: 14px;
+  }
+
+  .cp-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4px 12px;
+  }
+
+  .motion .cp-head .t-label {
+    color: var(--sable);
+  }
+
+  .cp-dur {
+    font-size: 0.8rem;
+    color: var(--sable);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .cp-body {
+    --lw: 88px;
+    --lg: 10px;
+    position: relative;
+    margin-top: 12px;
+  }
+
+  .cp-ruler {
+    position: relative;
+    height: 20px;
+    margin-left: calc(var(--lw) + var(--lg));
+    font-size: 0.68rem;
+    color: var(--sable);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cp-ruler :global(span) {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  .cp-ruler :global(span:first-child) {
+    transform: none;
+  }
+
+  /* Piste étroite : une graduation sur deux. */
+  @media (max-width: 479px) {
+    .cp-ruler :global(.odd) {
+      display: none;
+    }
+  }
+
+  .cp-rows {
+    display: grid;
+    gap: 6px;
+  }
+
+  .cp-rows :global(li) {
+    display: grid;
+    grid-template-columns: var(--lw) minmax(0, 1fr);
+    gap: var(--lg);
+    align-items: center;
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .cp-rows :global(.cp-n) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cp-rows :global(.cp-p) {
+    display: none;
+    color: var(--sable);
+  }
+
+  .cp-rows :global(.cp-tr) {
+    position: relative;
+    height: 18px;
+    border-radius: 4px;
+    background: var(--nuit-2);
+  }
+
+  .cp-rows :global(.cp-sp) {
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--sable);
+    opacity: 0.55;
+  }
+
+  .cp-rows :global(.cp-k) {
+    position: absolute;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    margin: -4.5px 0 0 -4.5px;
+    background: var(--corail);
+    transform: rotate(45deg);
+  }
+
+  .cp-ph {
+    position: absolute;
+    top: 16px;
+    bottom: -4px;
+    left: calc(var(--lw) + var(--lg) + (100% - var(--lw) - var(--lg)) * var(--p, 0));
+    width: 2px;
+    margin-left: -1px;
+    background: var(--ivoire);
+  }
+
+  .cp-ph::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -4px;
+    width: 10px;
+    height: 6px;
+    background: var(--ivoire);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+
+  /* Pièces */
+  .pieces li {
+    border-top: 1.5px solid var(--nuit-2);
+  }
+
+  .pieces li:last-child {
+    border-bottom: 1.5px solid var(--nuit-2);
+  }
+
+  .pbtn {
+    all: unset;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 16px 0 16px 34px;
+    border-radius: 8px;
+    color: var(--sable);
+    cursor: pointer;
+    transition: color var(--d-2) var(--ease);
+  }
+
+  .pbtn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 21px;
+    width: 18px;
+    height: 18px;
+    border: 3px solid var(--corail);
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: var(--nuit);
+    transition: background var(--d-2) var(--ease);
+  }
+
+  .pbtn:hover,
+  .pbtn[aria-pressed='true'] {
+    color: var(--ivoire);
+  }
+
+  .pbtn[aria-pressed='true']::before {
+    background: var(--corail);
+  }
+
+  .pt {
+    display: block;
+    font-family: var(--f-disp);
+    font-weight: 720;
+    font-stretch: 90%;
+    font-size: 1.22rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  .pm {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pn {
+    margin-right: 2px;
+    color: var(--corail);
+    font-weight: 650;
+  }
+
+  .pinfo {
+    padding: 0 0 22px 34px;
+  }
+
+  .pinfo dl {
+    display: grid;
+    gap: 2px;
+    margin-bottom: 16px;
+  }
+
+  .pinfo dt {
+    margin-top: 10px;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--corail);
+  }
+
+  .pinfo dt:first-child {
+    margin-top: 0;
+  }
+
+  .pinfo dd {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .pinfo .tag {
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .cta {
+    margin-top: 28px;
+  }
+
+  @media (min-width: 900px) {
+    .wrap {
+      padding-top: 140px;
+    }
+
+    .motion .eyebrow {
+      margin-bottom: 30px;
+    }
+
+    .intro,
+    .vitrine {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+    }
+
+    .intro-text {
+      grid-column: 1 / span 6;
+    }
+
+    .offer {
+      grid-column: 8 / span 5;
+    }
+
+    .vitrine {
+      align-items: start;
+      margin-top: 88px;
+    }
+
+    .vcol {
+      grid-column: 1 / span 8;
+    }
+
+    .pcol {
+      grid-column: 9 / span 4;
+      padding-left: 8px;
+    }
+
+    .fmt {
+      display: none;
+    }
+
+    .pbox {
+      width: 100%;
+    }
+
+    .player {
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+    }
+
+    .fr-d {
+      display: block;
+    }
+
+    .fr-m {
+      display: none;
+    }
+
+    /* Pièce 2 : le 9:16 centré dans le lecteur 16:9, limité par la hauteur. */
+    .solo {
+      left: 50%;
+      top: 5%;
+      right: auto;
+      bottom: auto;
+      height: 90%;
+      aspect-ratio: 9 / 16;
+      transform: translateX(-50%);
+      border-radius: 8px;
+    }
+
+    /* Pièce 4 : les deux formats côte à côte, posés sur la même ligne. */
+    .duo-h,
+    .duo-v {
+      inset: auto;
+      border-radius: 8px;
+    }
+
+    .duo-h {
+      left: 7.6%;
+      top: 28%;
+      width: 56%;
+      height: 56%;
+    }
+
+    .duo-v {
+      left: 67.6%;
+      top: 6%;
+      width: 24.75%;
+      height: 78%;
+    }
+
+    .sc-duo[data-show] .duo-h,
+    .sc-duo[data-show] .duo-v {
+      visibility: visible;
+    }
+
+    .cap {
+      display: block;
+      position: absolute;
+      top: 87.5%;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      font-weight: 650;
+      color: var(--sable);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .cap-solo {
+      top: auto;
+      bottom: 5%;
+      left: 4%;
+    }
+
+    .cap-h {
+      left: 7.6%;
+    }
+
+    .cap-v {
+      left: 67.6%;
+    }
+
+    .cp-body {
+      --lw: 196px;
+      --lg: 14px;
+    }
+
+    .cp-rows :global(.cp-p) {
+      display: inline;
+    }
+
+    .pinfo {
+      padding-bottom: 24px;
+    }
+
+    .cta {
+      margin-top: 32px;
+    }
+  }
+</style>
+
+<script>
+  import { initVitrine } from '../scripts/vitrine';
+
+  const section = document.querySelector<HTMLElement>('[data-vitrine]');
+  if (section) initVitrine(section);
+</script>
