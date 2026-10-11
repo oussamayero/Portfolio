@@ -130,6 +130,8 @@ export function initFil(page: HTMLElement): void {
 
     const marks = Array.from(page.querySelectorAll<HTMLElement>('[data-i]'))
       .filter((el) => (el.classList.contains('d') ? desktop : el.classList.contains('m') ? !desktop : true))
+      // Repères dans un panneau masqué (onglet inactif) : ignorés.
+      .filter((el) => el.getClientRects().length > 0)
       .sort((a, b) => Number(a.dataset.i) - Number(b.dataset.i));
 
     const scale = desktop ? Math.max(0.62, Math.min(1, width / 1280)) : 1;
@@ -216,5 +218,7 @@ export function initFil(page: HTMLElement): void {
   onReducedMotionChange(update);
   if ('ResizeObserver' in window) new ResizeObserver(queueBuild).observe(page);
   document.fonts?.ready.then(queueBuild);
+  // Un changement d'onglet modifie le parcours : la page le signale.
+  document.addEventListener('fil:refresh', queueBuild);
   build();
 }

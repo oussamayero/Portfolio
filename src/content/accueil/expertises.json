@@ -1,0 +1,8 @@
+{
+  "consigne": "Votre besoin",
+  "onglets": [
+    { "cle": "shopify", "numero": "01", "titre": "Boutiques Shopify", "court": "Shopify" },
+    { "cle": "motion", "numero": "02", "titre": "Motion design", "court": "Motion" },
+    { "cle": "automatisation", "numero": "03", "titre": "Automatisation", "court": "Automatisation" }
+  ]
+}

@@ -1,0 +1,212 @@
+---
+// Les trois expertises dans une seule section à onglets : le visiteur n'ouvre que son besoin.
+// Les ancres #shopify, #motion et #automatisation ouvrent l'onglet correspondant.
+// Sans JavaScript, les trois panneaux s'affichent les uns sous les autres.
+import xp from '../content/accueil/expertises.json';
+import Wp from './Wp.astro';
+import Shopify from './Shopify.astro';
+import Motion from './Motion.astro';
+import Automatisation from './Automatisation.astro';
+import { typo } from '../lib/typo';
+---
+
+<section class="xp" id="expertises" aria-label="Expertises" data-xp data-active="shopify">
+  <div class="anchor" aria-hidden="true"><div class="wrap"><Wp i={31} node="o" href="#expertises" style="left:var(--gut);top:36px" /></div></div>
+  <div class="bar">
+    <div class="wrap bar-row">
+      <p class="t-label hint" aria-hidden="true">{typo(xp.consigne)}</p>
+      <div class="tabs" role="tablist" aria-label={typo(xp.consigne)}>
+        {
+          xp.onglets.map((o, n) => (
+            <button
+              type="button"
+              role="tab"
+              class="tab"
+              id={`tab-${o.cle}`}
+              aria-controls={o.cle}
+              aria-selected={n === 0 ? 'true' : 'false'}
+              tabindex={n === 0 ? 0 : -1}
+              data-tab={o.cle}
+            >
+              <span class="n" aria-hidden="true">{o.numero}</span>
+              <span class="long">{typo(o.titre)}</span>
+              <span class="short" aria-hidden="true">{typo(o.court)}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <Shopify />
+  <Motion />
+  <Automatisation />
+  <noscript><style is:inline>.xp [role='tabpanel'][hidden]{display:block!important}.xp .bar{display:none}</style></noscript>
+</section>
+
+<style>
+  .xp {
+    position: relative;
+    transition: background var(--d-3) var(--ease);
+  }
+
+  .anchor {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 0;
+  }
+
+  /* Barre d'onglets collée sous l'en-tête pendant la lecture de la section. */
+  .bar {
+    position: sticky;
+    top: 63px;
+    z-index: 20;
+    background: var(--ivoire);
+    border-bottom: 1.5px solid var(--trait);
+    transition: background var(--d-3) var(--ease), border-color var(--d-3) var(--ease);
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex: 1;
+  }
+
+  .tab {
+    all: unset;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    min-height: 56px;
+    padding: 16px 4px 14px;
+    cursor: pointer;
+    color: var(--pierre);
+    font-family: var(--f-disp);
+    font-weight: 720;
+    font-stretch: 90%;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    text-align: center;
+    transition: color var(--d-2) var(--ease);
+  }
+
+  .tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.5px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--corail);
+    transform: scaleX(0);
+    transition: transform var(--d-3) var(--ease);
+  }
+
+  .tab:hover,
+  .tab[aria-selected='true'] {
+    color: var(--encre);
+  }
+
+  .tab[aria-selected='true']::after {
+    transform: scaleX(1);
+  }
+
+  .tab:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--encre);
+    border-radius: 8px;
+  }
+
+  .n {
+    display: none;
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .long {
+    display: none;
+  }
+
+  /* Onglet motion : la section passe en salle de projection. */
+  .xp[data-active='motion'] .bar {
+    background: var(--nuit);
+    border-color: var(--nuit-2);
+  }
+
+  .xp[data-active='motion'] .tab {
+    color: var(--sable);
+  }
+
+  .xp[data-active='motion'] .tab:hover,
+  .xp[data-active='motion'] .tab[aria-selected='true'] {
+    color: var(--ivoire);
+  }
+
+  .xp[data-active='motion'] .tab:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--corail);
+  }
+
+  .xp[data-active='motion'] .hint {
+    color: var(--sable);
+  }
+
+  .xp :global([role='tabpanel']) {
+    scroll-margin-top: 60px;
+  }
+
+  @media (min-width: 900px) {
+    .bar {
+      top: 67px;
+    }
+
+    .hint {
+      display: block;
+      flex: none;
+    }
+
+    .tabs {
+      flex: 0 1 760px;
+      margin-left: auto;
+    }
+
+    .tab {
+      justify-content: flex-start;
+      min-height: 64px;
+      padding: 20px 8px 18px;
+      font-size: 1.2rem;
+    }
+
+    .n {
+      display: inline;
+    }
+
+    .long {
+      display: inline;
+    }
+
+    .short {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { initExpertises } from '../scripts/expertises';
+
+  const root = document.querySelector<HTMLElement>('[data-xp]');
+  if (root) initExpertises(root);
+</script>

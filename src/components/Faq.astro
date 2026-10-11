@@ -12,10 +12,10 @@ import { typo } from '../lib/typo';
       <h2 class="t-h2" id="faq-title"><Wp i={70} node="o" href="#faq" style="left:var(--gut);top:0.55em" />{typo(faq.titre)}</h2>
       <p><a class="tlink" href={site.actionPrincipale.ancre}>{typo(faq.texte)}</a></p>
     </div>
-    <div class="list">
+    <div class="list" data-faq>
       {
         faq.questions.map((q, n) => (
-          <details name="faq" open={n === 0}>
+          <details name="faq" open={n === 0} class:list={{ extra: n >= faq.visibles }}>
             <summary>
               <span>{typo(q.question)}</span>
               <i aria-hidden="true" />
@@ -29,6 +29,13 @@ import { typo } from '../lib/typo';
           </details>
         ))
       }
+      {
+        faq.questions.length > faq.visibles && (
+          <button type="button" class="pill more" data-faq-more hidden>
+            {typo(faq.voirPlus.replace('{n}', String(faq.questions.length - faq.visibles)))}
+          </button>
+        )
+      }
     </div>
   </div>
 </section>
@@ -36,8 +43,21 @@ import { typo } from '../lib/typo';
 <style>
   .wrap {
     display: grid;
-    gap: 28px;
+    gap: 24px;
     padding-block: var(--s-section);
+  }
+
+  .side h2 {
+    font-size: clamp(1.75rem, 1rem + 1.9vw, 2.6rem);
+  }
+
+  /* Les questions au-delà des premières restent repliées jusqu'au clic. */
+  .list:global(.is-short) .extra {
+    display: none;
+  }
+
+  .more {
+    margin-top: 18px;
   }
 
   .side {
@@ -67,8 +87,8 @@ import { typo } from '../lib/typo';
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    min-height: 56px;
-    padding: 14px 0;
+    min-height: 52px;
+    padding: 10px 0;
     list-style: none;
     cursor: pointer;
     font-family: var(--f-disp);
@@ -173,8 +193,24 @@ import { typo } from '../lib/typo';
     }
 
     summary {
-      min-height: 64px;
-      font-size: 1.22rem;
+      min-height: 56px;
+      font-size: 1.15rem;
     }
   }
 </style>
+
+<script>
+  // N'afficher d'abord que les premières questions ; le bouton montre les autres.
+  const list = document.querySelector<HTMLElement>('[data-faq]');
+  const more = list?.querySelector<HTMLButtonElement>('[data-faq-more]');
+  if (list && more) {
+    list.classList.add('is-short');
+    more.hidden = false;
+    more.addEventListener('click', () => {
+      list.classList.remove('is-short');
+      more.hidden = true;
+      list.querySelector<HTMLElement>('.extra summary')?.focus();
+      document.dispatchEvent(new Event('fil:refresh'));
+    });
+  }
+</script>

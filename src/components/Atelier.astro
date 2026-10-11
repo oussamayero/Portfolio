@@ -26,7 +26,7 @@ const reglages = [
 <div class="atelier" data-atelier data-layout="grille" data-cols="4" data-acc="encre" data-align="gauche" data-prix="1" data-view="desktop">
   <div class="atl-head">
     <span class="tag">{typo(a.statut)}</span>
-    <h3 class="t-h3">{typo(a.titre)}</h3>
+    <h3>{typo(a.titre)}</h3>
     <p>{typo(a.texte)}</p>
   </div>
 
@@ -119,14 +119,32 @@ const reglages = [
     --acc-ink: var(--ivoire);
   }
 
+  .atl-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+  }
+
   .atl-head h3 {
-    margin-top: 14px;
+    font-family: var(--f-disp);
+    font-weight: 720;
+    font-stretch: 90%;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
   }
 
   .atl-head p {
-    margin-top: 10px;
-    max-width: 30em;
+    display: none;
+    flex-basis: 100%;
+    font-size: 0.9rem;
     color: var(--pierre);
+  }
+
+  @media (min-width: 900px) {
+    .atl-head p {
+      display: block;
+    }
   }
 
   /* Panneau de réglages */
@@ -515,7 +533,7 @@ const reglages = [
   .atelier[data-cols='4'] { --cols: 4; }
 
   .atl-note {
-    margin-top: 14px;
+    margin-top: 10px;
     font-size: 0.85rem;
     color: var(--pierre);
   }
@@ -534,7 +552,7 @@ const reglages = [
   @media (max-width: 899px) {
     .atl-panel {
       position: sticky;
-      top: 72px;
+      top: 124px;
       z-index: 3;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px 12px;
@@ -588,32 +606,65 @@ const reglages = [
   }
 
   @media (min-width: 900px) {
+    /* Ordinateur : l'atelier tient dans une colonne, réglages en barre d'outils au-dessus de l'aperçu. */
     .atelier {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--col-gap);
-      row-gap: 32px;
-    }
-
-    .atl-head {
-      grid-column: 1 / span 6;
+      gap: 14px;
     }
 
     .atl-panel {
-      grid-column: 1 / span 4;
-      align-self: start;
-      position: sticky;
-      top: 100px;
-      padding: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 12px 18px;
+      padding: 14px 16px;
+    }
+
+    .set[data-set='layout'] .seg {
+      min-width: 300px;
+    }
+
+    .seg span {
+      min-height: 34px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+    }
+
+    legend,
+    .switch > span {
+      margin-bottom: 6px;
+      font-size: 0.68rem;
+    }
+
+    .set[data-set='acc'] .opt {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
     .only-d {
       display: block;
     }
 
+    .hint {
+      position: absolute;
+    }
+
+    .set:disabled .hint {
+      display: none;
+    }
+
+    .switch {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
     .atl-stage {
-      grid-column: 5 / span 8;
-      padding: 28px;
-      border-radius: 24px;
+      padding: 20px;
+      border-radius: 20px;
       background: var(--ivoire-2);
     }
 
@@ -624,7 +675,7 @@ const reglages = [
     }
 
     .atl-sec {
-      padding: 26px 26px 30px;
+      padding: 20px 20px 24px;
     }
 
     .atelier[data-view='mobile'] .atl-sec {
@@ -650,7 +701,7 @@ const reglages = [
 </style>
 
 <script>
-  import { reducedMotion } from '../scripts/motion';
+  import { desktopQuery, reducedMotion } from '../scripts/motion';
 
   const root = document.querySelector<HTMLElement>('[data-atelier]');
   const form = root?.querySelector('form');
@@ -684,6 +735,11 @@ const reglages = [
       root.classList.toggle('vt-simple', root.dataset.layout === 'defilant' || value('layout') === 'defilant');
       document.startViewTransition(apply).finished.finally(() => root.classList.remove('vt-simple'));
     });
+    // Sur mobile, la rangée défilante montre la section sans allonger la page.
+    if (!desktopQuery.matches) {
+      const row = form.querySelector<HTMLInputElement>('input[name="layout"][value="defilant"]');
+      if (row) row.checked = true;
+    }
     apply();
   }
 </script>

@@ -73,7 +73,7 @@ const s = contact.envoi;
 
         <div class="field" data-field="projet">
           <label for="f-projet">{typo(c.projet)}</label>
-          <textarea id="f-projet" name="projet" rows="5" required aria-describedby="e-projet"></textarea>
+          <textarea id="f-projet" name="projet" rows="4" required aria-describedby="e-projet"></textarea>
           <p class="err" id="e-projet" hidden><i aria-hidden="true">!</i>{typo(e.projet)}</p>
         </div>
 
@@ -139,8 +139,8 @@ const s = contact.envoi;
 
   .grid {
     display: grid;
-    gap: 40px;
-    margin-top: 36px;
+    gap: 32px;
+    margin-top: 28px;
   }
 
   .aside .t-lead {
@@ -148,7 +148,7 @@ const s = contact.envoi;
   }
 
   .next-title {
-    margin: 32px 0 12px;
+    margin: 24px 0 10px;
   }
 
   .next {
@@ -177,12 +177,12 @@ const s = contact.envoi;
   .form {
     position: relative;
     display: grid;
-    gap: 22px;
+    gap: 18px;
   }
 
   .row {
     display: grid;
-    gap: 22px;
+    gap: 18px;
   }
 
   .field {
@@ -222,7 +222,7 @@ const s = contact.envoi;
 
   textarea {
     resize: vertical;
-    min-height: 140px;
+    min-height: 112px;
   }
 
   select {
@@ -427,7 +427,7 @@ const s = contact.envoi;
     .grid {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       column-gap: var(--col-gap);
-      margin-top: 64px;
+      margin-top: 40px;
     }
 
     .aside {
@@ -436,7 +436,7 @@ const s = contact.envoi;
 
     .form {
       grid-column: 6 / span 7;
-      gap: 26px;
+      gap: 20px;
     }
 
     .row {

@@ -16,12 +16,10 @@ const etapes = [
 ];
 ---
 
-<section class="auto" id="automatisation" aria-labelledby="auto-title">
+<div class="auto" id="automatisation" role="tabpanel" aria-labelledby="tab-automatisation" hidden>
   <div class="wrap">
-    <p class="t-label eyebrow"><Wp i={50} node="o" href="#automatisation" style="left:var(--gut);top:50%" />{typo(auto.surtitre)}</p>
-
     <div class="intro">
-      <h2 class="t-h2" id="auto-title">{typo(auto.titre)}</h2>
+      <h2 class="t-h2 title" id="auto-title">{typo(auto.titre)}</h2>
       <p class="t-lead">{typo(auto.texte)}</p>
     </div>
 
@@ -78,23 +76,22 @@ const etapes = [
       <p>{typo(auto.outils)}</p>
       <a class="tlink" href={site.actionPrincipale.ancre} data-need="automatisation">{typo(auto.lien)}&nbsp;→</a>
     </div>
-    <Wp i={58} only="d" route="vh" style="left:calc(var(--pl) + var(--gut));bottom:40px" />
+    <Wp i={58} only="d" style="left:calc(var(--pl) + var(--gut));bottom:40px" />
   </div>
-</section>
+</div>
 
 <style>
   .wrap {
-    padding-block: var(--s-section);
+    padding-block: 40px var(--s-section);
   }
 
-  .eyebrow {
-    position: relative;
-    margin-bottom: 24px;
+  .title {
+    font-size: clamp(1.75rem, 1rem + 1.9vw, 2.6rem);
   }
 
   .intro {
     display: grid;
-    gap: 18px;
+    gap: 14px;
   }
 
   .intro .t-lead {
@@ -104,8 +101,8 @@ const etapes = [
   .panel {
     position: relative;
     display: grid;
-    gap: 28px;
-    margin-top: 44px;
+    gap: 22px;
+    margin-top: 28px;
   }
 
   .panel-head {
@@ -128,8 +125,8 @@ const etapes = [
   .step {
     position: relative;
     display: grid;
-    gap: 6px;
-    padding: 16px 0;
+    gap: 4px;
+    padding: 12px 0;
     border-top: 1.5px solid var(--trait);
   }
 
@@ -139,7 +136,7 @@ const etapes = [
 
   .step :global(.wp) {
     left: var(--gut);
-    top: 27px;
+    top: 22px;
   }
 
   .k {
@@ -279,37 +276,41 @@ const etapes = [
     }
   }
 
+  /* Autres exemples : une ligne de pastilles. */
   .more {
     display: grid;
-    gap: 14px;
-    margin-top: 56px;
+    gap: 12px;
+    margin-top: 36px;
   }
 
   .more ul {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .more li {
-    position: relative;
-    padding: 14px 0 14px 28px;
-    border-top: 1.5px solid var(--trait);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: 1.5px solid var(--trait);
+    border-radius: var(--r-pill);
+    font-size: 0.88rem;
   }
 
   .more li::before {
     content: '';
-    position: absolute;
-    left: 0;
-    top: 19px;
-    width: 12px;
-    height: 12px;
-    border: 2.5px solid var(--sapin);
+    width: 8px;
+    height: 8px;
+    border: 2px solid var(--sapin);
     border-radius: 50%;
   }
 
   .tools {
     display: grid;
-    gap: 18px;
-    margin-top: 40px;
+    gap: 14px;
+    margin-top: 24px;
   }
 
   .tools p {
@@ -336,12 +337,16 @@ const etapes = [
       grid-column: 8 / span 5;
     }
 
+    .wrap {
+      padding-block: 56px 72px;
+    }
+
     .panel {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       column-gap: var(--col-gap);
-      row-gap: 28px;
-      margin-top: 80px;
-      padding: 32px 0 0;
+      row-gap: 16px;
+      margin-top: 36px;
+      padding: 24px 0 0;
       border-top: 1.5px solid var(--encre);
     }
 
@@ -355,7 +360,7 @@ const etapes = [
     }
 
     .step {
-      padding: 18px 0 18px 36px;
+      padding: 12px 0 12px 36px;
       border: 0;
     }
 
@@ -365,18 +370,18 @@ const etapes = [
 
     .step :global(.wp) {
       left: 0;
-      top: 30px;
+      top: 24px;
     }
 
     .scene {
       grid-column: 6 / span 7;
       position: sticky;
-      top: 110px;
+      top: 150px;
       align-self: start;
     }
 
     .net {
-      aspect-ratio: 16 / 12;
+      aspect-ratio: 16 / 11;
       border-radius: 24px;
     }
 
@@ -385,35 +390,16 @@ const etapes = [
     }
 
     .more {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--col-gap);
-      margin-top: 96px;
-    }
-
-    .more h3 {
-      grid-column: 1 / span 3;
-    }
-
-    .more ul {
-      grid-column: 4 / span 9;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: var(--col-gap);
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      column-gap: 20px;
+      margin-top: 40px;
     }
 
     .tools {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--col-gap);
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: baseline;
-      margin-top: 48px;
-    }
-
-    .tools p {
-      grid-column: 4 / span 5;
-    }
-
-    .tools .tlink {
-      grid-column: 9 / span 4;
-      justify-self: end;
+      column-gap: 24px;
     }
   }
 </style>

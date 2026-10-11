@@ -5,7 +5,6 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import shopify from '../content/accueil/shopify.json';
 import site from '../content/site.json';
-import Wp from './Wp.astro';
 import Atelier from './Atelier.astro';
 import { typo } from '../lib/typo';
 
@@ -25,37 +24,38 @@ const total = projets.length;
 const enAttente = shopify.projets.length - total;
 ---
 
-<section class="shopify" id="shopify" aria-labelledby="shopify-title">
+<div class="shopify" id="shopify" role="tabpanel" aria-labelledby="tab-shopify">
   <div class="wrap">
-    <p class="t-label eyebrow"><Wp i={32} node="o" href="#shopify" style="left:var(--gut);top:50%" />{typo(shopify.surtitre)}</p>
-
-    <div class="intro">
-      <div class="intro-text">
-        <h2 class="t-h2" id="shopify-title">{typo(shopify.titre)}</h2>
+    <div class="main">
+      <div class="intro">
+        <h2 class="t-h2 title" id="shopify-title">{typo(shopify.titre)}</h2>
         <p class="t-lead">{typo(shopify.texte)}</p>
+        <div class="situations">
+          <p class="t-label">{typo(shopify.situationsTitre)}</p>
+          <ul>
+            {
+              shopify.situations.map((s) => (
+                <li>
+                  <a href={site.actionPrincipale.ancre} data-need={`shopify-${s.cle}`}>
+                    <span class="s-type">
+                      {typo(s.type)}
+                      <span class="s-arrow" aria-hidden="true">→</span>
+                    </span>
+                    <span class="s-text">{typo(s.texte)}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
-      <div class="situations">
-        <p class="t-label">{typo(shopify.situationsTitre)}</p>
-        <ul>
-          {
-            shopify.situations.map((s) => (
-              <li>
-                <a href={site.actionPrincipale.ancre} data-need={`shopify-${s.cle}`}>
-                  <span class="s-text">{typo(s.texte)}</span>
-                  <span class="s-type">
-                    {typo(s.type)}
-                    <span class="s-arrow" aria-hidden="true">→</span>
-                  </span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+      <div class="demo">
+        <Atelier />
       </div>
     </div>
 
-    <div class="deliverables">
-      <h3 class="t-label">{typo(shopify.livraisonsTitre)}</h3>
+    <details class="deliverables" open data-deliverables>
+      <summary><h3 class="t-label">{typo(shopify.livraisonsTitre)}</h3><span class="count" aria-hidden="true">{shopify.livrables.length}</span></summary>
       <ul>
         {
           shopify.livrables.map((l) => (
@@ -66,11 +66,7 @@ const enAttente = shopify.projets.length - total;
           ))
         }
       </ul>
-    </div>
-
-    <div class="atelier-wrap">
-      <Atelier />
-    </div>
+    </details>
 
     {
       total > 0 ? (
@@ -140,30 +136,33 @@ const enAttente = shopify.projets.length - total;
 
     <p class="cta"><a class="tlink" href={site.actionPrincipale.ancre} data-need="shopify">{typo(shopify.lien)}&nbsp;→</a></p>
   </div>
-</section>
+</div>
 
 <style>
   .wrap {
     padding-block: 40px var(--s-section);
   }
 
-  .eyebrow {
-    position: relative;
-    margin-bottom: 24px;
-  }
-
-  .intro {
+  .main {
     display: grid;
-    gap: 32px;
+    gap: 36px;
   }
 
-  .intro-text .t-lead {
-    margin-top: 18px;
+  .title {
+    font-size: clamp(1.75rem, 1rem + 1.9vw, 2.6rem);
+  }
+
+  .intro .t-lead {
+    margin-top: 14px;
     max-width: 32em;
   }
 
+  .situations {
+    margin-top: 26px;
+  }
+
   .situations > .t-label {
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
 
   .situations li {
@@ -174,12 +173,11 @@ const enAttente = shopify.projets.length - total;
     border-bottom: 1.5px solid var(--trait);
   }
 
-  /* Chaque situation mène au formulaire, avec le besoin pré-renseigné (lot D). */
+  /* Chaque situation mène au formulaire, avec le besoin pré-renseigné. */
   .situations a {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 16px 0;
+    display: grid;
+    gap: 2px;
+    padding: 11px 0;
     text-decoration: none;
     background: linear-gradient(var(--corail), var(--corail)) 0 100% / 0% 2px no-repeat;
     transition: background-size var(--d-4) var(--ease);
@@ -193,16 +191,16 @@ const enAttente = shopify.projets.length - total;
     font-family: var(--f-disp);
     font-weight: 650;
     font-stretch: 92%;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     line-height: 1.25;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.01em;
   }
 
   .s-type {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.75rem;
+    gap: 6px;
+    font-size: 0.72rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: 650;
@@ -210,7 +208,7 @@ const enAttente = shopify.projets.length - total;
   }
 
   .s-arrow {
-    font-size: 1rem;
+    font-size: 0.95rem;
     letter-spacing: 0;
     color: var(--encre);
     transition: transform var(--d-3) var(--ease);
@@ -220,13 +218,94 @@ const enAttente = shopify.projets.length - total;
     transform: translateX(4px);
   }
 
-  .atelier-wrap {
-    margin-top: 72px;
+  .demo {
+    min-width: 0;
+  }
+
+  .deliverables {
+    margin-top: 32px;
+    border-top: 1.5px solid var(--trait);
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  /* Mobile : liste repliée, on l'ouvre si besoin. */
+  .deliverables summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .deliverables summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .deliverables summary::after {
+    content: '+';
+    margin-left: auto;
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .deliverables[open] summary::after {
+    content: '−';
+  }
+
+  .deliverables summary .count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 22px;
+    height: 22px;
+    border-radius: var(--r-pill);
+    background: var(--ivoire-2);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .deliverables ul {
+    padding-bottom: 10px;
+  }
+
+  .deliverables ul {
+    display: grid;
+  }
+
+  .deliverables li {
+    position: relative;
+    padding: 9px 0 9px 24px;
+    font-size: 0.95rem;
+  }
+
+  .deliverables li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 11px;
+    height: 11px;
+    border: 2.5px solid var(--corail);
+    border-radius: 50%;
+  }
+
+  .a-fournir {
+    padding: 0.15em 0.5em;
+    border-radius: 5px;
+    background: var(--todo-bg);
+    color: var(--todo);
+    font-weight: 650;
+    font-size: 0.82em;
+  }
+
+  .deliverables .a-fournir {
+    margin-left: 6px;
+    white-space: nowrap;
   }
 
   .pending {
-    margin-top: 40px;
-    font-size: 0.9rem;
+    margin-top: 24px;
+    font-size: 0.88rem;
     color: var(--pierre);
   }
 
@@ -234,8 +313,13 @@ const enAttente = shopify.projets.length - total;
     margin-right: 6px;
   }
 
+  .cta {
+    margin-top: 24px;
+  }
+
+  /* Projets (affichés dès qu'une capture est fournie) */
   .cases {
-    margin-top: 48px;
+    margin-top: 40px;
   }
 
   .shots {
@@ -296,8 +380,7 @@ const enAttente = shopify.projets.length - total;
     background: repeating-linear-gradient(135deg, var(--ivoire-2) 0 1.5px, var(--papier) 1.5px 12px);
   }
 
-  .placeholder span,
-  .a-fournir {
+  .placeholder span {
     padding: 0.2em 0.55em;
     border-radius: 5px;
     background: var(--todo-bg);
@@ -336,90 +419,47 @@ const enAttente = shopify.projets.length - total;
     font-size: 0.92rem;
   }
 
-  .deliverables {
-    margin-top: 48px;
-    display: grid;
-    gap: 14px;
-  }
-
-  .deliverables ul {
-    display: grid;
-  }
-
-  .deliverables li {
-    position: relative;
-    padding: 14px 0 14px 28px;
-    border-top: 1.5px solid var(--trait);
-  }
-
-  .deliverables li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 19px;
-    width: 12px;
-    height: 12px;
-    border: 2.5px solid var(--corail);
-    border-radius: 50%;
-  }
-
-  .deliverables .a-fournir {
-    margin-left: 8px;
-    white-space: nowrap;
-  }
-
-  .cta {
-    margin-top: 40px;
-  }
-
   @media (min-width: 900px) {
     .wrap {
-      padding-top: 0;
+      padding-block: 56px 72px;
     }
 
-    .eyebrow {
-      margin-bottom: 30px;
+    .main {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      align-items: start;
     }
 
     .intro {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--col-gap);
-    }
-
-    .intro-text {
       grid-column: 1 / span 5;
     }
 
-    .situations {
-      grid-column: 7 / span 6;
+    .demo {
+      grid-column: 6 / span 7;
     }
 
-    .situations a {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 24px;
-      padding: 20px 0;
+    .deliverables {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-bottom: 0;
     }
 
-    .s-text {
-      font-size: 1.3rem;
+    /* Ordinateur : toujours ouverte, le titre sert d'étiquette. */
+    .deliverables summary {
+      min-height: 0;
+      margin-bottom: 6px;
+      pointer-events: none;
     }
 
-    .s-type {
-      white-space: nowrap;
+    .deliverables summary::after,
+    .deliverables summary .count {
+      display: none;
     }
 
-    .atelier-wrap {
-      margin-top: 120px;
-    }
-
-    .pending {
-      margin-top: 64px;
-    }
-
-    .cases {
-      margin-top: 90px;
+    .deliverables ul {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      padding: 0;
     }
 
     .shots {
@@ -450,39 +490,28 @@ const enAttente = shopify.projets.length - total;
       aspect-ratio: 9 / 18.5;
     }
 
-    .case {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-    }
-
     .nav {
       justify-content: flex-end;
       margin-top: 12px;
     }
 
-    .deliverables {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--col-gap);
-      margin-top: 72px;
-    }
-
-    .deliverables h3 {
-      grid-column: 1 / span 3;
-    }
-
-    .deliverables ul {
-      grid-column: 4 / span 9;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: var(--col-gap);
-    }
-
     .cta {
-      margin-top: 56px;
+      margin-top: 28px;
     }
   }
 </style>
 
 <script>
+  import { desktopQuery } from '../scripts/motion';
+
+  // Livrables : ouverts sur ordinateur, repliés sur mobile (ouverts sans JavaScript).
+  const deliverables = document.querySelector<HTMLDetailsElement>('[data-deliverables]');
+  if (deliverables) {
+    const sync = () => (deliverables.open = desktopQuery.matches);
+    sync();
+    desktopQuery.addEventListener('change', sync);
+  }
+
   const root = document.querySelector<HTMLElement>('[data-cases]');
   if (root) {
     const cases = Array.from(root.querySelectorAll<HTMLElement>('[data-case]'));

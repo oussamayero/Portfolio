@@ -24,7 +24,7 @@
   --f-body: 'Figtree Variable', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 
   /* Échelle typographique (mobile → desktop) */
-  --t-contact: clamp(3.5rem, 1.4rem + 7vw, 8rem);
+  --t-contact: clamp(3rem, 1.5rem + 4.6vw, 6rem);
   --t-hero: clamp(2.75rem, 1.2rem + 5.4vw, 5.375rem);
   --t-h2: clamp(1.875rem, 1rem + 2.6vw, 3.25rem);
   --t-h3: clamp(1.3rem, 1rem + 0.8vw, 1.65rem);
@@ -42,7 +42,7 @@
   --s-7: 48px;
   --s-8: 64px;
   --s-9: 96px;
-  --s-section: 76px;
+  --s-section: 60px;
 
   /* Grille : marges, gouttière du fil */
   --pl: 40px;
@@ -71,7 +71,7 @@
     --pl: var(--gx);
     --pr: var(--gx);
     --gut: calc(var(--gx) / -2);
-    --s-section: 150px;
+    --s-section: 104px;
     --fil-w: 4px;
   }
 }

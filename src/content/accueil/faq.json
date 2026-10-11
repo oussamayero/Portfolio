@@ -41,5 +41,7 @@
       "reponse": "Oui, en marque blanche ou en renfort, pour des projets Shopify ou motion.",
       "aConfirmer": "sous-traitance acceptée ou non"
     }
-  ]
+  ],
+  "visibles": 5,
+  "voirPlus": "Voir les {n} autres questions"
 }
