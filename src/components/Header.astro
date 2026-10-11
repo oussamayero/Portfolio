@@ -116,6 +116,19 @@ const nav = site.navigation.map((item) => ({ ...item, ancre: `${prefix}${item.an
     background-size: 100% 2px;
   }
 
+  /* Très petits écrans : on resserre l'en-tête pour garder logo, « Mon projet » et menu sur une ligne. */
+  @media (max-width: 374px) {
+    .hd-row {
+      gap: 6px;
+    }
+
+    .hd-row .btn--sm,
+    .hd-row .pill {
+      padding-inline: 11px;
+      font-size: 0.85rem;
+    }
+  }
+
   @media (min-width: 900px) {
     .hd-row {
       gap: 26px;
