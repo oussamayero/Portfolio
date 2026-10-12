@@ -18,7 +18,7 @@ npm run preview  # aperçu du site final
 
 | Adresse | Contenu |
 | --- | --- |
-| `/` | Accueil : hero, séquence signature, Shopify, motion design, automatisation, méthode, FAQ, contact |
+| `/` | Accueil : hero, vitrine produits, expertises en onglets (Shopify, motion design, automatisation), méthode, FAQ, contact |
 | `/mentions-legales` | Mentions légales |
 | `/confidentialite` | Politique de confidentialité |
 | `/404` | Page introuvable |
@@ -31,7 +31,8 @@ Les textes sont dans `src/content/`, au format JSON. Il n'est pas nécessaire de
 | --- | --- |
 | `src/content/site.json` | Nom, titre et description, navigation, bouton principal, formulaire, pages légales |
 | `src/content/accueil/hero.json` | Titre, chapeau et liste des expertises du haut de page |
-| `src/content/accueil/sequence.json` | Titre, statut et chapitres de la séquence signature |
+| `src/content/accueil/produits.json` | Vitrine produits : lampe, vêtement, parfum, et pourquoi chaque bloc compte |
+| `src/content/accueil/expertises.json` | Libellés des onglets d'expertise |
 | `src/content/accueil/shopify.json` | Section Shopify : situations, livrables, atelier de section, projets |
 | `src/content/accueil/motion.json` | Vitrine motion : prestations et démonstrations |
 | `src/content/accueil/automatisation.json` | Scénario illustratif, maquette, autres exemples, outils |
@@ -70,7 +71,7 @@ Seuls les projets qui ont au moins une capture sont affichés.
 
 ### Démonstrations (marques fictives)
 
-Les démonstrations utilisent des marques fictives (Ostral pour la séquence et l'atelier, Ilvane pour la vitrine motion) et les photos de `src/assets/demo/`. Elles sont toujours présentées comme « Concept de démonstration ».
+Les démonstrations utilisent des marques fictives (Halde pour la lampe, Ostral pour le vêtement et l'atelier, Ilvane pour le parfum et la vitrine motion) et les photos de `src/assets/demo/`. Elles sont toujours présentées comme « Concept de démonstration ».
 
 - Remplacer une photo : garder le même nom de fichier dans `src/assets/demo/`, ou changer le champ `photo` d'un produit dans `shopify.json` (atelier).
 - Le champ `cadrage` règle le point de recadrage d'une photo (`object-position` CSS).
@@ -93,16 +94,17 @@ public/         favicon, image de partage, robots.txt
 
 ### Animations
 
-- GSAP anime la séquence signature et la vitrine motion. Il n'est chargé qu'à l'approche de ces sections.
+- GSAP anime la vitrine motion. Il n'est chargé qu'à l'approche de la section.
 - Le fil corail est calculé à partir de repères (`<Wp />`) posés dans chaque section : chaque repère a un numéro d'ordre (`i`), et peut porter un nœud (`node`), un virage (`route`) ou la boucle (`loop`). Un nœud avec `href` devient un raccourci cliquable vers sa section.
 - L'atelier de section utilise les View Transitions du navigateur quand elles sont disponibles.
 - Toutes les animations respectent le réglage « réduire les animations » du système.
 
 ### Scènes 3D (three.js)
 
-Trois scènes, décoratives (le texte de la page suffit à tout comprendre) :
+Cinq scènes (le texte de la page suffit à tout comprendre sans elles) :
 
 - le fil en volume, dans le hero : il se trace, suit le pointeur et se dénoue au défilement ;
+- la lampe et le flacon de la vitrine produits : on les fait tourner, la lampe s'allume et change de finition, le flacon change de format et de teinte ;
 - la maquette du scénario d'automatisation, jouée une fois à l'apparition ;
 - le fil emmêlé de la page introuvable.
 

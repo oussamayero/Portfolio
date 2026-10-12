@@ -1,0 +1,206 @@
+{
+  "statut": "Concept de démonstration · marques et produits fictifs",
+  "titre": "En ligne, votre produit doit se comprendre sans être touché.",
+  "texte": "Votre client ne peut ni l'essayer, ni le toucher, ni le sentir. La page doit le faire à sa place. Chaque produit pose ses propres questions : je crée les sections Shopify qui y répondent, sur demande.",
+  "consigne": "Choisissez un produit",
+  "pourquoiTitre": "Pourquoi chaque bloc compte",
+  "sectionLabel": "Section Shopify",
+  "lien": "Votre produit a ses propres questions ? Présenter mon projet",
+  "produits": [
+    {
+      "cle": "lampe",
+      "onglet": "Une lampe",
+      "question": "« Quelle lumière donne-t-elle, et où va-t-elle tenir ? »",
+      "marque": "HALDE",
+      "categorie": "Lampe à poser",
+      "nom": "Lampe Orbe",
+      "prix": "189,00 €",
+      "controles": {
+        "lumiere": {
+          "label": "Lumière",
+          "off": "Éteinte",
+          "on": "Allumée"
+        },
+        "finition": {
+          "label": "Finition",
+          "options": [
+            [
+              "terracotta",
+              "Terracotta"
+            ],
+            [
+              "sauge",
+              "Sauge"
+            ],
+            [
+              "ivoire",
+              "Ivoire"
+            ]
+          ]
+        },
+        "dimensions": {
+          "label": "Dimensions",
+          "valeurs": [
+            "Hauteur 42 cm",
+            "Ø 30 cm"
+          ]
+        }
+      },
+      "aide": "Faites-la tourner du doigt ou à la souris.",
+      "points": [
+        {
+          "titre": "Allumée, pas seulement posée",
+          "texte": "On achète une lampe pour sa lumière. La montrer allumée répond à la première question avant qu'elle soit posée.",
+          "section": "Visuel en situation"
+        },
+        {
+          "titre": "La finition sur l'objet",
+          "texte": "Chaque couleur se voit sur le produit lui-même, pas sur une simple pastille : moins d'hésitation, moins de déception à la livraison.",
+          "section": "Variantes visuelles"
+        },
+        {
+          "titre": "L'échelle d'un coup d'œil",
+          "texte": "Les dimensions posées sur l'objet disent où il tiendra. C'est la question qui fait le plus hésiter devant un meuble ou un luminaire.",
+          "section": "Bloc dimensions"
+        }
+      ],
+      "court": "Lampe"
+    },
+    {
+      "cle": "vetement",
+      "onglet": "Un vêtement",
+      "question": "« Comment tombe-t-il, et quelle taille prendre ? »",
+      "marque": "OSTRAL",
+      "categorie": "Manteau long",
+      "nom": "Trench Ligne",
+      "prix": "320,00 €",
+      "controles": {
+        "couleur": {
+          "label": "Couleur",
+          "options": [
+            [
+              "sable",
+              "Sable"
+            ],
+            [
+              "noir",
+              "Noir"
+            ]
+          ]
+        },
+        "matiere": {
+          "label": "Matière",
+          "off": "Voir de près",
+          "on": "Fermer"
+        },
+        "taille": {
+          "label": "Taille",
+          "options": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "repere": "Coupe ample : prenez votre taille habituelle. Le mannequin mesure 1,85 m et porte un M.",
+          "coupe": [
+            "Ajusté",
+            "Ample"
+          ]
+        }
+      },
+      "matiereTexte": "Coton ciré · toucher sec, légèrement brillant",
+      "points": [
+        {
+          "titre": "Porté, dans chaque couleur",
+          "texte": "Une coupe se comprend sur un corps, pas à plat. Chaque couleur montrée portée évite de deviner le rendu.",
+          "section": "Galerie par variante"
+        },
+        {
+          "titre": "La matière de près",
+          "texte": "Le zoom remplace la main sur le tissu : grain, épaisseur, finition. C'est ce qui justifie le prix.",
+          "section": "Zoom matière"
+        },
+        {
+          "titre": "Un repère de taille",
+          "texte": "« Le mannequin mesure 1,85 m et porte un M » rassure plus qu'un tableau de mesures, et évite les retours.",
+          "section": "Guide des tailles"
+        }
+      ],
+      "court": "Vêtement"
+    },
+    {
+      "cle": "parfum",
+      "onglet": "Un parfum",
+      "question": "« À quoi sent-il, et quel format choisir ? »",
+      "marque": "ILVANE",
+      "categorie": "Eau de parfum",
+      "nom": "Ambre Nu",
+      "prix": "92,00 €",
+      "controles": {
+        "notes": {
+          "label": "Notes",
+          "options": [
+            [
+              "tete",
+              "Tête",
+              "Bergamote, poivre rose",
+              "Les premières minutes, fraîches et vives."
+            ],
+            [
+              "coeur",
+              "Cœur",
+              "Iris, rose",
+              "Ce qui reste après une heure, plus doux."
+            ],
+            [
+              "fond",
+              "Fond",
+              "Ambre, vanille",
+              "Le sillage, chaud, qui tient jusqu'au soir."
+            ]
+          ]
+        },
+        "format": {
+          "label": "Format",
+          "options": [
+            [
+              "30",
+              "30 ml",
+              "Hauteur 9 cm"
+            ],
+            [
+              "50",
+              "50 ml",
+              "Hauteur 11 cm"
+            ],
+            [
+              "100",
+              "100 ml",
+              "Hauteur 14 cm"
+            ]
+          ]
+        }
+      },
+      "aide": "Faites tourner le flacon du doigt ou à la souris.",
+      "points": [
+        {
+          "titre": "Les notes, racontées",
+          "texte": "Un parfum ne se sent pas à l'écran. On le raconte par ses notes, de la première minute au sillage, avec une ambiance pour chacune.",
+          "section": "Pyramide olfactive"
+        },
+        {
+          "titre": "Le format à l'échelle",
+          "texte": "30, 50 ou 100 ml : le flacon change de taille sous les yeux. On sait ce qu'on reçoit.",
+          "section": "Sélecteur de format"
+        },
+        {
+          "titre": "Le flacon comme objet",
+          "texte": "Pour un parfum, le flacon fait partie du cadeau. Le montrer sous tous ses angles le rend désirable.",
+          "section": "Visuel produit"
+        }
+      ],
+      "court": "Parfum"
+    }
+  ]
+}

@@ -7,6 +7,8 @@ type Mount = (el: HTMLElement) => () => void;
 const loaders: Record<string, () => Promise<Mount>> = {
   knot: () => import('./three/knot').then((m) => (el: HTMLElement) => m.mountKnot(el, el.dataset.mode === 'tangle' ? 'tangle' : 'hero')),
   network: () => import('./three/network').then((m) => (el: HTMLElement) => m.mountNetwork(el)),
+  lamp: () => import('./three/lamp').then((m) => (el: HTMLElement) => m.mountLamp(el)),
+  bottle: () => import('./three/bottle').then((m) => (el: HTMLElement) => m.mountBottle(el)),
 };
 
 const shown = (el: HTMLElement) => el.offsetParent !== null && el.clientWidth > 0;

@@ -1,0 +1,966 @@
+---
+// Vitrine produits : pourquoi bien montrer un produit en ligne, sur trois exemples interactifs
+// (lampe, vêtement, parfum). Chaque bloc de la fiche est relié à son explication et à la section
+// Shopify qui le porte. Marques et produits fictifs, présentés comme concepts de démonstration.
+import { getImage } from 'astro:assets';
+import data from '../content/accueil/produits.json';
+import site from '../content/site.json';
+import Wp from './Wp.astro';
+import { typo } from '../lib/typo';
+import trench from '../assets/demo/ostral-trench-ciel.jpg';
+import nuit from '../assets/demo/ostral-manteau-nuit.jpg';
+
+const [lampe, vetement, parfum] = data.produits;
+const photo = (src: ImageMetadata, width: number) => getImage({ src, width, format: 'webp', quality: 76 });
+const [trenchM, trenchL, nuitM, nuitL] = await Promise.all([photo(trench, 720), photo(trench, 1333), photo(nuit, 720), photo(nuit, 1333)]);
+const photos: Record<string, { src: string; zoom: string; alt: string; origin: string }> = {
+  sable: { src: trenchM.src, zoom: trenchL.src, alt: 'Trench Ligne sable, porté', origin: '22% 58%' },
+  noir: { src: nuitM.src, zoom: nuitL.src, alt: 'Trench Ligne noir, porté', origin: '50% 55%' },
+};
+const lc = lampe.controles;
+const vc = vetement.controles;
+const pc = parfum.controles;
+const n = (i: number) => String(i);
+---
+
+<section class="pr" id="demonstrations" aria-labelledby="pr-title" data-produits>
+  <div class="wrap">
+    <div class="head">
+      <Wp i={20} node="o" href="#demonstrations" style="left:var(--gut);top:14px" />
+      <span class="tag">{typo(data.statut)}</span>
+      <h2 class="t-h2 title" id="pr-title">{typo(data.titre)}</h2>
+      <p class="t-lead">{typo(data.texte)}</p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label={typo(data.consigne)}>
+      {
+        data.produits.map((p, i) => (
+          <button type="button" role="tab" class="tab" id={`pt-${p.cle}`} aria-controls={`pp-${p.cle}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              {p.cle === 'lampe' && <path d="M5 10h14l-2-5H7zM12 10v8M8 20h8" />}
+              {p.cle === 'vetement' && <path d="M12 5a2 2 0 1 1 2 2l-2 1.5M12 8.5 3 15h18z" />}
+              {p.cle === 'parfum' && <path d="M10 3h4v3h-4zM7 8h10a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a1 1 0 0 1 1-1z" />}
+            </svg>
+            <span class="long">{typo(p.onglet)}</span>
+            <span class="short" aria-hidden="true">{typo(p.court)}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Lampe -->
+    <div class="panel" role="tabpanel" id="pp-lampe" aria-labelledby="pt-lampe" data-panel="lampe">
+      <p class="question">{typo(lampe.question)}</p>
+      <div class="grid">
+        <div class="shop">
+          <div class="media lamp-media" data-light="off">
+            <div class="p3d" data-3d="lamp" data-light="off" data-finish="terracotta" data-dims="off" aria-hidden="true">
+              <svg class="fallback" viewBox="0 0 120 120"><path d="M28 44h64l-6-18H34zM58 44h4v48h-4zM44 92h32v10H44z" /></svg>
+              <span class="dim" data-dim>{typo(lc.dimensions.valeurs[0])}</span>
+              <span class="dim" data-dim>{typo(lc.dimensions.valeurs[1])}</span>
+            </div>
+            <p class="aide" aria-hidden="true">{typo(lampe.aide)}</p>
+          </div>
+          <div class="info">
+            <p class="brand">{lampe.marque}</p>
+            <p class="cat">{typo(lampe.categorie)}</p>
+            <h3 class="name">{typo(lampe.nom)}</h3>
+            <p class="price">{typo(lampe.prix)}</p>
+
+            <div class="ctl" data-point="1">
+              <span class="lab"><b class="num">1</b>{typo(lc.lumiere.label)}</span>
+              <button type="button" class="switch" aria-pressed="false" data-lamp-light data-off={typo(lc.lumiere.off)} data-on={typo(lc.lumiere.on)}>
+                <i aria-hidden="true"></i><span>{typo(lc.lumiere.off)}</span>
+              </button>
+              <p class="why-m"><strong>{typo(lampe.points[0].titre)}.</strong> {typo(lampe.points[0].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(lampe.points[0].section)}</span></p>
+            </div>
+            <fieldset class="ctl" data-point="2">
+              <legend class="lab"><b class="num">2</b>{typo(lc.finition.label)}</legend>
+              <div class="swatches">
+                {
+                  lc.finition.options.map(([v, l], i) => (
+                    <label class="sw">
+                      <input type="radio" name="lamp-finish" value={v} checked={i === 0} data-lamp-finish />
+                      <i class={`dot dot-${v}`} aria-hidden="true" />
+                      <span>{typo(l)}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="why-m"><strong>{typo(lampe.points[1].titre)}.</strong> {typo(lampe.points[1].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(lampe.points[1].section)}</span></p>
+            </fieldset>
+            <div class="ctl" data-point="3">
+              <span class="lab"><b class="num">3</b>{typo(lc.dimensions.label)}</span>
+              <button type="button" class="switch" aria-pressed="false" data-lamp-dims data-off="Afficher" data-on="Masquer">
+                <i aria-hidden="true"></i><span>Afficher</span>
+              </button>
+              <p class="why-m"><strong>{typo(lampe.points[2].titre)}.</strong> {typo(lampe.points[2].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(lampe.points[2].section)}</span></p>
+            </div>
+            <span class="buy" aria-hidden="true">Ajouter au panier</span>
+          </div>
+        </div>
+        <div class="why">
+          <p class="t-label">{typo(data.pourquoiTitre)}</p>
+          <ol>
+            {
+              lampe.points.map((pt, i) => (
+                <li data-point={n(i + 1)}>
+                  <b class="num">{i + 1}</b>
+                  <div>
+                    <h4>{typo(pt.titre)}</h4>
+                    <p>{typo(pt.texte)}</p>
+                    <span class="chip">{typo(data.sectionLabel)} · {typo(pt.section)}</span>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vêtement -->
+    <div class="panel" role="tabpanel" id="pp-vetement" aria-labelledby="pt-vetement" data-panel="vetement" hidden>
+      <p class="question">{typo(vetement.question)}</p>
+      <div class="grid">
+        <div class="shop">
+          <div class="media photo-media" data-color="sable" data-zoom="off" data-point-media="1">
+            {
+              Object.entries(photos).map(([key, ph], i) => (
+                <img
+                  src={ph.src}
+                  data-zoom-src={ph.zoom}
+                  data-photo={key}
+                  alt={typo(ph.alt)}
+                  width="720"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                  style={`transform-origin:${ph.origin}`}
+                  class:list={[{ on: i === 0 }]}
+                />
+              ))
+            }
+            <p class="matiere" aria-live="polite" data-matiere></p>
+          </div>
+          <div class="info">
+            <p class="brand">{vetement.marque}</p>
+            <p class="cat">{typo(vetement.categorie)}</p>
+            <h3 class="name">{typo(vetement.nom)}</h3>
+            <p class="price">{typo(vetement.prix)}</p>
+
+            <fieldset class="ctl" data-point="1">
+              <legend class="lab"><b class="num">1</b>{typo(vc.couleur.label)}</legend>
+              <div class="swatches">
+                {
+                  vc.couleur.options.map(([v, l], i) => (
+                    <label class="sw">
+                      <input type="radio" name="coat-color" value={v} checked={i === 0} data-coat-color />
+                      <i class={`dot dot-${v}`} aria-hidden="true" />
+                      <span>{typo(l)}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="why-m"><strong>{typo(vetement.points[0].titre)}.</strong> {typo(vetement.points[0].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(vetement.points[0].section)}</span></p>
+            </fieldset>
+            <div class="ctl" data-point="2">
+              <span class="lab"><b class="num">2</b>{typo(vc.matiere.label)}</span>
+              <button type="button" class="switch" aria-pressed="false" data-coat-zoom data-off={typo(vc.matiere.off)} data-on={typo(vc.matiere.on)} data-texte={typo(vetement.matiereTexte)}>
+                <i aria-hidden="true"></i><span>{typo(vc.matiere.off)}</span>
+              </button>
+              <p class="why-m"><strong>{typo(vetement.points[1].titre)}.</strong> {typo(vetement.points[1].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(vetement.points[1].section)}</span></p>
+            </div>
+            <fieldset class="ctl" data-point="3">
+              <legend class="lab"><b class="num">3</b>{typo(vc.taille.label)}</legend>
+              <div class="sizes">
+                {
+                  vc.taille.options.map((t, i) => (
+                    <label class="size">
+                      <input type="radio" name="coat-size" value={t} checked={t === 'M'} />
+                      <span>{t}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <div class="fit" aria-hidden="true">
+                <span>{typo(vc.taille.coupe[0])}</span><i><b></b></i><span>{typo(vc.taille.coupe[1])}</span>
+              </div>
+              <p class="repere">{typo(vc.taille.repere)}</p>
+              <p class="why-m"><strong>{typo(vetement.points[2].titre)}.</strong> {typo(vetement.points[2].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(vetement.points[2].section)}</span></p>
+            </fieldset>
+            <span class="buy" aria-hidden="true">Ajouter au panier</span>
+          </div>
+        </div>
+        <div class="why">
+          <p class="t-label">{typo(data.pourquoiTitre)}</p>
+          <ol>
+            {
+              vetement.points.map((pt, i) => (
+                <li data-point={n(i + 1)}>
+                  <b class="num">{i + 1}</b>
+                  <div>
+                    <h4>{typo(pt.titre)}</h4>
+                    <p>{typo(pt.texte)}</p>
+                    <span class="chip">{typo(data.sectionLabel)} · {typo(pt.section)}</span>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parfum -->
+    <div class="panel" role="tabpanel" id="pp-parfum" aria-labelledby="pt-parfum" data-panel="parfum" hidden>
+      <p class="question">{typo(parfum.question)}</p>
+      <div class="grid">
+        <div class="shop">
+          <div class="media bottle-media" data-note="fond" data-point-media="3">
+            <div class="p3d" data-3d="bottle" data-note="fond" data-format="50" data-brand={parfum.marque} data-name={parfum.nom} data-kind={parfum.categorie} aria-hidden="true">
+              <svg class="fallback" viewBox="0 0 120 120"><path d="M50 14h20v14H50zM34 34h52a6 6 0 0 1 6 6v58a8 8 0 0 1-8 8H36a8 8 0 0 1-8-8V40a6 6 0 0 1 6-6z" /></svg>
+            </div>
+            <p class="aide" aria-hidden="true"><b class="num">3</b>{typo(parfum.aide)}</p>
+          </div>
+          <div class="info">
+            <p class="brand">{parfum.marque}</p>
+            <p class="cat">{typo(parfum.categorie)}</p>
+            <h3 class="name">{typo(parfum.nom)}</h3>
+            <p class="price">{typo(parfum.prix)}</p>
+
+            <fieldset class="ctl" data-point="1">
+              <legend class="lab"><b class="num">1</b>{typo(pc.notes.label)}</legend>
+              <div class="seg">
+                {
+                  pc.notes.options.map(([v, l, notes, desc]) => (
+                    <label>
+                      <input type="radio" name="perf-note" value={v} checked={v === 'fond'} data-perf-note data-notes={typo(notes)} data-desc={typo(desc)} />
+                      <span>{typo(l)}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="notes" aria-live="polite" data-notes-out>
+                <strong>{typo(pc.notes.options[2][2])}</strong> {typo(pc.notes.options[2][3])}
+              </p>
+              <p class="why-m"><strong>{typo(parfum.points[0].titre)}.</strong> {typo(parfum.points[0].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(parfum.points[0].section)}</span></p>
+            </fieldset>
+            <fieldset class="ctl" data-point="2">
+              <legend class="lab"><b class="num">2</b>{typo(pc.format.label)}</legend>
+              <div class="seg">
+                {
+                  pc.format.options.map(([v, l, h]) => (
+                    <label>
+                      <input type="radio" name="perf-format" value={v} checked={v === '50'} data-perf-format data-h={typo(h)} />
+                      <span>{typo(l)}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="notes" aria-live="polite" data-format-out>{typo(pc.format.options[1][2])}</p>
+              <p class="why-m"><strong>{typo(parfum.points[1].titre)}.</strong> {typo(parfum.points[1].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(parfum.points[1].section)}</span></p>
+            </fieldset>
+            <div class="ctl only-m" data-point="3">
+              <span class="lab"><b class="num">3</b>{typo(parfum.points[2].titre)}</span>
+              <p class="why-m">{typo(parfum.points[2].texte)} <span class="chip">{typo(data.sectionLabel)} · {typo(parfum.points[2].section)}</span></p>
+            </div>
+            <span class="buy" aria-hidden="true">Ajouter au panier</span>
+          </div>
+        </div>
+        <div class="why">
+          <p class="t-label">{typo(data.pourquoiTitre)}</p>
+          <ol>
+            {
+              parfum.points.map((pt, i) => (
+                <li data-point={n(i + 1)}>
+                  <b class="num">{i + 1}</b>
+                  <div>
+                    <h4>{typo(pt.titre)}</h4>
+                    <p>{typo(pt.texte)}</p>
+                    <span class="chip">{typo(data.sectionLabel)} · {typo(pt.section)}</span>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <p class="cta"><a class="tlink" href={site.actionPrincipale.ancre} data-need="shopify">{typo(data.lien)}&nbsp;→</a></p>
+  </div>
+</section>
+
+<style>
+  .wrap {
+    padding-block: 32px var(--s-section);
+  }
+
+  .head {
+    position: relative;
+    display: grid;
+    gap: 14px;
+    justify-items: start;
+  }
+
+  .title {
+    font-size: clamp(1.75rem, 1rem + 2.1vw, 2.8rem);
+    max-width: 18em;
+  }
+
+  .head .t-lead {
+    max-width: 38em;
+  }
+
+  /* Onglets produits */
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 24px;
+  }
+
+  .tab .long {
+    display: none;
+  }
+
+  .tab {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    min-height: 46px;
+    padding: 10px 8px;
+    border: 1.5px solid var(--trait);
+    border-radius: var(--r-pill);
+    background: var(--papier);
+    font-weight: 650;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background var(--d-2) var(--ease), color var(--d-2) var(--ease), border-color var(--d-2) var(--ease);
+  }
+
+  .tab svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .tab:hover {
+    border-color: var(--encre);
+  }
+
+  .tab[aria-selected='true'] {
+    background: var(--encre);
+    border-color: var(--encre);
+    color: var(--ivoire);
+  }
+
+  .tab:focus-visible {
+    box-shadow: 0 0 0 3px var(--ivoire), 0 0 0 5px var(--encre);
+  }
+
+  .panel {
+    margin-top: 22px;
+  }
+
+  .question {
+    font-family: var(--f-disp);
+    font-weight: 680;
+    font-stretch: 92%;
+    font-size: 1.15rem;
+    color: var(--pierre);
+  }
+
+  .grid {
+    display: grid;
+    gap: 22px;
+    margin-top: 14px;
+  }
+
+  /* Fiche produit (maquette de section Shopify) */
+  .shop {
+    display: grid;
+    overflow: clip;
+    border: 1.5px solid var(--trait);
+    border-radius: var(--r-l);
+    background: var(--papier);
+  }
+
+  .media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--ivoire-2);
+    transition: background var(--d-4) var(--ease);
+  }
+
+  .p3d {
+    position: absolute;
+    inset: 0;
+  }
+
+  .fallback {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 40%;
+    transform: translate(-50%, -50%);
+    fill: var(--sable);
+  }
+
+  .p3d:global(.is-3d) .fallback {
+    display: none;
+  }
+
+  .dim {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    background: var(--encre);
+    color: var(--ivoire);
+    font-size: 0.75rem;
+    font-weight: 650;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .aide {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: var(--pierre);
+    pointer-events: none;
+    transition: color var(--d-4) var(--ease);
+  }
+
+  /* Lampe allumée : la pièce s'assombrit, la lumière se voit. */
+  .lamp-media[data-light='on'] {
+    background: #2a221c;
+  }
+
+  .lamp-media[data-light='on'] .aide {
+    color: var(--sable);
+  }
+
+  .lamp-media[data-light='on'] .dim {
+    background: var(--ivoire);
+    color: var(--encre);
+  }
+
+  /* Parfum : l'ambiance suit la note choisie. */
+  .bottle-media[data-note='tete'] {
+    background: #f4ecd2;
+  }
+
+  .bottle-media[data-note='coeur'] {
+    background: #f4e2dc;
+  }
+
+  .bottle-media[data-note='fond'] {
+    background: #eedcc5;
+  }
+
+  /* Mobile : l'image reste visible pendant qu'on touche aux réglages. */
+  @media (max-width: 639px) {
+    .media {
+      position: sticky;
+      top: 64px;
+      z-index: 2;
+      border-bottom: 1.5px solid var(--trait);
+    }
+  }
+
+  /* Vêtement : photos portées, zoom matière. */
+  .photo-media {
+    cursor: default;
+  }
+
+  .photo-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--d-4) var(--ease), transform var(--d-4) var(--ease);
+  }
+
+  .photo-media img.on {
+    opacity: 1;
+  }
+
+  .photo-media[data-zoom='on'] img {
+    transform: scale(2.6);
+  }
+
+  .photo-media[data-zoom='on'] {
+    cursor: crosshair;
+  }
+
+  .matiere {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 12px;
+    border-radius: var(--r-m);
+    background: rgb(27 22 18 / 0.78);
+    color: var(--ivoire);
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity var(--d-3) var(--ease), transform var(--d-3) var(--ease);
+  }
+
+  .photo-media[data-zoom='on'] .matiere {
+    opacity: 1;
+    transform: none;
+  }
+
+  .info {
+    display: grid;
+    gap: 4px;
+    align-content: start;
+    padding: 20px;
+  }
+
+  .brand {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+  }
+
+  .cat {
+    font-size: 0.8rem;
+    color: var(--pierre);
+  }
+
+  .name {
+    margin: 2px 0 0;
+    font-family: var(--f-disp);
+    font-weight: 780;
+    font-stretch: 88%;
+    font-size: 1.7rem;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  .price {
+    font-weight: 650;
+  }
+
+  .ctl {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    margin: 12px 0 0;
+    padding: 10px;
+    border: 1.5px solid transparent;
+    border-radius: var(--r-m);
+    transition: border-color var(--d-2) var(--ease), background var(--d-2) var(--ease);
+  }
+
+  .ctl:global(.is-hot) {
+    border-color: var(--corail);
+    background: rgb(242 72 42 / 0.05);
+  }
+
+  .lab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--pierre);
+  }
+
+  .num {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--corail);
+    color: var(--encre);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  /* Interrupteur */
+  .switch {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    cursor: pointer;
+    font-weight: 650;
+    border-radius: var(--r-pill);
+  }
+
+  .switch i {
+    position: relative;
+    width: 44px;
+    height: 26px;
+    border-radius: var(--r-pill);
+    background: var(--sable);
+    transition: background var(--d-2) var(--ease);
+  }
+
+  .switch i::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--papier);
+    transition: transform var(--d-3) var(--ease);
+  }
+
+  .switch[aria-pressed='true'] i {
+    background: var(--encre);
+  }
+
+  .switch[aria-pressed='true'] i::after {
+    transform: translateX(18px);
+  }
+
+  .switch:focus-visible {
+    box-shadow: 0 0 0 3px var(--papier), 0 0 0 5px var(--encre);
+  }
+
+  /* Pastilles de couleur, tailles, segments */
+  .swatches,
+  .sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sw,
+  .size,
+  .seg label {
+    position: relative;
+  }
+
+  .sw input,
+  .size input,
+  .seg input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .sw span:not(.dot),
+  .size span,
+  .seg span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 6px 12px;
+    border: 1.5px solid var(--trait);
+    border-radius: var(--r-pill);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: border-color var(--d-2) var(--ease), background var(--d-2) var(--ease), color var(--d-2) var(--ease);
+  }
+
+  .sw {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .sw .dot {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px rgb(27 22 18 / 0.25);
+    pointer-events: none;
+  }
+
+  .sw span:not(.dot) {
+    padding-left: 34px;
+  }
+
+  .dot-terracotta { background: #c4603c; }
+  .dot-sauge { background: #83947b; }
+  .dot-ivoire { background: #e6ddcf; }
+  .dot-sable { background: #c9b28c; }
+  .dot-noir { background: #23201d; }
+
+  .sw input:checked + .dot + span,
+  .size input:checked + span,
+  .seg input:checked + span {
+    border-color: var(--encre);
+    background: var(--encre);
+    color: var(--ivoire);
+  }
+
+  .sw input:focus-visible + .dot + span,
+  .size input:focus-visible + span,
+  .seg input:focus-visible + span {
+    box-shadow: 0 0 0 3px var(--papier), 0 0 0 5px var(--encre);
+  }
+
+  .size span {
+    justify-content: center;
+    min-width: 44px;
+  }
+
+  .seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .fit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    color: var(--pierre);
+  }
+
+  .fit i {
+    position: relative;
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--trait);
+  }
+
+  .fit b {
+    position: absolute;
+    left: 74%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    border-radius: 50%;
+    background: var(--encre);
+  }
+
+  .repere,
+  .notes {
+    font-size: 0.88rem;
+    color: var(--pierre);
+  }
+
+  .notes strong {
+    color: var(--encre);
+    font-weight: 650;
+  }
+
+  .buy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    margin-top: 14px;
+    border-radius: var(--r-pill);
+    background: var(--encre);
+    color: var(--ivoire);
+    font-weight: 650;
+    opacity: 0.9;
+  }
+
+  /* Pourquoi */
+  .why ol {
+    display: grid;
+    margin-top: 10px;
+  }
+
+  .why li {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 4px;
+    padding: 14px 10px 14px 6px;
+    border-top: 1.5px solid var(--trait);
+    border-radius: 4px;
+    transition: background var(--d-2) var(--ease);
+  }
+
+  .why li:last-child {
+    border-bottom: 1.5px solid var(--trait);
+  }
+
+  .why li:global(.is-hot) {
+    background: rgb(242 72 42 / 0.07);
+  }
+
+  .why .num {
+    margin-top: 2px;
+  }
+
+  .why h4 {
+    margin: 0;
+    font-family: var(--f-disp);
+    font-weight: 720;
+    font-stretch: 90%;
+    font-size: 1.12rem;
+    letter-spacing: -0.01em;
+  }
+
+  .why p {
+    margin-top: 4px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--pierre);
+  }
+
+  .chip {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 3px 10px;
+    border: 1.5px solid var(--encre);
+    border-radius: var(--r-pill);
+    font-size: 0.72rem;
+    font-weight: 650;
+  }
+
+  .cta {
+    margin-top: 28px;
+  }
+
+  /* Mobile et tablette : l'explication s'affiche sous chaque réglage, la colonne « pourquoi » disparaît. */
+  .why-m {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--pierre);
+  }
+
+  .why-m strong {
+    color: var(--encre);
+    font-weight: 650;
+  }
+
+  .why-m .chip {
+    margin-top: 6px;
+  }
+
+  .why {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .shop {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+
+    .media {
+      aspect-ratio: auto;
+      min-height: 100%;
+    }
+
+    .photo-media {
+      aspect-ratio: auto;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .wrap {
+      padding-top: 40px;
+    }
+
+    .head {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      align-items: end;
+    }
+
+    .head .tag {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+
+    .head .title {
+      grid-column: 1 / span 7;
+    }
+
+    .head .t-lead {
+      grid-column: 8 / span 5;
+    }
+
+    .tabs {
+      display: flex;
+      margin-top: 36px;
+    }
+
+    .tab {
+      padding: 10px 18px 10px 14px;
+    }
+
+    .tab .long {
+      display: inline;
+    }
+
+    .tab .short {
+      display: none;
+    }
+
+    .grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--col-gap);
+      align-items: start;
+    }
+
+    .shop {
+      grid-column: 1 / span 8;
+      min-height: 480px;
+    }
+
+    .why {
+      display: block;
+      grid-column: 9 / span 4;
+    }
+
+    .why-m,
+    .only-m {
+      display: none;
+    }
+
+    .info {
+      padding: 24px;
+    }
+  }
+</style>
+
+<script>
+  import { initProduits } from '../scripts/produits';
+
+  const root = document.querySelector<HTMLElement>('[data-produits]');
+  if (root) initProduits(root);
+</script>
